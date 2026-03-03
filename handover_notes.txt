@@ -1,0 +1,189 @@
+================================================================================
+                         THE BAKE STORIES - HANDOVER NOTES
+================================================================================
+
+Dear Bakery Owner,
+
+Thank you for choosing The Bake Stories website! This document contains
+important information about your new website and legal considerations.
+
+================================================================================
+                        IMAGE RIGHTS & LEGAL NOTICE
+================================================================================
+
+⚠️ IMPORTANT: You must confirm you have the right to use all images on this
+website, including any images sourced from Instagram.
+
+Instagram Images:
+-----------------
+If you are using images from your Instagram account (@thebakestories05),
+you automatically have the right to use them on your website.
+
+However, if you are using images from:
+- Other Instagram accounts
+- Third-party sources
+- Stock photo websites
+
+You MUST have explicit permission or a valid license to use those images.
+
+Consent Checkbox:
+-----------------
+In the Admin Dashboard > Settings, there is a checkbox to confirm:
+"I confirm I own the rights to all images used on this website"
+
+Please check this box after reviewing all images.
+
+================================================================================
+                        CUSTOMER COMMUNICATION TEMPLATES
+================================================================================
+
+Use these templates to inform customers about your website:
+
+Instagram Post Template:
+------------------------
+🧁 Exciting News! 🧁
+
+You can now order our delicious cakes and pastries online!
+Visit: [your-website-url]
+
+✨ Fresh baked daily
+🚚 Home delivery available
+💵 Cash on delivery
+
+Order now and treat yourself! 
+
+#TheBakeStories #OnlineOrdering #FreshBaked
+
+---
+
+WhatsApp Message Template:
+--------------------------
+Hi! 👋
+
+Great news! You can now order our delicious baked goods online at:
+[your-website-url]
+
+🎂 Cakes
+🧁 Cupcakes  
+🍪 Cookies
+🥐 Pastries
+
+Pay cash on delivery. Order now!
+
+---
+
+Email Template:
+---------------
+Subject: Now Accepting Online Orders! 🧁
+
+Dear Customer,
+
+We're excited to announce that you can now order your favorite baked goods
+online through our new website!
+
+Visit: [your-website-url]
+
+What we offer:
+- Fresh baked cakes, cupcakes, cookies, and pastries
+- Custom cake orders
+- Home delivery
+- Cash on delivery
+
+Place your order today!
+
+Best regards,
+The Bake Stories Team
+
+================================================================================
+                           CONFIGURATION CHECKLIST
+================================================================================
+
+Before going live, complete these steps:
+
+1. IMAGES
+   [ ] Upload your logo to Cloudinary or replace in code
+   [ ] Upload product images to Cloudinary
+   [ ] Upload hero carousel images (or connect Instagram)
+   [ ] Confirm image rights checkbox in admin settings
+
+2. CONTACT INFORMATION
+   [ ] Update phone number in .env (BAKERY_PHONE)
+   [ ] Update email in .env (BAKERY_EMAIL)
+   [ ] Update business hours in footer
+   [ ] Update address if applicable
+
+3. PRODUCTS
+   [ ] Review and update sample products
+   [ ] Add your actual products with correct prices
+   [ ] Set stock quantities
+   [ ] Add product descriptions
+
+4. PAYMENT & DELIVERY
+   [ ] Confirm COD is your preferred payment method
+   [ ] Set delivery charges (default: ₹50, free over ₹500)
+   [ ] Define delivery areas
+   [ ] Set delivery time slots
+
+5. LEGAL
+   [ ] Add privacy policy page
+   [ ] Add terms of service page
+   [ ] Add refund/cancellation policy
+   [ ] Review and confirm image rights
+
+6. TESTING
+   [ ] Test complete order flow
+   [ ] Test admin dashboard
+   [ ] Test on mobile devices
+   [ ] Test email/SMS notifications (if configured)
+
+================================================================================
+                           ONGOING MAINTENANCE
+================================================================================
+
+Regular Tasks:
+--------------
+- Update product stock quantities
+- Check and confirm pending orders daily
+- Update Instagram feed (if connected)
+- Monitor customer feedback
+- Backup database regularly
+
+Monthly Tasks:
+--------------
+- Review sales reports
+- Update pricing if needed
+- Add seasonal products
+- Check for software updates
+
+================================================================================
+                           SUPPORT CONTACTS
+================================================================================
+
+For technical support:
+- Check README.md files
+- Review API documentation
+- Check server logs
+
+For feature requests or customizations:
+- Contact your developer
+- Or hire a Node.js developer
+
+================================================================================
+                           ACKNOWLEDGMENT
+================================================================================
+
+By using this website, you acknowledge that:
+
+1. You have the legal right to use all images and content
+2. You will comply with all applicable laws and regulations
+3. You are responsible for maintaining customer data securely
+4. You will handle customer orders professionally
+
+================================================================================
+
+We wish you great success with your online bakery business!
+
+With love,
+The Bake Stories Team 🧁
+
+================================================================================

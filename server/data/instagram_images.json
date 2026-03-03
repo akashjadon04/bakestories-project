@@ -1,0 +1,33 @@
+{
+  "fetchedAt": "2024-01-01T00:00:00.000Z",
+  "source": "placeholder",
+  "count": 6,
+  "images": [
+    {
+      "id": "placeholder_1",
+      "url": "https://placehold.co/1200x800/ffc0cb/ffffff?text=The+Bake+Stories",
+      "public_id": null,
+      "caption": "Fresh baked cakes and pastries",
+      "source": "placeholder"
+    },
+    {
+      "id": "placeholder_2",
+      "url": "https://placehold.co/1200x800/ffb6c1/ffffff?text=Delicious+Cakes",
+      "public_id": null,
+      "caption": "Custom cakes for all occasions",
+      "source": "placeholder"
+    },
+    {
+      "id": "placeholder_3",
+      "url": "https://placehold.co/1200x800/ff69b4/ffffff?text=Fresh+Cupcakes",
+      "public_id": null,
+      "caption": "Handcrafted cupcakes daily",
+      "source": "placeholder"
+    }
+  ],
+  "logo": {
+    "url": "https://placehold.co/200x200/ffc0cb/ffffff?text=BS",
+    "public_id": null,
+    "source": "placeholder"
+  }
+}

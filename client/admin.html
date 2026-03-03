@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | The Bake Stories</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Berkshire+Swash&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  
+  <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
+  
+  <style>
+    /* --- 1. GOD LEVEL THEME VARIABLES --- */
+    :root {
+      --primary: #FF8FAB;       
+      --primary-dark: #FB6F92;  
+      --bg-gradient: radial-gradient(circle at top left, #FFF0F3, #FFFFFF);
+      --glass: rgba(255, 255, 255, 0.85);
+      --shadow: 0 10px 30px rgba(251, 111, 146, 0.08);
+      --shadow-hover: 0 15px 40px rgba(251, 111, 146, 0.15);
+      --text: #5d4037;          
+      --radius: 20px;
+    }
+
+    * { box-sizing: border-box; outline: none; margin: 0; padding: 0; }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text);
+      height: 100vh;
+      display: flex;
+      overflow: hidden; 
+    }
+
+    /* THE EXACT FONT FROM YOUR PHYSICAL MENU CARD */
+    h1, h2, h3, .brand, .modal h2 { 
+      font-family: 'Berkshire Swash', cursive; 
+      color: var(--primary-dark); 
+      font-weight: normal;
+      letter-spacing: 1px;
+    }
+
+    /* Custom Pink Scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #FFC2D1; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
+    /* --- 2. SIDEBAR NAVIGATION --- */
+    .sidebar {
+      width: 280px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-right: 1px solid #FFE5EC;
+      display: flex;
+      flex-direction: column;
+      padding: 2.5rem 2rem;
+      box-shadow: 10px 0 30px rgba(0,0,0,0.03);
+      z-index: 10;
+    }
+
+    .brand {
+      font-size: 2.8rem;
+      text-align: center;
+      margin-bottom: 3rem;
+      line-height: 1.2;
+      text-shadow: 2px 2px 4px rgba(251, 111, 146, 0.1);
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 15px 20px;
+      margin-bottom: 10px;
+      border-radius: 15px;
+      color: #888;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+      font-size: 1.05rem;
+    }
+
+    .nav-link i { font-size: 1.4rem; transition: 0.3s; }
+
+    .nav-link:hover, .nav-link.active {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      transform: translateX(10px);
+      box-shadow: 0 8px 20px rgba(251, 111, 146, 0.3);
+    }
+
+    /* --- 3. MAIN CONTENT AREA --- */
+    .main-content {
+      flex: 1;
+      padding: 2.5rem 3.5rem;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    /* Cards */
+    .card {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(15px);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 2.5rem;
+      border: 1px solid #FFE5EC;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
+    }
+    .card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      margin-bottom: 35px;
+    }
+
+    .stat-card {
+      background: #FFFFFF;
+      padding: 25px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      border: 1px solid #FFE5EC;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .stat-card:hover { transform: scale(1.03) translateY(-5px); box-shadow: var(--shadow-hover); }
+    
+    .stat-icon {
+      font-size: 2.5rem;
+      background: linear-gradient(135deg, #FFF0F3, #FFE5EC);
+      width: 80px; height: 80px;
+      display: flex; justify-content: center; align-items: center;
+      border-radius: 20px;
+      color: var(--primary-dark);
+      box-shadow: inset 0 0 10px rgba(255,255,255,0.8);
+    }
+    .stat-card h2 { margin: 0; font-size: 2.5rem; font-family: 'Poppins', sans-serif; font-weight: 700;}
+    .stat-card p { color: #888; font-weight: 500; font-size: 1.1rem; }
+
+    /* Tables */
+    .table-container { overflow-x: auto; padding: 10px 5px; }
+    table { width: 100%; border-collapse: separate; border-spacing: 0 12px; }
+    th { text-align: left; padding: 10px 20px; color: #888; font-size: 0.95rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;}
+    td { padding: 18px 20px; background: #FFFFFF; vertical-align: middle; border-top: 1px solid #FFE5EC; border-bottom: 1px solid #FFE5EC; transition: 0.3s; font-size: 1.05rem;}
+    td:first-child { border-radius: 16px 0 0 16px; border-left: 1px solid #FFE5EC; }
+    td:last-child { border-radius: 0 16px 16px 0; border-right: 1px solid #FFE5EC; }
+    tr { transition: transform 0.3s ease; box-shadow: 0 2px 10px rgba(0,0,0,0.01); }
+    tr:hover td { background: #FFF0F3; transform: scale(1.01); z-index: 2; position: relative; box-shadow: 0 10px 25px rgba(251, 111, 146, 0.1); }
+    
+    .status-badge {
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: #e8f5e9;
+      color: #2e7d32;
+      box-shadow: 0 4px 10px rgba(46, 125, 50, 0.1);
+    }
+
+    /* Buttons */
+    .btn {
+      padding: 12px 28px;
+      border-radius: 16px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      display: inline-flex; justify-content: center; align-items: center; gap: 8px;
+    }
+    .btn-primary { background: linear-gradient(45deg, var(--primary), var(--primary-dark)); color: white; box-shadow: 0 8px 20px rgba(251, 111, 146, 0.3); }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(251, 111, 146, 0.5); }
+    .btn-secondary { background: white; color: var(--primary-dark); border: 2px solid #FFE5EC; }
+    .btn-secondary:hover { background: #FFF0F3; color: var(--primary-dark); border-color: var(--primary); }
+    
+    /* Inputs */
+    .form-group { margin-bottom: 20px; text-align: left; }
+    .form-group label { display: block; margin-bottom: 8px; color: #888; font-weight: 500; font-size: 0.95rem; }
+    .form-input {
+      width: 100%;
+      padding: 14px 20px;
+      border: 2px solid #FFE5EC;
+      border-radius: 14px;
+      font-size: 1rem;
+      font-family: 'Poppins', sans-serif;
+      color: var(--text);
+      background: #FFFFFF;
+      transition: all 0.3s;
+    }
+    .form-input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(251, 111, 146, 0.15); }
+
+    /* --- 4. LOGIN OVERLAY --- */
+    .login-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(135deg, rgba(255,240,243,0.95) 0%, rgba(255,255,255,0.98) 100%);
+      backdrop-filter: blur(20px);
+      z-index: 1000;
+      display: flex; justify-content: center; align-items: center;
+    }
+    .login-box {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 4rem 3.5rem;
+      border-radius: 35px;
+      box-shadow: 0 30px 60px rgba(251, 111, 146, 0.2);
+      width: 450px;
+      text-align: center;
+      border: 1px solid #FFE5EC;
+      animation: floatIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    @keyframes floatIn { from { transform: translateY(50px); opacity:0; } to { transform: translateY(0); opacity:1; } }
+
+    /* --- 5. MODALS --- */
+    .modal {
+      display: none;
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(10px);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: #FFFFFF;
+      padding: 3rem;
+      width: 90%; 
+      max-width: 650px;
+      border-radius: 30px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.25);
+      animation: slideDown 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    @keyframes slideDown { from { transform: translateY(-60px) scale(0.95); opacity:0; } to { transform: translateY(0) scale(1); opacity:1; } }
+
+    .hidden { display: none; }
+    .flex-between { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+
+    /* Beautiful Toast Notifications */
+    #premiumToastContainer {
+      position: fixed; top: 25px; right: 25px; z-index: 99999;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="premiumToastContainer"></div>
+
+  <div id="loginForm" class="login-overlay">
+    <div class="login-box">
+      <div class="brand" style="font-size: 3.8rem; margin-bottom:10px;">The Bake Stories</div>
+      <p style="margin-bottom: 35px; color:#888; font-weight: 500; font-size: 1.1rem;">Secure Admin Portal</p>
+      <div class="form-group">
+        <input type="email" id="loginEmail" class="form-input" placeholder="admin@thebakestories.in">
+      </div>
+      <div class="form-group">
+        <input type="password" id="loginPassword" class="form-input" placeholder="••••••••">
+      </div>
+      <button id="loginBtn" class="btn btn-primary" style="width:100%; margin-top: 15px; padding: 18px; font-size: 1.2rem;">Open Dashboard 🧁</button>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="brand">Bake Admin</div>
+    
+    <nav>
+      <div class="nav-link active" data-section="dashboard"><i class="ri-dashboard-line"></i> Dashboard</div>
+      <div class="nav-link" data-section="orders"><i class="ri-shopping-bag-3-line"></i> Orders</div>
+      <div class="nav-link" data-section="products"><i class="ri-cake-3-line"></i> Inventory</div>
+      <div class="nav-link" data-section="customers"><i class="ri-group-line"></i> Customers</div>
+      <div class="nav-link" data-section="coupons"><i class="ri-ticket-2-line"></i> Vouchers</div>
+      <div class="nav-link" data-section="settings"><i class="ri-settings-3-line"></i> Settings</div>
+    </nav>
+
+    <button class="btn btn-secondary" onclick="localStorage.clear(); location.reload();" style="margin-top: auto; width:100%; padding: 15px;"><i class="ri-logout-box-line"></i> Log Out</button>
+  </aside>
+
+  <main class="main-content">
+    
+    <div id="dashboardSection" class="content-section">
+      <h1 style="font-size: 3.8rem; margin-bottom: 35px;">Welcome Back! 🧁</h1>
+      
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon"><i class="ri-shopping-bag-line"></i></div>
+          <div><h2 id="todayOrders">0</h2><p>Today's Orders</p></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#FFF8E1; color:#F59E0B;"><i class="ri-time-line"></i></div>
+          <div><h2 id="pendingOrders">0</h2><p>Pending Action</p></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#E0F2FE; color:#3B82F6;"><i class="ri-cake-2-line"></i></div>
+          <div><h2 id="totalProducts">0</h2><p>Total Products</p></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 style="font-family:'Poppins', sans-serif; font-size:1.6rem; margin-bottom:15px; color:var(--text); font-weight: 600;">Recent Activity</h2>
+        <p style="color:#888; font-size: 1.1rem;">All systems are running smoothly.</p>
+      </div>
+    </div>
+
+    <div id="productsSection" class="content-section hidden">
+      <div class="flex-between">
+        <h1 style="margin:0; font-size: 3.2rem;">Inventory</h1>
+        <button class="btn btn-primary" onclick="window.openAddProductModal()"><i class="ri-add-line" style="font-size: 1.2rem;"></i> Add New Treat</button>
+      </div>
+      <div class="table-container">
+        <table>
+          <thead><tr><th>Product Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Actions</th></tr></thead>
+          <tbody id="productsTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="ordersSection" class="content-section hidden">
+      <h1 style="font-size: 3.2rem; margin-bottom:25px;">Live Orders</h1>
+      <div class="table-container">
+        <table>
+          <thead><tr><th>Order ID</th><th>Customer</th><th>Total</th><th>Status</th><th>Action</th></tr></thead>
+          <tbody id="ordersTable"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="customersSection" class="content-section hidden">
+      <h1 style="font-size: 3.2rem; margin-bottom:25px;">Customer CRM</h1>
+      <div class="table-container">
+        <table>
+          <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Action</th></tr></thead>
+          <tbody id="customersTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="couponsSection" class="content-section hidden">
+      <div class="flex-between">
+        <h1 style="margin:0; font-size: 3.2rem;">Promo Vouchers</h1>
+        <button class="btn btn-primary" onclick="document.getElementById('couponModal').style.display='flex'"><i class="ri-add-line" style="font-size: 1.2rem;"></i> Create Voucher</button>
+      </div>
+      <div class="table-container">
+        <table>
+          <thead><tr><th>Code</th><th>Value</th><th>Status</th><th>Action</th></tr></thead>
+          <tbody id="couponsTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="settingsSection" class="content-section hidden">
+      <div class="flex-between">
+        <h1 style="margin:0; font-size: 3.2rem;">Store Settings</h1>
+        <button class="btn btn-primary" onclick="window.saveSettings()"><i class="ri-save-3-line" style="font-size: 1.2rem;"></i> Save Configurations</button>
+      </div>
+      
+      <div class="stats-grid" style="grid-template-columns: 1fr 1fr;">
+        
+        <div class="card" style="margin-bottom:0;">
+          <h2 style="font-family:'Poppins', sans-serif; font-size:1.5rem; color:var(--text); margin-bottom: 25px; font-weight: 600;"><i class="ri-truck-line" style="color:var(--primary); margin-right: 10px;"></i> Delivery Logistics</h2>
+          
+          <div class="form-group">
+            <label>Allowed PIN Codes (Comma separated)</label>
+            <input type="text" id="settingPinCodes" class="form-input" placeholder="e.g. 144401, 144402, 144403">
+            <small style="color:#888; display:block; margin-top:8px; font-size: 0.9rem;">Only customers in these PIN codes will be able to order delivery.</small>
+          </div>
+          
+          <div class="form-group" style="margin-top: 25px;">
+            <label>Flat Delivery Charge (₹)</label>
+            <input type="number" id="settingDeliveryFee" class="form-input" placeholder="e.g. 50">
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom:0;">
+          <h2 style="font-family:'Poppins', sans-serif; font-size:1.5rem; color:var(--text); margin-bottom: 25px; font-weight: 600;"><i class="ri-bank-card-line" style="color:var(--primary); margin-right: 10px;"></i> Payments & Design</h2>
+          
+          <div class="form-group" style="background:#FFF0F3; padding:18px 20px; border-radius:15px; display:flex; gap:15px; align-items:center;">
+            <input type="checkbox" id="settingAcceptOnline" style="width:22px; height:22px; accent-color:var(--primary); cursor:pointer;">
+            <label for="settingAcceptOnline" style="margin:0; cursor:pointer; color:var(--primary-dark); font-weight: 600; font-size: 1.05rem;">Store is Open (Accepting Orders)</label>
+          </div>
+          
+          <div class="form-group" style="background:#F8F9FA; padding:18px 20px; border-radius:15px; display:flex; gap:15px; align-items:center; border:1px solid #FFE5EC;">
+            <input type="checkbox" id="settingCod" style="width:22px; height:22px; accent-color:var(--primary); cursor:pointer;">
+            <label for="settingCod" style="margin:0; cursor:pointer; font-weight: 500; font-size: 1.05rem;">Enable Cash on Delivery (COD)</label>
+          </div>
+
+          <div class="form-group" style="margin-top:25px;">
+            <label>Upload Global Store Logo <span style="color:#10B981; font-weight:normal; font-size:0.8rem;">(PNG/JPG)</span></label>
+            <input type="file" id="settingStoreLogoFile" class="form-input" accept="image/jpeg, image/png, image/webp" style="padding:10px;">
+            <input type="hidden" id="settingStoreLogo">
+            <div id="logoPreviewContainer" style="margin-top:10px; display:none;">
+                <p style="font-size:0.85rem; color:#888; margin-bottom:5px;">Current Logo:</p>
+                <img id="logoPreview" src="" style="max-height:80px; border-radius:10px; border:2px solid #FFE5EC; object-fit:contain;">
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-top:25px;">
+            <label>Upload UPI QR Code Photo (GPay/PhonePe) <span style="color:#10B981; font-weight:normal; font-size:0.8rem;">(HEIC Auto-Converts)</span></label>
+            <input type="file" id="settingQrCodeFile" class="form-input" accept="image/jpeg, image/png, image/webp, .heic, .heif" style="padding:10px;" onchange="handleHeicUpload(this)">
+            <input type="hidden" id="settingQrCode">
+            <div id="qrPreviewContainer" style="margin-top:10px; display:none;">
+                <p style="font-size:0.85rem; color:#888; margin-bottom:5px;">Current QR Code:</p>
+                <img id="qrPreview" src="" style="max-width:150px; border-radius:10px; border:2px solid #FFE5EC;">
+            </div>
+          </div>
+          
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <div id="productModal" class="modal">
+    <div class="modal-content">
+      <div class="flex-between" style="border-bottom: 2px dashed #FFE5EC; padding-bottom: 20px; margin-bottom: 25px;">
+        <h2 style="margin:0; font-size:2.5rem;">Add/Edit Treat</h2>
+        <span class="close-modal-btn" style="cursor:pointer; font-size:2.8rem; line-height:1; color:#ff8fab; transition: 0.3s;" onclick="document.getElementById('productModal').style.display='none'">&times;</span>
+      </div>
+      
+      <form id="productForm">
+        <input type="hidden" id="productId" name="id">
+        
+        <div style="display:grid; grid-template-columns: 1.5fr 1fr; gap:25px;">
+            <div class="form-group">
+              <label>Product Name</label>
+              <input type="text" name="name" id="productName" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label>Category</label>
+              <select name="category" id="productCategory" class="form-input">
+                <option value="cakes">Cakes</option>
+                <option value="cupcakes">Cupcakes</option>
+                <option value="cookies">Cookies</option>
+                <option value="pastries">Pastries</option>
+              </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+          <label>Description</label>
+          <textarea name="description" id="productDesc" class="form-input" rows="3"></textarea>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:25px;">
+          <div class="form-group">
+            <label>Price (₹)</label>
+            <input type="number" name="price" id="productPrice" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label>Stock</label>
+            <input type="number" name="stockQuantity" id="productStock" class="form-input">
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:25px; align-items: start;">
+            <div class="form-group">
+              <label>Upload Image <span style="color:#10B981; font-weight:normal;">(HEIC Auto-Converts)</span></label>
+              <input type="file" id="productImageFile" class="form-input" accept="image/*, .heic, .heif" style="padding: 10px;" onchange="handleHeicUpload(this)">
+            </div>
+            <div class="form-group">
+              <label>OR Image URL</label>
+              <input type="text" id="productImage" class="form-input" placeholder="https://...">
+            </div>
+        </div>
+
+        <div class="form-group" style="background: #FFF0F3; padding: 18px 20px; border-radius: 15px; display:flex; gap:15px; align-items:center; margin-top: 10px;">
+          <input type="checkbox" id="productFeatured" style="width:22px; height:22px; accent-color: var(--primary); cursor:pointer;"> 
+          <label for="productFeatured" style="margin:0; color:var(--primary-dark); font-weight:600; cursor:pointer; font-size: 1.05rem;">Mark as Featured Item?</label>
+        </div>
+
+        <button type="submit" id="saveProductBtn" class="btn btn-primary" style="width:100%; padding:18px; font-size:1.2rem; margin-top:20px;"><i class="ri-save-3-line"></i> Save Product</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="couponModal" class="modal">
+    <div class="modal-content" style="max-width: 500px;">
+      <div class="flex-between" style="border-bottom: 2px dashed #FFE5EC; padding-bottom: 20px; margin-bottom: 25px;">
+        <h2 style="margin:0; font-size:2.5rem;">Create Voucher</h2>
+        <span class="close-modal-btn" style="cursor:pointer; font-size:2.8rem; line-height:1; color:#ff8fab;" onclick="document.getElementById('couponModal').style.display='none'">&times;</span>
+      </div>
+      <form id="couponForm">
+        <div class="form-group">
+          <label style="display:flex; justify-content:space-between; align-items: center;">
+            <span>Voucher Code</span>
+            <span style="background: var(--primary); color: white; padding: 4px 10px; border-radius: 8px; font-size:0.85rem; cursor:pointer; font-weight:600;" onclick="document.getElementById('couponCode').value = 'BAKE' + Math.floor(Math.random()*9000 + 1000)"><i class="ri-dice-line"></i> Auto-Generate</span>
+          </label>
+          <input type="text" name="code" id="couponCode" class="form-input" style="text-transform: uppercase; font-weight:bold; letter-spacing:2px; font-size: 1.2rem;" required>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:25px; margin-top: 20px;">
+          <div class="form-group">
+            <label>Discount Type</label>
+            <select name="type" id="couponType" class="form-input">
+              <option value="percentage">Percentage (%)</option>
+              <option value="fixed">Flat Amount (₹)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Value</label>
+            <input type="number" name="value" id="couponValue" class="form-input" required>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width:100%; padding:18px; font-size:1.2rem; margin-top:20px;"><i class="ri-ticket-line"></i> Activate Voucher</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="orderModal" class="modal">
+    <div class="modal-content" style="max-width: 650px;">
+      <div class="flex-between" style="border-bottom: 2px dashed #FFE5EC; padding-bottom: 20px; margin-bottom: 25px;">
+        <h2 style="margin:0; font-size:2.5rem;">Order Details</h2>
+        <span class="close-modal-btn" style="cursor:pointer; font-size:2.8rem; line-height:1; color:#ff8fab;" onclick="document.getElementById('orderModal').style.display='none'">&times;</span>
+      </div>
+      <div id="orderModalBody">
+         </div>
+    </div>
+  </div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>

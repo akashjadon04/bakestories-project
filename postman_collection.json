@@ -1,0 +1,310 @@
+{
+  "info": {
+    "name": "The Bake Stories API",
+    "description": "API collection for The Bake Stories bakery e-commerce platform",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/health",
+          "host": ["{{base_url}}"],
+          "path": ["api", "health"]
+        }
+      }
+    },
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"phone\": \"+911234567890\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/register",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@thebakestories.example\",\n  \"password\": \"admin123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Get Profile",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer {{token}}"}],
+            "url": {
+              "raw": "{{base_url}}/api/auth/me",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "me"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "Get All Products",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products",
+              "host": ["{{base_url}}"],
+              "path": ["api", "products"]
+            }
+          }
+        },
+        {
+          "name": "Get Featured Products",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/featured/list",
+              "host": ["{{base_url}}"],
+              "path": ["api", "products", "featured", "list"]
+            }
+          }
+        },
+        {
+          "name": "Get Products by Category",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/category/cakes",
+              "host": ["{{base_url}}"],
+              "path": ["api", "products", "category", "cakes"]
+            }
+          }
+        },
+        {
+          "name": "Get Categories",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/categories/all",
+              "host": ["{{base_url}}"],
+              "path": ["api", "products", "categories", "all"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Instagram",
+      "item": [
+        {
+          "name": "Get Hero Images",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/instagram/hero-images",
+              "host": ["{{base_url}}"],
+              "path": ["api", "instagram", "hero-images"]
+            }
+          }
+        },
+        {
+          "name": "Get Logo",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/instagram/logo",
+              "host": ["{{base_url}}"],
+              "path": ["api", "instagram", "logo"]
+            }
+          }
+        },
+        {
+          "name": "Get Status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/instagram/status",
+              "host": ["{{base_url}}"],
+              "path": ["api", "instagram", "status"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "Create Order (COD)",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"product\": \"product_id_here\",\n      \"quantity\": 1\n    }\n  ],\n  \"customerName\": \"John Doe\",\n  \"customerEmail\": \"john@example.com\",\n  \"customerPhone\": \"+911234567890\",\n  \"deliveryAddress\": {\n    \"street\": \"123 Main Street\",\n    \"city\": \"Mumbai\",\n    \"state\": \"Maharashtra\",\n    \"pincode\": \"400001\"\n  },\n  \"deliveryDate\": \"2024-01-20\",\n  \"deliveryTime\": \"afternoon\",\n  \"paymentMethod\": \"cod\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/orders/create",
+              "host": ["{{base_url}}"],
+              "path": ["api", "orders", "create"]
+            }
+          }
+        },
+        {
+          "name": "Validate Coupon",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"WELCOME10\",\n  \"cartTotal\": 1000\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/orders/validate-coupon",
+              "host": ["{{base_url}}"],
+              "path": ["api", "orders", "validate-coupon"]
+            }
+          }
+        },
+        {
+          "name": "Track Order",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/orders/track/BS202401150001?phone=+911234567890",
+              "host": ["{{base_url}}"],
+              "path": ["api", "orders", "track", "BS202401150001"],
+              "query": [{"key": "phone", "value": "+911234567890"}]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "Get Dashboard Stats",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer {{admin_token}}"}],
+            "url": {
+              "raw": "{{base_url}}/api/admin/dashboard",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "dashboard"]
+            }
+          }
+        },
+        {
+          "name": "Get All Orders",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer {{admin_token}}"}],
+            "url": {
+              "raw": "{{base_url}}/api/orders/admin/all",
+              "host": ["{{base_url}}"],
+              "path": ["api", "orders", "admin", "all"]
+            }
+          }
+        },
+        {
+          "name": "Get Pending Confirmation Orders",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer {{admin_token}}"}],
+            "url": {
+              "raw": "{{base_url}}/api/orders/admin/pending-confirmation",
+              "host": ["{{base_url}}"],
+              "path": ["api", "orders", "admin", "pending-confirmation"]
+            }
+          }
+        },
+        {
+          "name": "Confirm Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{admin_token}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"notes\": \"Confirmed via phone call\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/orders/admin/:orderId/confirm",
+              "host": ["{{base_url}}"],
+              "path": ["api", "orders", "admin", ":orderId", "confirm"]
+            }
+          }
+        },
+        {
+          "name": "Update Order Status",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{admin_token}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"preparing\",\n  \"note\": \"Order is being prepared\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/orders/admin/:orderId/status",
+              "host": ["{{base_url}}"],
+              "path": ["api", "orders", "admin", ":orderId", "status"]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5000",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "admin_token",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

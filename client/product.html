@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loading deliciousness... | The Bake Stories</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Pacifico&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+  <style>
+    /* ================= MAIN THEME VARIABLES ================= */
+    :root {
+      --primary: #ff9eb5;       /* Baby Pink */
+      --primary-dark: #ff7596;  /* Deep Pink */
+      --accent: #fff0f5;        /* Cream/Light Pink Background */
+      --text-dark: #5d4037;     /* Chocolate Brown */
+      --text-light: #8d6e63;    /* Lighter Brown */
+      --gold: #ffd700;          /* Premium Accent */
+      --shadow-soft: 0 10px 30px rgba(255, 158, 181, 0.15);
+      --shadow-hover: 0 15px 40px rgba(255, 158, 181, 0.25);
+      --radius-lg: 24px;
+      --radius-md: 16px;
+    }
+
+    /* Global Reset & Base Styles */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at top left, #fffbf0, #fff0f5);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+    button { cursor: pointer; border: none; outline: none; font-family: inherit; }
+    ul { list-style: none; }
+
+    /* ================= ANIMATIONS ================= */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    @keyframes pulse-gold {
+      0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.4); }
+      70% { box-shadow: 0 0 0 15px rgba(255, 215, 0, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+    }
+    @keyframes spin-slow { 100% { transform: rotate(360deg); } }
+
+    .reveal { animation: fadeInUp 0.8s ease forwards; opacity: 0; }
+    .delay-1 { animation-delay: 0.2s; }
+    .delay-2 { animation-delay: 0.4s; }
+    .delay-3 { animation-delay: 0.6s; }
+
+    /* ================= LOADER ================= */
+    #page-loader {
+      position: fixed; top:0; left:0; width:100%; height:100%;
+      background: var(--accent); z-index: 9999;
+      display: flex; justify-content: center; align-items: center; flex-direction: column;
+    }
+    .loader-icon { font-size: 4rem; color: var(--primary); animation: float 2s ease-in-out infinite; }
+    .loader-text { margin-top: 1rem; font-family: 'Pacifico'; color: var(--text-light); }
+
+    /* ================= NAVBAR (Simplified Placeholder) ================= */
+    .navbar {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.5rem 5%; background: rgba(255,255,255,0.8); backdrop-filter: blur(10px);
+      position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .nav-logo { font-family: 'Pacifico', cursive; font-size: 2rem; color: var(--primary-dark); }
+    .nav-links a { margin-left: 2rem; font-weight: 500; color: var(--text-light); }
+    .nav-links a:hover { color: var(--primary); }
+
+    /* ================= PRODUCT CONTAINER & GRID ================= */
+    .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+    .breadcrumbs { margin-bottom: 2rem; color: var(--text-light); font-size: 0.9rem; }
+    .breadcrumbs span { margin: 0 0.5rem; color: var(--primary); }
+
+    .product-detail-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr; /* Image column smaller than info */
+      gap: 4rem;
+      margin-bottom: 4rem;
+      background: #fff;
+      padding: 3rem;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+    }
+
+    /* ----- LEFT COLUMN: GALLERY ----- */
+    .product-gallery { position: sticky; top: 100px; }
+    .main-image-stage {
+      width: 100%; height: 500px;
+      background: var(--accent);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+    }
+    .main-image-stage img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s ease; cursor: zoom-in;
+    }
+    .main-image-stage:hover img { transform: scale(1.1); }
+    
+    .gallery-thumbnails { display: flex; gap: 1rem; }
+    .thumb {
+      width: 80px; height: 80px;
+      border-radius: var(--radius-md);
+      overflow: hidden; cursor: pointer;
+      border: 2px solid transparent; transition: 0.3s;
+      background: var(--accent);
+    }
+    .thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 0.3s; }
+    .thumb.active { border-color: var(--primary); }
+    .thumb.active img, .thumb:hover img { opacity: 1; }
+
+    /* ----- RIGHT COLUMN: INFO ----- */
+    .product-info .category-tag {
+      display: inline-block; padding: 0.4rem 1.2rem;
+      background: var(--accent); color: var(--primary-dark);
+      border-radius: 20px; font-size: 0.9rem; font-weight: 600;
+      margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px;
+    }
+    .product-title {
+      font-family: 'Dancing Script', cursive; /* Premium script font */
+      font-size: 3.5rem; line-height: 1.1;
+      margin-bottom: 1rem; color: var(--text-dark);
+    }
+    .product-meta-row { display: flex; align-items: center; gap: 2rem; margin-bottom: 2rem; }
+    .rating-box { color: var(--gold); display: flex; align-items: center; gap: 0.5rem; }
+    .rating-box i { font-size: 1.2rem; }
+    
+    .price-box { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 2rem; }
+    .current-price { font-size: 2.8rem; font-weight: 700; color: var(--primary-dark); }
+    .compare-price { font-size: 1.5rem; color: var(--text-light); text-decoration: line-through; }
+    .discount-badge {
+      background: var(--gold); color: var(--text-dark);
+      padding: 0.3rem 0.8rem; border-radius: 10px; font-weight: 700; font-size: 0.9rem;
+      animation: pulse-gold 2s infinite;
+    }
+
+    .short-description {
+      font-size: 1.1rem; line-height: 1.7; color: var(--text-light);
+      margin-bottom: 2.5rem; padding-left: 1.5rem;
+      border-left: 4px solid var(--primary);
+      background: linear-gradient(to right, #fff0f580, transparent);
+      padding: 1.5rem; border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    }
+
+    /* Actions Row (Qty & Buttons) */
+    .actions-row { display: flex; gap: 1.5rem; margin-bottom: 3rem; flex-wrap: wrap; }
+    .qty-selector {
+      display: flex; align-items: center; background: #f8f9fa;
+      border-radius: 50px; padding: 0.5rem; border: 2px solid #eee;
+    }
+    .qty-btn {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: #fff; color: var(--text-dark); font-size: 1.2rem;
+      display: flex; justify-content: center; align-items: center; transition: 0.2s;
+    }
+    .qty-btn:hover { background: var(--primary); color: white; }
+    .qty-input {
+      width: 50px; text-align: center; border: none; background: transparent;
+      font-weight: 600; font-size: 1.1rem;
+    }
+
+    .add-to-cart-btn {
+      flex: 1; min-width: 200px;
+      padding: 1rem 2rem; font-size: 1.2rem; font-weight: 600; color: white;
+      background: linear-gradient(45deg, var(--primary), var(--primary-dark));
+      border-radius: 50px; display: flex; justify-content: center; align-items: center; gap: 1rem;
+      box-shadow: 0 8px 20px rgba(255, 122, 150, 0.4); transition: 0.3s;
+    }
+    .add-to-cart-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(255, 122, 150, 0.6); }
+    .add-to-cart-btn i { font-size: 1.4rem; transition: 0.3s; }
+    .add-to-cart-btn:hover i { transform: rotate(-15deg) scale(1.1); }
+
+    .wishlist-btn-lg {
+      width: 60px; height: 60px; border-radius: 50%;
+      background: #fff; border: 2px solid #eee; color: var(--text-light);
+      font-size: 1.5rem; display: flex; justify-content: center; align-items: center;
+      transition: 0.3s;
+    }
+    .wishlist-btn-lg:hover { color: #ff4757; border-color: #ff4757; background: #fff0f5; transform: scale(1.05); }
+
+    /* USP Badges */
+    .usp-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+      padding-top: 2rem; border-top: 2px dashed #eee;
+    }
+    .usp-item { text-align: center; }
+    .usp-icon { font-size: 2.5rem; color: var(--primary); margin-bottom: 0.5rem; }
+    .usp-title { font-weight: 600; font-size: 0.9rem; }
+
+    /* ================= TABS SECTION ================= */
+    .details-tabs { margin-top: 4rem; background: #fff; padding: 3rem; border-radius: var(--radius-lg); box-shadow: var(--shadow-soft); }
+    .tab-headers { display: flex; gap: 2rem; border-bottom: 2px solid #eee; margin-bottom: 2rem; }
+    .tab-link {
+      padding-bottom: 1rem; font-size: 1.2rem; font-weight: 600; color: var(--text-light);
+      cursor: pointer; position: relative; transition: 0.3s;
+    }
+    .tab-link.active { color: var(--primary-dark); }
+    .tab-link.active::after {
+      content: ''; position: absolute; bottom: -2px; left: 0; width: 100%;
+      height: 3px; background: var(--primary); border-radius: 10px 10px 0 0;
+    }
+    .tab-content { display: none; animation: fadeInUp 0.5s ease; }
+    .tab-content.active { display: block; }
+    .tab-pane { font-size: 1.05rem; line-height: 1.8; color: var(--text-light); }
+    
+    /* ================= RELATED PRODUCTS ================= */
+    .related-section { margin-top: 5rem; margin-bottom: 5rem; }
+    .section-title {
+      font-family: 'Dancing Script'; font-size: 3rem; text-align: center;
+      margin-bottom: 3rem; color: var(--text-dark); position: relative;
+    }
+    .section-title::after {
+      content: '❤'; display: block; font-size: 1.5rem; color: var(--primary);
+      margin-top: -10px;
+    }
+    .related-grid {
+        display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 2rem;
+    }
+    /* Simplified Card for Related */
+    .mini-card {
+        background: #fff; border-radius: var(--radius-md); padding: 1.5rem;
+        box-shadow: var(--shadow-soft); text-align: center; transition: 0.3s;
+    }
+    .mini-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+    .mini-card img { width: 100%; height: 180px; object-fit: cover; border-radius: var(--radius-md); margin-bottom: 1rem; }
+    .mini-card h4 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .mini-card .price { color: var(--primary-dark); font-weight: 700; }
+
+    /* ================= TOAST & FOOTER ================= */
+    #toast-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; }
+    .toast {
+      background: #fff; padding: 1rem 2rem; border-radius: 50px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 1rem;
+      margin-top: 1rem; animation: fadeInUp 0.3s ease, float 3s ease-in-out infinite;
+      border-left: 5px solid var(--primary);
+    }
+    .toast i { font-size: 1.5rem; color: var(--primary); }
+
+    footer { background: #3d2c29; color: #d7ccc8; padding: 3rem; text-align: center; margin-top: auto; }
+
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 900px) {
+      .product-detail-wrapper { grid-template-columns: 1fr; gap: 3rem; padding: 1.5rem; }
+      .main-image-stage { height: 400px; }
+      .product-title { font-size: 2.8rem; }
+      .actions-row { flex-direction: column; }
+      .add-to-cart-btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="page-loader">
+    <i class="ri-cake-3-line loader-icon"></i>
+    <span class="loader-text">Baking your experience...</span>
+  </div>
+
+  <nav class="navbar reveal">
+    <a href="index.html" class="nav-logo">The Bake Stories</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="products.html">Menu</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div style="display: flex; gap: 1rem; font-size: 1.5rem; color: var(--text-dark);">
+        <i class="ri-search-line"></i>
+        <i class="ri-heart-line"></i>
+        <a href="cart.html" style="position: relative; color: inherit; display: block;">
+            <i class="ri-shopping-bag-line"></i>
+            <span style="position:absolute; top:-5px; right:-8px; background:var(--primary); color:white; font-size:0.7rem; width:18px; height:18px; border-radius:50%; display:flex; justify-content:center; align-items:center;" id="cart-badge">0</span>
+        </a>
+    </div>
+  </nav>
+
+  <main class="container" style="min-height: 80vh;">
+    
+    <div class="breadcrumbs reveal delay-1" id="breadcrumbsArea">
+      <a href="index.html">Home</a> <span>/</span> <a href="products.html">Menu</a> <span>/</span> <span id="bc-current">Loading...</span>
+    </div>
+
+    <div id="error-state" style="display: none; text-align: center; padding: 5rem;">
+        <i class="ri-emotion-sad-line" style="font-size: 5rem; color: var(--text-light);"></i>
+        <h2 style="font-family: 'Dancing Script'; font-size: 3rem; color: var(--text-dark);">Oh crumbs!</h2>
+        <p style="font-size: 1.2rem; color: var(--text-light); margin-bottom: 2rem;">We can't seem to find the treat you're looking for.</p>
+        <a href="products.html" class="add-to-cart-btn" style="display: inline-flex; width: auto; padding: 1rem 3rem;">Return to Menu</a>
+    </div>
+
+    <div class="product-detail-wrapper reveal delay-2" id="productContentArea" style="opacity: 0;">
+      
+      <div class="product-gallery">
+        <div class="main-image-stage">
+          <img id="mainImage" src="" alt="Product Image">
+          <div style="position: absolute; top: 20px; left: 20px; background: rgba(255,255,255,0.9); padding: 0.5rem 1rem; border-radius: 30px; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+             <i class="ri-sparkling-fill" style="color: var(--gold);"></i>
+             <span style="font-weight: 600; font-size: 0.9rem; color: var(--text-dark);">Premium Quality</span>
+          </div>
+        </div>
+        <div class="gallery-thumbnails" id="thumbnailContainer">
+          </div>
+      </div>
+
+      <div class="product-info">
+        <span class="category-tag" id="p-category">Category</span>
+        <h1 class="product-title" id="p-name">Product Name</h1>
+        
+        <div class="product-meta-row">
+          <div class="rating-box">
+            <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-half-fill"></i>
+            <span style="color: var(--text-light); font-size: 0.9rem;">(4.8/5 based on 120 reviews)</span>
+          </div>
+        </div>
+
+        <div class="price-box">
+          <span class="current-price" id="p-price">₹0</span>
+          </div>
+
+        <div class="short-description" id="p-description">
+          </div>
+
+        <div class="actions-row">
+          <div class="qty-selector">
+            <button class="qty-btn" onclick="updateQty(-1)"><i class="ri-subtract-line"></i></button>
+            <input type="text" class="qty-input" value="1" id="qtyInput" readonly>
+            <button class="qty-btn" onclick="updateQty(1)"><i class="ri-add-line"></i></button>
+          </div>
+          <button class="add-to-cart-btn" id="addToCartBtn">
+            <i class="ri-shopping-bag-3-fill"></i> Add to Basket
+          </button>
+          <button class="wishlist-btn-lg">
+            <i class="ri-heart-3-line"></i>
+          </button>
+        </div>
+
+        <div class="usp-grid">
+          <div class="usp-item">
+            <i class="ri-cake-line usp-icon"></i>
+            <div class="usp-title">Baked Fresh Daily</div>
+          </div>
+          <div class="usp-item">
+            <i class="ri-leaf-line usp-icon"></i>
+            <div class="usp-title">Natural Ingredients</div>
+          </div>
+          <div class="usp-item">
+            <i class="ri-truck-line usp-icon"></i>
+            <div class="usp-title">Careful Delivery</div>
+          </div>
+        </div>
+
+      </div> </div> <div class="details-tabs reveal delay-3" id="tabsSection" style="opacity: 0;">
+      <div class="tab-headers">
+        <div class="tab-link active" onclick="switchTab('description')">Description</div>
+        <div class="tab-link" onclick="switchTab('ingredients')">Ingredients & Allergens</div>
+        <div class="tab-link" onclick="switchTab('reviews')">Baker's Reviews (0)</div>
+      </div>
+      <div class="tab-content active" id="tab-description">
+        <div class="tab-pane" id="full-description-content">
+            </div>
+      </div>
+      <div class="tab-content" id="tab-ingredients">
+        <div class="tab-pane">
+          <p><strong>Main Ingredients:</strong> Premium Flour, Farm Fresh Eggs (or eggless substitute), Unsalted Butter, Organic Sugar, Natural Flavor extracts.</p>
+          <p style="margin-top: 1rem;"><strong>Allergen Advice:</strong> Contains Wheat (Gluten), Milk. May contain traces of nuts and soy. Prepared in a facility that handles tree nuts.</p>
+          <div style="margin-top: 1.5rem; display: flex; gap: 1rem;">
+              <span style="border: 1px solid green; color: green; padding: 5px 10px; border-radius: 15px; font-size: 0.8rem;"><i class="ri-check-line"></i> Vegetarian</span>
+          </div>
+        </div>
+      </div>
+      <div class="tab-content" id="tab-reviews">
+        <div class="tab-pane">
+          <p>No reviews yet. Be the first to taste and tell! 😋</p>
+          <button class="btn-secondary" style="margin-top: 1rem; padding: 0.8rem 1.5rem; border: 2px solid var(--primary); border-radius: 30px; background: transparent; color: var(--primary); font-weight: 600;">Write a Review</button>
+        </div>
+      </div>
+    </div>
+
+    <section class="related-section reveal delay-3" id="relatedSection" style="opacity: 0;">
+        <h2 class="section-title">You Might Also Love</h2>
+        <div class="related-grid" id="relatedGrid">
+            <p>Loading recommendations...</p>
+        </div>
+    </section>
+
+  </main>
+
+  <div id="toast-container"></div>
+
+  <footer>
+    <div class="footer-content">
+      <h2 style="font-family: 'Pacifico'; font-size: 2rem; color: var(--primary); margin-bottom: 1rem;">The Bake Stories</h2>
+      <p>Crafting moments of sweetness, one bake at a time.</p>
+      <div style="margin-top: 2rem; font-size: 1.5rem;">
+        <i class="ri-instagram-line" style="margin: 0 10px;"></i>
+        <i class="ri-facebook-circle-line" style="margin: 0 10px;"></i>
+        <i class="ri-twitter-line" style="margin: 0 10px;"></i>
+      </div>
+      <p style="margin-top: 3rem; font-size: 0.9rem; opacity: 0.7;">© 2024 The Bake Stories. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+      // Simple fallback utils if missing
+      window.utils = window.utils || {
+          formatCurrency: (price) => '₹' + Number(price).toFixed(2),
+          getUrlParam: (name) => new URLSearchParams(window.location.search).get(name)
+      };
+  </script>
+  <script src="js/cart.js"></script>
+  <script src="js/product.js"></script>
+</body>
+</html>

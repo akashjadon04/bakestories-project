@@ -1,0 +1,1660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="description" content="The Bake Stories - Luxury Custom Cakes, Cupcakes & Pastries. Crafted with perfection.">
+  <meta name="theme-color" content="#FF8FAB">
+  
+  <title>The Bake Stories | Premium Bakery</title>
+  
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="manifest" href="assets/manifest.json">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&family=Berkshire+Swash&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/animations.css">
+
+  <style>
+    /* ==========================================================================
+       0. UNIVERSAL THEME TRANSITION MATRIX
+       ========================================================================== */
+    body.theme-transitioning, 
+    body.theme-transitioning * {
+        transition: background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
+                    color 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
+                    border-color 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+                    box-shadow 0.8s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+    .gsap-anim-element { transition: none !important; }
+
+    /* ==========================================================================
+       1. GOD LEVEL CSS VARIABLES & DYNAMIC THEMES
+       ========================================================================== */
+    :root {
+      /* LIGHT MODE (Luxury Default) */
+      --primary: #FF8FAB;       
+      --primary-dark: #FB6F92;  
+      --primary-light: #FFE5EC;
+      --bg-color: #FAFAFA;      
+      --surface: #FFFFFF;
+      --surface-alt: #FFF0F3;
+      --text-main: #111827;          
+      --text-muted: #6B7280;
+      --border-color: #E5E7EB;
+      --glass-bg: rgba(255, 255, 255, 0.85);
+      --glass-border: rgba(255, 255, 255, 0.5);
+      --shadow-sm: 0 10px 30px rgba(251, 111, 146, 0.08);
+      --shadow-lg: 0 25px 50px rgba(251, 111, 146, 0.15);
+      --shadow-glow: 0 0 40px rgba(255, 143, 171, 0.4);
+      --quote-mark: rgba(251, 111, 146, 0.1);
+      
+      --radius-sm: 16px;
+      --radius-md: 24px;
+      --radius-lg: 40px;
+      --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      --transition-bounce: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* MIDNIGHT MODE (Luxury Dark Theme) */
+    body.dark-mode {
+      --bg-color: #0B1120;      
+      --surface: #151F32;
+      --surface-alt: #0F172A;
+      --text-main: #F8FAFC;          
+      --text-muted: #94A3B8;
+      --border-color: #1E293B;
+      --glass-bg: rgba(21, 31, 50, 0.85);
+      --glass-border: rgba(255, 255, 255, 0.05);
+      --shadow-sm: 0 10px 30px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 25px 50px rgba(0, 0, 0, 0.6);
+      --shadow-glow: 0 0 40px rgba(251, 111, 146, 0.15);
+      --quote-mark: rgba(251, 111, 146, 0.05);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; outline: none; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--text-main);
+      background: var(--bg-color);
+      overflow-x: hidden;
+      cursor: none !important; /* Custom Cursor */
+    }
+
+    a, button, input, select, textarea { cursor: none !important; }
+
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg-color); }
+    ::-webkit-scrollbar-thumb { background: var(--primary-dark); border-radius: 10px; border: 2px solid var(--bg-color); }
+
+    .scroll-progress {
+      position: fixed; top: 0; left: 0; width: 0%; height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+      z-index: 999999; pointer-events: none; border-radius: 0 5px 5px 0;
+      box-shadow: var(--shadow-glow);
+    }
+
+    /* ==========================================================================
+       2. FLUID CUSTOM CURSOR & CANVAS PARTICLES
+       ========================================================================== */
+    .cursor-dot, .cursor-ring {
+      position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
+      border-radius: 50%; z-index: 9999999; pointer-events: none;
+    }
+    .cursor-dot { width: 8px; height: 8px; background-color: var(--primary-dark); transition: opacity 0.3s; }
+    .cursor-ring { width: 45px; height: 45px; border: 2px solid var(--primary); transition: width 0.3s, height 0.3s, background 0.3s, border-color 0.3s; }
+    
+    body.cursor-hover .cursor-ring { width: 80px; height: 80px; background: rgba(255, 143, 171, 0.1); border-color: transparent; backdrop-filter: blur(2px); }
+    body.cursor-hover .cursor-dot { opacity: 0; }
+
+    @media (max-width: 1024px) { 
+        .cursor-dot, .cursor-ring { display: none !important; } 
+        body, a, button, input, select, textarea { cursor: auto !important; }
+    }
+
+    /* CANVASES */
+    #magicDust { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; pointer-events: none; opacity: 0.8; }
+    #confettiCanvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 99999999; pointer-events: none; }
+    #flourDust { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; opacity: 0.4; }
+
+    /* ==========================================================================
+       3. CINEMATIC PRELOADER
+       ========================================================================== */
+    .preloader {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: var(--bg-color); z-index: 99999999;
+      display: flex; justify-content: center; align-items: center; flex-direction: column;
+    }
+    .preloader-brand { font-family: 'Berkshire Swash', cursive; font-size: clamp(3.5rem, 6vw, 6rem); color: var(--primary-dark); overflow: hidden; margin-bottom: 20px;}
+    .preloader-brand span { display: inline-block; transform: translateY(100%); }
+    .preloader-percent { font-family: 'Outfit'; font-size: 1.8rem; font-weight: 800; color: var(--text-muted); opacity: 0; margin-top: 15px; letter-spacing: 2px;}
+    .preloader-bar-wrap { width: 300px; height: 3px; background: var(--border-color); border-radius: 4px; overflow: hidden; position: relative; margin-top: 10px;}
+    .preloader-bar { position: absolute; top: 0; left: 0; height: 100%; width: 0%; background: linear-gradient(90deg, var(--primary), var(--primary-dark)); }
+
+    /* ==========================================================================
+       4. TYPOGRAPHY & LAYOUT UTILITIES
+       ========================================================================== */
+    h1, h2, h3, h4 { font-family: 'Berkshire Swash', cursive; color: var(--primary-dark); font-weight: normal; margin: 0; line-height: 1.2; }
+    .section-padding { padding: 10vw 5%; position: relative; z-index: 2; }
+    .container { max-width: 1440px; margin: 0 auto; width: 100%; position: relative; }
+    
+    .text-center { text-align: center; display: flex; flex-direction: column; align-items: center; }
+    .section-title { font-size: clamp(3rem, 6vw, 5.5rem) !important; position: relative; display: inline-block; margin-bottom: 25px; line-height: 1.1; color: var(--text-main); text-transform: capitalize; }
+    .section-title span { color: var(--primary-dark); }
+    .section-title::after { content: ''; position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); width: 80px; height: 5px; background: linear-gradient(90deg, var(--primary), var(--primary-dark)); border-radius: 5px; }
+    .section-subtitle { font-family: 'Outfit', sans-serif; font-size: clamp(1rem, 1.5vw, 1.4rem); color: var(--text-muted); text-transform: uppercase; letter-spacing: 5px; font-weight: 800; margin-bottom: 10px; }
+
+    .reveal-wrap { overflow: hidden; display: inline-block; vertical-align: top; padding-bottom: 10px;}
+    .reveal-text { display: inline-block; transform: translateY(110%); }
+
+    /* ==========================================================================
+       5. PERFECT MAGNETIC BUTTONS & RIPPLE
+       ========================================================================== */
+    .magnetic-wrap { display: inline-block; position: relative; padding: 20px; margin: -20px; z-index: 10;}
+    
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+      padding: 22px 50px; border-radius: 50px !important; font-family: 'Outfit', sans-serif !important;
+      font-weight: 800 !important; font-size: clamp(1rem, 1.5vw, 1.1rem) !important; letter-spacing: 1.5px; text-transform: uppercase;
+      border: none !important; z-index: 10; position: relative; overflow: hidden; text-decoration: none;
+      background: transparent; transition: color 0.4s, box-shadow 0.4s;
+    }
+    
+    .btn-primary { color: var(--white) !important; box-shadow: var(--shadow-lg) !important; }
+    .btn-primary::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); z-index: -1; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+    .btn-primary::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--text-main); z-index: -1; transform: translateY(100%); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+    
+    .magnetic-wrap:hover .btn-primary { box-shadow: var(--shadow-glow) !important; }
+    .magnetic-wrap:hover .btn-primary::before { transform: translateY(-100%); }
+    .magnetic-wrap:hover .btn-primary::after { transform: translateY(0%); }
+
+    .btn-secondary { color: var(--primary-dark) !important; box-shadow: var(--shadow-sm) !important; background: var(--surface) !important; border: 2px solid var(--border-color) !important; transition: 0.4s; }
+    .magnetic-wrap:hover .btn-secondary { background: var(--primary-dark) !important; color: #FFF !important; border-color: var(--primary-dark) !important; box-shadow: var(--shadow-glow) !important;}
+
+    .ripple { position: absolute; border-radius: 50%; transform: scale(0); animation: ripple-anim 0.6s linear; background: rgba(255, 255, 255, 0.4); z-index: 0; pointer-events: none; }
+    @keyframes ripple-anim { to { transform: scale(4); opacity: 0; } }
+
+    /* ==========================================================================
+       6. LUXURY HEADER & MEGA MENU
+       ========================================================================== */
+    .header {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+      background: transparent; border-bottom: 1px solid transparent;
+      transition: var(--transition-smooth); padding: 30px 0;
+    }
+    .header.scrolled { padding: 15px 0; background: var(--glass-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); box-shadow: var(--shadow-sm); border-bottom: 1px solid var(--glass-border); }
+    .header.hidden { transform: translateY(-100%); }
+    
+    .header-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1700px; margin: 0 auto; padding: 0 5%; position: relative; }
+    
+    .logo { display: flex; align-items: center; gap: 15px; text-decoration: none; }
+    .logo img { height: 60px; border-radius: 12px; box-shadow: var(--shadow-sm); transition: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .logo-text { font-family: 'Berkshire Swash', cursive; font-size: clamp(2rem, 4vw, 2.8rem); transition: 0.4s; color: var(--primary-dark); }
+    .header.scrolled .logo-text { font-size: clamp(1.8rem, 3.5vw, 2.2rem); }
+
+    .nav-list { display: flex; list-style: none; gap: 40px; align-items: center; margin: 0; padding: 0; height: 100%; }
+    .nav-item { position: relative; height: 100%; display: flex; align-items: center; padding: 25px 0;}
+    .nav-link { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--text-main); text-decoration: none; position: relative; display: flex; align-items: center; gap: 5px; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s;}
+    .nav-link i { transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .nav-item:hover .nav-link { color: var(--primary-dark); }
+    .nav-item:hover .nav-link i { transform: rotate(180deg); }
+
+    /* MEGA MENU */
+    .mega-menu { position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(30px); width: 850px; background: var(--surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); border: 1px solid var(--glass-border); padding: 50px; display: grid; grid-template-columns: 1fr 1fr 1.5fr; gap: 40px; opacity: 0; visibility: hidden; pointer-events: none; transition: var(--transition-smooth); }
+    .nav-item.has-mega:hover .mega-menu { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+    
+    .mega-col h4 { font-family: 'Outfit'; font-size: 1.1rem; font-weight: 900; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 25px; color: var(--text-muted); border-bottom: 2px solid var(--border-color); padding-bottom: 15px;}
+    .mega-links { list-style: none; }
+    .mega-links li { margin-bottom: 18px; }
+    .mega-links a { font-family: 'Poppins'; font-size: 1.05rem; color: var(--text-main); text-decoration: none; display: flex; align-items: center; gap: 15px; font-weight: 500; transition: 0.3s;}
+    .mega-links a:hover { color: var(--primary-dark); transform: translateX(10px); }
+    .mega-links a i { font-size: 1.4rem; color: var(--primary); background: var(--surface-alt); padding: 8px; border-radius: 10px;}
+    
+    .mega-featured { background: var(--surface-alt); border-radius: var(--radius-md); padding: 35px; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: center; box-shadow: inset 0 0 20px rgba(251,111,146,0.1); border: 1px solid var(--glass-border);}
+    .mega-featured img { position: absolute; top: 0; right: -40px; height: 120%; opacity: 0.3; object-fit: contain; transition: transform 0.8s ease;}
+    .mega-featured:hover img { transform: scale(1.1) rotate(-5deg); opacity: 0.6;}
+    .mega-featured h3 { font-family: 'Berkshire Swash', cursive; font-size: 2.5rem; position: relative; z-index: 2; margin-bottom: 15px; line-height: 1.2; color: var(--primary-dark);}
+
+    .header-actions { display: flex; align-items: center; gap: 10px; }
+    
+    /* TOGGLES */
+    .theme-toggle, .sound-toggle { width: 50px; height: 50px; border-radius: 50%; background: var(--surface); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; color: var(--text-main); border: 1px solid var(--border-color); transition: 0.4s; box-shadow: var(--shadow-sm);}
+    .magnetic-wrap:hover .theme-toggle, .magnetic-wrap:hover .sound-toggle { background: var(--primary-dark); color: #FFF; border-color: var(--primary-dark); box-shadow: var(--shadow-glow);}
+
+    .sound-waves { display: flex; gap: 3px; align-items: center; height: 12px;}
+    .sound-wave { width: 2px; background: currentColor; border-radius: 2px; animation: soundPulse 1s infinite ease-in-out alternate; }
+    .sound-wave:nth-child(1) { height: 40%; animation-delay: 0.1s; }
+    .sound-wave:nth-child(2) { height: 100%; animation-delay: 0.3s; }
+    .sound-wave:nth-child(3) { height: 60%; animation-delay: 0.5s; }
+    .sound-wave:nth-child(4) { height: 80%; animation-delay: 0.2s; }
+    .sound-off .sound-wave { animation: none; height: 10%; }
+    @keyframes soundPulse { 0% { transform: scaleY(0.5); } 100% { transform: scaleY(1); } }
+
+    .cart-btn { font-size: 1.5rem; color: var(--text-main); display: flex; align-items: center; justify-content: center; width: 50px; height: 50px; background: var(--surface); border-radius: 50%; box-shadow: var(--shadow-sm); text-decoration: none; transition: 0.4s; border: 1px solid var(--border-color); position: relative;}
+    .magnetic-wrap:hover .cart-btn { background: var(--primary-dark); color: white; border-color: var(--primary-dark); box-shadow: var(--shadow-glow); }
+    .cart-badge { position: absolute; top: -5px; right: -5px; background: var(--primary-dark); color: white; font-family: 'Poppins'; font-size: 0.8rem; font-weight: 800; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 2px solid var(--surface); z-index: 2; transition: 0.3s;}
+    .magnetic-wrap:hover .cart-badge { background: var(--text-main); border-color: var(--text-main); }
+
+    .menu-toggle { display: none; background: transparent; border: none; flex-direction: column; gap: 6px; z-index: 1001; cursor: pointer;}
+    .menu-toggle span { width: 35px; height: 3px; background: var(--primary-dark); border-radius: 3px; }
+
+    /* ==========================================================================
+       7. 100% CUSTOM GSAP HERO SLIDER (THE BLACK SCREEN OBLITERATOR)
+       ========================================================================== */
+    .hero-section { position: relative; width: 100%; height: 100vh; min-height: 700px; overflow: hidden; background: var(--bg-color); z-index: 1;}
+    
+    .custom-hero-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+    
+    .hero-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; visibility: hidden; z-index: 1; transition: opacity 1.5s ease, visibility 1.5s; display: flex; align-items: center; justify-content: center;}
+    
+    /* FALLBACK: Slide 1 is ALWAYS visible by default to prevent black screens */
+    .hero-slide.active { opacity: 1; visibility: visible; z-index: 2; }
+    
+    .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; filter: brightness(0.65); transform: scale(1.1); transition: transform 8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+    .hero-slide.active .hero-bg { transform: scale(1); }
+
+    .hero-content-wrapper { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 3; background: radial-gradient(circle at center, rgba(15,23,42,0.1) 0%, rgba(15,23,42,0.7) 100%); }
+    
+    .hero-content { text-align: center; max-width: 1200px; padding: 0 5%; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 12px 35px; border-radius: 50px; font-family: 'Outfit'; font-weight: 800; letter-spacing: 5px; margin-bottom: 25px; backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); text-transform: uppercase; font-size: clamp(0.75rem, 1.5vw, 0.9rem); box-shadow: var(--shadow-lg);}
+    .hero-badge i { color: #FBBF24; font-size: 1.4rem; }
+
+    .hero-title { font-family: 'Berkshire Swash', cursive; font-size: clamp(4rem, 9vw, 9rem); line-height: 1.05; margin-bottom: 25px; color: white; text-shadow: 0 20px 50px rgba(0,0,0,0.6); }
+    .hero-desc { font-family: 'Outfit', sans-serif; font-size: clamp(1.1rem, 2vw, 1.5rem); line-height: 1.7; margin-bottom: 50px; color: rgba(255,255,255,0.9); font-weight: 300; max-width: 700px; margin-left: auto; margin-right: auto;}
+
+    .hero-text-anim { overflow: hidden; padding-bottom: 10px; margin-bottom: -10px;}
+    .hero-text-anim > * { display: block; } 
+
+    /* Custom Bullet Pagination */
+    .hero-pagination { position: absolute; bottom: 50px; left: 0; width: 100%; display: flex; justify-content: center; gap: 20px; z-index: 10; }
+    .h-bullet { width: 60px; height: 4px; background: rgba(255,255,255,0.3); border-radius: 4px; cursor: pointer; position: relative; overflow: hidden; }
+    .h-bullet.active::after { content:''; position:absolute; top:0; left:0; height:100%; width:100%; background: var(--primary); animation: slideProgress 6s linear forwards; }
+    @keyframes slideProgress { 0% { width: 0%; } 100% { width: 100%; } }
+
+    .scroll-indicator { position: absolute; bottom: 40px; right: 5%; display: flex; align-items: center; gap: 12px; color: white; font-family: 'Outfit'; font-size: 0.9rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; z-index: 10; }
+    .scroll-line { width: 2px; height: 60px; background: rgba(255,255,255,0.2); position: relative; overflow: hidden;}
+    .scroll-line::after { content:''; position:absolute; top:-100%; left:0; width:100%; height:100%; background: white; animation: dropLine 2s infinite; }
+    @keyframes dropLine { 0% { top: -100%; } 100% { top: 100%; } }
+
+    /* ==========================================================================
+       8. FEATURE 12: SCROLL PROGRESS MINI-MAP
+       ========================================================================== */
+    .side-minimap { position: fixed; right: 30px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 15px; z-index: 999; }
+    .minimap-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--glass-border); border: 2px solid transparent; cursor: pointer; transition: var(--transition-bounce); position: relative;}
+    .minimap-dot::after { content: attr(data-tooltip); position: absolute; right: 25px; top: 50%; transform: translateY(-50%); background: var(--text-main); color: var(--bg-color); font-family: 'Poppins'; font-size: 0.75rem; font-weight: 700; padding: 4px 12px; border-radius: 15px; opacity: 0; visibility: hidden; transition: 0.3s; white-space: nowrap; pointer-events: none;}
+    .minimap-dot:hover { transform: scale(1.5); background: var(--primary-light); }
+    .minimap-dot:hover::after { opacity: 1; visibility: visible; right: 20px; }
+    .minimap-dot.active { background: var(--primary); transform: scale(1.5); border-color: var(--primary-dark); box-shadow: 0 0 10px var(--primary); }
+
+    /* ==========================================================================
+       9. INSTA-STYLE TASTE HIGHLIGHTS
+       ========================================================================== */
+    .story-section { padding: 50px 0; background: var(--surface); border-bottom: 1px solid var(--border-color); position: relative; z-index: 5;}
+    .story-wrapper { display: flex; gap: 40px; padding: 0 5%; overflow-x: auto; scrollbar-width: none; cursor: grab;}
+    .story-wrapper::-webkit-scrollbar { display: none; }
+    .story-wrapper:active { cursor: grabbing; }
+    
+    .story-item { display: flex; flex-direction: column; align-items: center; gap: 15px; flex-shrink: 0; text-decoration: none;}
+    .story-ring { width: 110px; height: 110px; border-radius: 50%; background: linear-gradient(45deg, #F59E0B, var(--primary), var(--primary-dark)); padding: 4px; transition: var(--transition-bounce); box-shadow: var(--shadow-sm);}
+    .story-img { width: 100%; height: 100%; border-radius: 50%; border: 4px solid var(--surface); object-fit: cover; }
+    .story-text { font-family: 'Poppins'; font-size: 1rem; font-weight: 700; color: var(--text-main); letter-spacing: 1px; text-transform: uppercase; transition: color 0.3s;}
+    
+    .magnetic-wrap:hover .story-ring { transform: scale(1.1) rotate(5deg); box-shadow: var(--shadow-glow);}
+    .magnetic-wrap:hover .story-text { color: var(--primary-dark); }
+
+    /* ==========================================================================
+       10. FEATURE 20: "HOT OUT THE OVEN" LIVE COUNTDOWN
+       ========================================================================== */
+    .hot-banner { background: var(--primary-dark); color: white; padding: 15px 0; text-align: center; position: relative; overflow: hidden; border-top: 2px solid var(--primary-light); border-bottom: 2px solid var(--primary-light);}
+    .hot-banner::before { content:''; position:absolute; top:0; left:-100%; width:50%; height:100%; background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent); animation: shine 3s infinite;}
+    @keyframes shine { 100% { left: 200%; } }
+    .hot-text { font-family: 'Outfit'; font-size: 1.1rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; display: flex; align-items: center; justify-content: center; gap: 15px;}
+    .hot-timer { background: white; color: var(--primary-dark); padding: 5px 15px; border-radius: 20px; font-weight: 900; font-family: 'Poppins'; letter-spacing: 1px;}
+
+    /* ==========================================================================
+       11. GSAP STORYTELLING: TEXT SCRUB REVEAL
+       ========================================================================== */
+    .text-scrub-section { padding: 12rem 5%; background: var(--bg-color); display: flex; justify-content: center; align-items: center; text-align: center; position: relative; z-index: 2;}
+    .scrub-text { font-family: 'Berkshire Swash', cursive; font-size: clamp(3rem, 6vw, 6.5rem); color: var(--border-color); max-width: 1400px; line-height: 1.2; background: linear-gradient(to right, var(--primary-dark) 50%, var(--border-color) 50%); background-size: 200% 100%; background-position: 100% 0; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+    /* ==========================================================================
+       12. 3D CATEGORIES (VANILLA TILT)
+       ========================================================================== */
+    .categories-section { background: var(--surface); position: relative; z-index: 5; border-radius: 60px; box-shadow: var(--shadow-lg); margin: 0 2%; overflow: hidden;}
+    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; margin-top: 60px; }
+    
+    .cat-card { position: relative; height: 480px; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); cursor: pointer; transform-style: preserve-3d; background: #000; }
+    .cat-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease; }
+    .cat-card::after { content:''; position:absolute; inset:0; background: linear-gradient(to top, rgba(15,23,42,0.95) 0%, rgba(15,23,42,0.3) 50%, transparent 100%); pointer-events: none; transition: 0.5s;}
+    
+    .cat-content { position: absolute; bottom: 40px; left: 40px; right: 40px; z-index: 2; transform: translateZ(60px); pointer-events: none; }
+    .cat-title { color: white; font-family: 'Berkshire Swash'; font-size: clamp(2.2rem, 3vw, 3.2rem); margin-bottom: 10px; line-height: 1.1; text-shadow: 0 10px 20px rgba(0,0,0,0.8); }
+    .cat-link { color: var(--primary-dark); background: white; padding: 12px 25px; border-radius: 40px; font-family: 'Poppins'; font-weight: 700; font-size: 1rem; text-transform: uppercase; letter-spacing: 1.5px; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 10px 20px rgba(0,0,0,0.3); transform: translateZ(80px) translateY(20px); opacity: 0; transition: var(--transition-bounce); pointer-events: auto;}
+    
+    .cat-card:hover .cat-img { transform: scale(1.15) translateZ(-20px); opacity: 1; }
+    .cat-card:hover::after { background: linear-gradient(to top, rgba(251, 111, 146, 0.95) 0%, rgba(251, 111, 146, 0.4) 50%, transparent 100%); }
+    .cat-card:hover .cat-link { opacity: 1; transform: translateZ(80px) translateY(0); }
+    .cat-link:hover { background: var(--primary-dark); color: white; }
+
+    /* ==========================================================================
+       13. FEATURE 5: FEATURED PRODUCTS WITH FLAVOR TABS
+       ========================================================================== */
+    .products-section { position: relative; }
+    
+    .flavor-tabs { display: flex; justify-content: center; gap: 15px; margin-top: 40px; flex-wrap: wrap; }
+    .tab-btn { background: var(--surface); color: var(--text-main); border: 2px solid var(--border-color); padding: 12px 30px; border-radius: 40px; font-family: 'Poppins'; font-weight: 700; font-size: clamp(0.85rem, 1.5vw, 1rem); text-transform: uppercase; letter-spacing: 1.5px; transition: var(--transition-smooth); box-shadow: var(--shadow-sm);}
+    .magnetic-wrap:hover .tab-btn, .tab-btn.active { background: var(--primary-dark); color: white; border-color: var(--primary-dark); box-shadow: var(--shadow-glow); }
+
+    .product-card { background: var(--surface); border-radius: var(--radius-md); padding: 15px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); position: relative; display: flex; flex-direction: column; overflow: hidden; transition: var(--transition-smooth); }
+    .product-card:hover { border-color: var(--primary-light); transform: translateY(-10px); box-shadow: var(--shadow-lg);}
+    
+    .product-img-box { position: relative; height: 300px; border-radius: 15px; overflow: hidden; margin-bottom: 20px; background: var(--surface-alt); z-index: 2; cursor: pointer; }
+    .product-img-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+    .product-card:hover .product-img-box img { transform: scale(1.1) rotate(2deg); }
+    
+    .product-badge { position: absolute; top: 15px; left: 15px; background: var(--text-main); color: var(--bg-color); padding: 6px 15px; border-radius: 15px; font-family: 'Poppins'; font-size: 0.8rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; z-index: 3; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+    
+    .add-to-cart-btn { position: absolute; bottom: -80px; left: 50%; transform: translateX(-50%); width: 85%; padding: 15px; background: var(--surface); border: 2px solid var(--primary-light); border-radius: 25px; font-family: 'Poppins'; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--primary-dark); transition: var(--transition-bounce); box-shadow: 0 15px 30px rgba(0,0,0,0.15); font-size: 1rem; z-index: 3; display: flex; justify-content: center; align-items: center; gap: 8px; cursor: pointer;}
+    .product-card:hover .add-to-cart-btn { bottom: 15px; }
+    .add-to-cart-btn:hover { background: var(--primary-dark); color: white; border-color: var(--primary-dark); transform: translateX(-50%) scale(1.05); box-shadow: var(--shadow-glow);}
+
+    .product-info { text-align: center; padding: 0 10px 10px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; z-index: 2; pointer-events: none;}
+    .stars { color: #F59E0B; font-size: 1.2rem; margin-bottom: 10px; display: flex; justify-content: center; gap: 3px; }
+    .product-title { font-family: 'Outfit', sans-serif; font-size: clamp(1.2rem, 1.5vw, 1.5rem); font-weight: 800; color: var(--text-main); margin-bottom: 8px; line-height: 1.3; }
+    .product-price { font-family: 'Poppins', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--primary-dark); }
+    .product-price span { font-size: 1.1rem; color: var(--text-muted); text-decoration: line-through; margin-left: 8px; font-weight: 500; }
+
+    /* ==========================================================================
+       14. "OUR STORY" GSAP VERTICAL PINNED PARALLAX (THE AWWWARDS FIX)
+       ========================================================================== */
+    .luxury-story-container { background: var(--surface); position: relative; padding: 0; border-radius: 60px 60px 0 0; box-shadow: 0 -20px 50px rgba(0,0,0,0.05); overflow: hidden; }
+    
+    /* On desktop, this holds the pinned right side */
+    .story-layout { display: flex; max-width: 100%; min-height: 100vh; position: relative;}
+    
+    .story-text-panel { width: 50%; padding: 10rem 5% 10rem 10%; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 2; }
+    
+    .story-timeline { position: absolute; left: 5%; top: 10rem; bottom: 10rem; width: 3px; background: var(--border-color); border-radius: 3px; overflow: hidden;}
+    .story-timeline-fill { position: absolute; top: 0; left: 0; width: 100%; height: 0%; background: var(--primary-dark); box-shadow: 0 0 15px var(--primary); }
+
+    .story-text-panel h2 { font-size: clamp(3rem, 5vw, 5.5rem); margin-bottom: 30px; line-height: 1.1; color: var(--text-main); }
+    .story-text-panel h2 span { color: var(--primary-dark); }
+    .story-text-panel p { font-size: 1.3rem; line-height: 1.9; color: var(--text-muted); margin-bottom: 40px; font-family: 'Outfit'; font-weight: 400;}
+    
+    .story-checklist { list-style: none; margin-bottom: 50px; display: grid; grid-template-columns: 1fr; gap: 20px; }
+    .story-checklist li { display: flex; align-items: center; gap: 15px; font-family: 'Outfit'; font-weight: 700; font-size: 1.2rem; color: var(--text-main); background: var(--bg-color); padding: 20px 25px; border-radius: 20px; border: 1px solid var(--border-color);}
+    .story-checklist i { color: var(--white); font-size: 1.5rem; background: var(--primary-dark); border-radius: 50%; padding: 8px; box-shadow: 0 5px 15px rgba(251, 111, 146, 0.4);}
+
+    .story-img-panel { width: 50%; height: 100vh; overflow: hidden; position: absolute; right: 0; top: 0; }
+    .story-img-wrap { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
+    .story-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .story-img-wrap::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, var(--surface) 0%, transparent 15%); }
+    
+    /* GSAP Vertical Wipe Initial State */
+    #sImg2 { clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%); }
+
+    /* ==========================================================================
+       15. FEATURE 18: SCRATCH TO WIN PROMO CARD
+       ========================================================================== */
+    .promo-section { padding: 8rem 5%; background: var(--bg-color); text-align: center; }
+    .scratch-wrapper { position: relative; width: 400px; height: 200px; margin: 40px auto 0; border-radius: 24px; box-shadow: var(--shadow-lg); overflow: hidden; background: var(--surface); border: 2px solid var(--primary-light);}
+    .scratch-content { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--primary-light); }
+    .scratch-content h3 { font-family: 'Outfit'; font-size: 1.2rem; color: var(--text-main); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 2px; }
+    .scratch-content .code { font-family: 'Berkshire Swash'; font-size: 3.5rem; color: var(--primary-dark); line-height: 1;}
+    #scratchCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 5; cursor: crosshair !important; }
+
+    /* ==========================================================================
+       16. FEATURE 19: 3D CAKE VISUALIZER
+       ========================================================================== */
+    .visualizer-section { padding: 8rem 5%; background: var(--surface); border-radius: 60px; box-shadow: var(--shadow-lg); margin: 0 2%; overflow: hidden; position: relative;}
+    .viz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; max-width: 1400px; margin: 0 auto; }
+    
+    .viz-image-box { position: relative; height: 500px; border-radius: 40px; overflow: hidden; background: var(--bg-color); box-shadow: inset 0 0 50px rgba(0,0,0,0.05); border: 1px solid var(--border-color);}
+    .viz-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: 20px; transition: opacity 0.5s ease, transform 0.5s ease; opacity: 0; transform: scale(0.9); }
+    .viz-img.active { opacity: 1; transform: scale(1); z-index: 2; }
+    
+    .viz-controls { display: flex; flex-direction: column; gap: 20px; }
+    .viz-btn { background: var(--bg-color); border: 2px solid var(--border-color); padding: 20px; border-radius: 20px; font-family: 'Outfit'; font-size: 1.2rem; font-weight: 700; color: var(--text-main); display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: var(--transition-bounce); }
+    .viz-btn.active, .magnetic-wrap:hover .viz-btn { background: var(--primary-light); border-color: var(--primary-dark); color: var(--primary-dark); transform: translateX(10px); }
+    .viz-btn i { font-size: 1.5rem; }
+
+    /* ==========================================================================
+       17. PARALLAX BANNER (FEATURE 16)
+       ========================================================================== */
+    .parallax-banner { position: relative; width: 100%; height: 500px; display: flex; align-items: center; justify-content: center; overflow: hidden; margin: 100px 0; }
+    .parallax-banner img { position: absolute; top: -20%; left: 0; width: 100%; height: 140%; object-fit: cover; filter: brightness(0.4); }
+    .banner-content { position: relative; z-index: 2; text-align: center; color: white; max-width: 900px; padding: 0 5%; }
+    .banner-content h2 { font-size: clamp(3rem, 6vw, 5rem); color: white; margin-bottom: 20px; line-height: 1.1; text-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+    .banner-content p { font-family: 'Outfit'; font-size: clamp(1rem, 2vw, 1.4rem); font-weight: 300; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 30px;}
+
+    /* ==========================================================================
+       18. 3D COVERFLOW TESTIMONIALS (FIXED COLORS & CONTRAST)
+       ========================================================================== */
+    .testimonial-section { background: var(--surface-alt); padding: 10rem 5%; text-align: center; position: relative; overflow: hidden; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);}
+    
+    .swiper-container-reviews { max-width: 1200px; margin: 0 auto; padding: 40px 0 80px 0; overflow: hidden; z-index: 2;}
+    .review-card { background: var(--surface); border-radius: 30px; padding: 60px 40px; border: 1px solid var(--border-color); box-shadow: var(--shadow-lg); position: relative;}
+    .review-card::before { content: '”'; position: absolute; top: -30px; left: 40px; font-family: 'Berkshire Swash'; font-size: 15rem; color: var(--quote-mark); line-height: 1; pointer-events: none;}
+    
+    .review-text { font-family: 'Outfit', sans-serif; font-size: clamp(1.3rem, 2vw, 1.8rem); font-weight: 300; font-style: italic; line-height: 1.7; margin-bottom: 40px; position: relative; z-index: 2; color: var(--text-main);}
+    .reviewer-name { font-family: 'Berkshire Swash'; font-size: clamp(2rem, 3vw, 2.8rem); color: var(--primary-dark); margin-bottom: 5px;}
+    .reviewer-role { font-family: 'Outfit'; font-size: 1rem; text-transform: uppercase; letter-spacing: 4px; color: var(--text-muted); display: block;}
+    .review-stars { color: #FBBF24; font-size: 2.2rem; margin-bottom: 30px; display: flex; justify-content: center; gap: 8px;}
+
+    /* ==========================================================================
+       19. FEATURE 17: LIVE FOMO TOASTS
+       ========================================================================== */
+    .fomo-toast { position: fixed; bottom: 30px; left: 30px; background: var(--glass-bg); backdrop-filter: blur(15px); border: 1px solid var(--border-color); padding: 15px 20px; border-radius: 20px; display: flex; align-items: center; gap: 15px; box-shadow: var(--shadow-lg); z-index: 9999; transform: translateY(150px); opacity: 0; transition: var(--transition-bounce); max-width: 350px;}
+    .fomo-toast.show { transform: translateY(0); opacity: 1; }
+    .fomo-img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; }
+    .fomo-content p { font-family: 'Outfit'; font-size: 0.95rem; color: var(--text-main); font-weight: 500; line-height: 1.3;}
+    .fomo-content p span { font-weight: 800; color: var(--primary-dark); }
+    .fomo-time { font-size: 0.8rem; color: var(--text-muted); display: block; margin-top: 5px;}
+    
+    @media (max-width: 768px) { .fomo-toast { bottom: 100px; left: 5%; right: 5%; max-width: 90%; } }
+
+    /* ==========================================================================
+       20. STATIC LUXURY FOOTER & SUBSCRIBE PILL (FIXED LAYOUT)
+       ========================================================================== */
+    .footer-wrapper { position: relative; z-index: 2; background: var(--bg-color); }
+
+    .newsletter-wrapper { max-width: 1200px; margin: 0 auto; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); padding: 60px 80px; border-radius: 40px; position: relative; box-shadow: 0 30px 60px rgba(251,111,146,0.4); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 40px; overflow: hidden; transform: translateY(-50%);}
+    .newsletter-wrapper::before { content:''; position:absolute; top:-50%; right:-10%; width:600px; height:600px; background: rgba(255,255,255,0.15); border-radius: 50%; filter: blur(60px); pointer-events: none;}
+    
+    .news-text { position: relative; z-index: 2;}
+    .news-text h3 { font-family: 'Berkshire Swash'; color: white; font-size: clamp(3rem, 4vw, 4rem); margin-bottom: 15px; text-shadow: 0 5px 15px rgba(0,0,0,0.2);}
+    .news-text p { color: rgba(255,255,255,0.9); font-family: 'Outfit'; font-size: 1.2rem; font-weight: 400; letter-spacing: 1px;}
+    
+    .news-form { display: flex; align-items: center; width: 100%; max-width: 500px; background: white; padding: 8px; border-radius: 50px; position: relative; z-index: 2; box-shadow: 0 20px 40px rgba(0,0,0,0.1);}
+    .news-form input { flex: 1; border: none; background: transparent; padding: 15px 25px; font-family: 'Outfit'; font-size: 1.1rem; outline: none; color: #1F2937; font-weight: 500;}
+    .news-form .btn { margin: 0; padding: 15px 40px; font-size: 1.1rem; border-radius: 50px !important; box-shadow: none !important;}
+
+    /* Premium Static Footer */
+    .footer { padding: 0 5% 40px; background: var(--bg-color);}
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 50px; max-width: 1400px; margin: 0 auto; border-bottom: 1px solid var(--border-color); padding-bottom: 60px; }
+    
+    .footer-logo { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; text-decoration: none;}
+    .footer-logo img { height: 60px; border-radius: 12px; background: white; padding: 3px; box-shadow: var(--shadow-sm);}
+    .footer-logo-text { font-family: 'Berkshire Swash'; font-size: 2.8rem; color: var(--primary-dark); }
+    .footer-desc { font-family: 'Outfit'; line-height: 1.9; margin-bottom: 30px; font-size: 1.1rem; color: var(--text-muted);}
+    
+    .social-links { display: flex; gap: 12px; }
+    .social-icon { width: 45px; height: 45px; background: var(--surface); border: 1px solid var(--border-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-main); font-size: 1.4rem; text-decoration: none; box-shadow: var(--shadow-sm);}
+    .magnetic-wrap:hover .social-icon { background: var(--primary); border-color: var(--primary); color: white; box-shadow: var(--shadow-glow);}
+
+    .footer-title { font-family: 'Outfit'; font-size: 1.3rem; color: var(--text-main); font-weight: 800; margin-bottom: 30px; letter-spacing: 2px; text-transform: uppercase; position: relative; padding-bottom: 10px;}
+    .footer-title::after { content:''; position:absolute; bottom:0; left:0; width:40px; height:3px; background: var(--primary-dark); border-radius: 3px;}
+    
+    .footer-links { list-style: none; padding: 0;}
+    .footer-links li { margin-bottom: 15px; }
+    .footer-links a { color: var(--text-muted); font-family: 'Outfit'; font-size: 1.1rem; transition: 0.4s; display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 500;}
+    .footer-links a:hover { color: var(--primary-dark); transform: translateX(8px); }
+    .footer-links a i { font-size: 1.1rem; color: var(--primary); }
+    
+    .contact-item { display: flex; gap: 15px; margin-bottom: 25px; font-family: 'Outfit'; line-height: 1.6; font-size: 1.1rem; color: var(--text-muted); font-weight: 500;}
+    .contact-item i { color: var(--primary-dark); font-size: 1.8rem; background: var(--surface); padding: 10px; border-radius: 12px; height: fit-content; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color);}
+
+    .footer-bottom { text-align: center; padding-top: 40px; font-family: 'Outfit'; font-size: 1rem; color: var(--text-muted); display: flex; justify-content: space-between; max-width: 1400px; margin: 0 auto; flex-wrap: wrap; gap: 15px;}
+    .footer-bottom span { color: var(--primary-dark); font-weight: 700; }
+
+    /* ==========================================================================
+       21. FEATURE 13: MOBILE BOTTOM APP NAVIGATION
+       ========================================================================== */
+    .mobile-bottom-nav { display: none; }
+    
+    /* ==========================================================================
+       22. MOBILE RESPONSIVENESS (FLAWLESS LAYOUT FIXES)
+       ========================================================================== */
+    @media (max-width: 1024px) {
+      .header-inner { padding: 0 20px; }
+      .nav-list { display: none; }
+      .menu-toggle { display: flex; }
+      
+      .hero-section { height: 100svh; min-height: auto; } /* Fix iOS Safari Height */
+      
+      /* Reset Story Layout for Mobile */
+      .story-layout { flex-direction: column; min-height: auto; }
+      .story-text-panel { width: 100%; padding: 6rem 5%; }
+      .story-timeline { display: none; }
+      
+      /* The Mobile Story Image */
+      .story-img-panel { width: 100%; height: 50vh; position: relative !important; }
+      .story-img-wrap { position: relative !important; }
+      #sImg2 { clip-path: none !important; opacity: 0; } 
+
+      .footer-grid { grid-template-columns: 1fr; gap: 50px; }
+      
+      /* Mobile Newsletter Fix */
+      .newsletter-wrapper { flex-direction: column; text-align: center; padding: 40px 20px; border-radius: 30px; transform: translateY(-30%); margin-bottom: -50px;}
+      .news-form { flex-direction: column; background: transparent; box-shadow: none; padding: 0;}
+      .news-form input { border-radius: 30px; padding: 20px; text-align: center; width: 100%; background: white; margin-bottom: 15px;}
+      .news-form .btn { width: 100%; border-radius: 30px !important; padding: 20px;}
+      
+      .testimonial-section { margin: 0; border-radius: 30px; padding: 6rem 5%; }
+      .side-minimap { display: none; }
+      .viz-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+        /* Mobile App Bottom Nav */
+        .mobile-bottom-nav {
+            display: flex; position: fixed; bottom: 20px; left: 5%; right: 5%; width: 90%;
+            background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-radius: 30px; justify-content: space-around; padding: 12px 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); z-index: 10000; border: 1px solid var(--glass-border);
+        }
+        .bottom-nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-muted); text-decoration: none; font-family: 'Poppins'; font-size: 0.75rem; font-weight: 600; gap: 4px; position: relative;}
+        .bottom-nav-item i { font-size: 1.4rem; transition: 0.3s; }
+        .bottom-nav-item.active { color: var(--primary-dark); }
+        .bottom-nav-item.active i { transform: translateY(-3px); }
+        
+        .footer { padding-bottom: 120px; } /* Space for bottom nav */
+        .grid-4 { grid-template-columns: 1fr; gap: 30px; }
+    }
+  </style>
+</head>
+<body id="home">
+  
+  <canvas id="magicDust"></canvas>
+  
+  <canvas id="confettiCanvas"></canvas>
+
+  <audio id="ambientSound" loop>
+      <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=cafe-ambience-110091.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="preloader" id="preloader">
+    <div class="preloader-brand">
+      <span class="gsap-preloader-text">The Bake Stories</span>
+    </div>
+    <div class="preloader-bar-wrap">
+      <div class="preloader-bar" id="preloaderProgress"></div>
+    </div>
+    <div class="preloader-percent" id="preloaderPercent">0%</div>
+  </div>
+
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <div class="side-minimap">
+      <div class="minimap-dot active" data-target="#home" data-tooltip="Home"></div>
+      <div class="minimap-dot" data-target="#menu" data-tooltip="Menu"></div>
+      <div class="minimap-dot" data-target="#story" data-tooltip="Our Story"></div>
+      <div class="minimap-dot" data-target="#testimonials" data-tooltip="Reviews"></div>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <div class="fomo-toast" id="fomoToast">
+      <img src="https://images.pexels.com/photos/2956951/pexels-photo-2956951.jpeg?auto=compress&cs=tinysrgb&w=100&q=80" class="fomo-img" id="fomoImg">
+      <div class="fomo-content">
+          <p id="fomoText">Someone in <span>Phagwara</span> just bought a Truffle Cake!</p>
+          <span class="fomo-time">Just now</span>
+      </div>
+  </div>
+
+  <header class="header" id="header">
+    <div class="header-inner">
+      <div class="magnetic-wrap" style="padding:0; margin:0;">
+        <a href="index.html" class="logo magnetic-inner">
+          <img src="https://placehold.co/100x100/ffc0cb/ffffff?text=BS" alt="The Bake Stories" id="logoImg">
+          <span class="logo-text">The Bake Stories</span>
+        </a>
+      </div>
+      
+      <nav class="nav">
+        <ul class="nav-list">
+          <li class="nav-item">
+            <div class="magnetic-wrap"><a href="index.html" class="nav-link active magnetic-inner">Home</a></div>
+          </li>
+          
+          <li class="nav-item has-mega">
+            <div class="magnetic-wrap"><a href="products.html" class="nav-link magnetic-inner">Our Menu <i class="ri-arrow-down-s-line"></i></a></div>
+            <div class="mega-menu">
+                <div class="mega-col">
+                    <h4>Best Sellers</h4>
+                    <ul class="mega-links">
+                        <li><a href="products.html?category=cakes"><i class="ri-cake-3-line"></i> Signature Cakes</a></li>
+                        <li><a href="products.html?category=cupcakes"><i class="ri-cup-line"></i> Artisan Cupcakes</a></li>
+                        <li><a href="products.html?category=pastries"><i class="ri-restaurant-line"></i> French Pastries</a></li>
+                        <li><a href="products.html?category=cookies"><i class="ri-cookie-line"></i> Butter Cookies</a></li>
+                    </ul>
+                </div>
+                <div class="mega-col">
+                    <h4>Occasions</h4>
+                    <ul class="mega-links">
+                        <li><a href="products.html"><i class="ri-magic-line"></i> Custom Birthdays</a></li>
+                        <li><a href="products.html"><i class="ri-heart-3-line"></i> Anniversaries</a></li>
+                        <li><a href="products.html"><i class="ri-vip-crown-line"></i> Wedding Tiers</a></li>
+                        <li><a href="products.html"><i class="ri-gift-line"></i> Corporate Gifting</a></li>
+                    </ul>
+                </div>
+                <div class="mega-featured">
+                    <img src="https://images.pexels.com/photos/1721934/pexels-photo-1721934.jpeg?auto=compress&cs=tinysrgb&w=600&q=80" alt="Featured">
+                    <h3 style="font-family: 'Berkshire Swash'; color: var(--primary-dark);">Taste the Magic</h3>
+                    <div class="magnetic-wrap" style="padding:0; margin:20px 0 0 0;"><a href="products.html" class="btn btn-primary magnetic-inner trigger-confetti" style="padding: 15px 30px; font-size: 1.1rem;">Order Now</a></div>
+                </div>
+            </div>
+          </li>
+          
+          <li class="nav-item"><div class="magnetic-wrap"><a href="#story" class="nav-link magnetic-inner">Our Story</a></div></li>
+          <li class="nav-item"><div class="magnetic-wrap"><a href="#contact" class="nav-link magnetic-inner">Contact</a></div></li>
+        </ul>
+      </nav>
+      
+      <div class="header-actions">
+        <div class="magnetic-wrap" style="padding:0; margin:0 5px;">
+            <button class="sound-toggle magnetic-inner" id="soundToggle" title="Play Ambient Audio">
+                <div class="sound-waves sound-off" id="soundIcon">
+                    <div class="sound-wave"></div><div class="sound-wave"></div><div class="sound-wave"></div><div class="sound-wave"></div>
+                </div>
+            </button>
+        </div>
+
+        <div class="magnetic-wrap" style="padding:0; margin:0 5px;">
+            <button class="theme-toggle magnetic-inner" id="themeToggle" title="Toggle Midnight Mode"><i class="ri-moon-clear-line"></i></button>
+        </div>
+
+        <div class="magnetic-wrap" style="display: none; padding:0; margin:0 5px;" id="desktopCartIcon">
+          <a href="cart.html" class="cart-btn magnetic-inner" aria-label="Shopping Cart">
+            <i class="ri-shopping-bag-3-line"></i>
+            <span class="cart-badge" id="cartBadge" style="display: none;">0</span>
+          </a>
+        </div>
+        
+        <button class="menu-toggle" id="menuToggle">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    
+    <nav class="mobile-nav" id="mobileNav" style="background: var(--surface); border-top: 1px solid var(--border-color);">
+      <ul class="mobile-nav-list">
+        <li><a href="index.html" class="mobile-nav-link">Home</a></li>
+        <li><a href="products.html" class="mobile-nav-link">All Products</a></li>
+        <li><a href="products.html?category=cakes" class="mobile-nav-link">Cakes</a></li>
+        <li><a href="products.html?category=cupcakes" class="mobile-nav-link">Cupcakes</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <style>
+      @media (min-width: 1025px) { #desktopCartIcon { display: block !important; } }
+  </style>
+
+  <main>
+    
+    <section class="hero-section" id="hero">
+      <div class="custom-hero-container" id="customHeroSlider">
+          
+          <div class="hero-slide active">
+            <img src="https://images.pexels.com/photos/1721934/pexels-photo-1721934.jpeg?auto=compress&cs=tinysrgb&w=2560&q=80" class="hero-bg" alt="Premium Cake">
+            <div class="hero-content-wrapper">
+              <div class="hero-content">
+                <div class="hero-text-anim"><span class="hero-badge"><i class="ri-star-fill"></i> Bestseller 2024</span></div>
+                <div class="hero-text-anim"><h1 class="hero-title">Decadent<br>Chocolate Truffle</h1></div>
+                <div class="hero-text-anim"><p class="hero-desc">Experience layers of moist chocolate sponge smothered in rich, dark Belgian chocolate ganache. Baked fresh upon order.</p></div>
+                <div class="hero-text-anim">
+                  <div class="magnetic-wrap" style="padding:0; margin:0;">
+                    <a href="products.html" class="btn btn-primary magnetic-inner trigger-confetti"><i class="ri-shopping-cart-2-line"></i> Order Now</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="hero-slide">
+            <img src="https://images.pexels.com/photos/1055272/pexels-photo-1055272.jpeg?auto=compress&cs=tinysrgb&w=2560&q=80" class="hero-bg" alt="Cupcakes">
+            <div class="hero-content-wrapper">
+              <div class="hero-content">
+                <div class="hero-text-anim"><span class="hero-badge"><i class="ri-sparkling-fill"></i> New Arrivals</span></div>
+                <div class="hero-text-anim"><h1 class="hero-title">Bite-Sized<br>Happiness</h1></div>
+                <div class="hero-text-anim"><p class="hero-desc">Explore our new range of artisan cupcakes. Perfect for parties, gifts, or just a sweet midnight craving.</p></div>
+                <div class="hero-text-anim">
+                  <div class="magnetic-wrap" style="padding:0; margin:0;">
+                    <a href="products.html?category=cupcakes" class="btn btn-primary magnetic-inner"><i class="ri-cake-3-line"></i> Explore Cupcakes</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+      </div>
+      
+      <div class="hero-pagination" id="heroPagination">
+          <div class="h-bullet active"></div>
+          <div class="h-bullet"></div>
+      </div>
+      
+      <div class="scroll-indicator">
+        <div class="scroll-line"></div>
+        Scroll
+      </div>
+    </section>
+
+    <div class="hot-banner">
+        <div class="hot-text">
+            <i class="ri-fire-fill" style="color: #F59E0B; font-size: 1.5rem;"></i>
+            Next Fresh Batch of Vanilla Cupcakes Ready In:
+            <span class="hot-timer" id="hotTimer">00:45:30</span>
+        </div>
+    </div>
+
+    <div class="story-section">
+        <div class="story-wrapper">
+            <div class="magnetic-wrap"><a href="products.html?category=cakes" class="story-item magnetic-inner">
+                <div class="story-ring"><img src="https://images.pexels.com/photos/1721932/pexels-photo-1721932.jpeg?auto=compress&cs=tinysrgb&w=300&q=80" class="story-img" alt="Cakes"></div>
+                <span class="story-text">Cakes</span>
+            </a></div>
+            <div class="magnetic-wrap"><a href="products.html?category=cupcakes" class="story-item magnetic-inner">
+                <div class="story-ring"><img src="https://images.pexels.com/photos/1055272/pexels-photo-1055272.jpeg?auto=compress&cs=tinysrgb&w=300&q=80" class="story-img" alt="Cupcakes"></div>
+                <span class="story-text">Cupcakes</span>
+            </a></div>
+            <div class="magnetic-wrap"><a href="products.html?category=pastries" class="story-item magnetic-inner">
+                <div class="story-ring"><img src="https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg?auto=compress&cs=tinysrgb&w=300&q=80" class="story-img" alt="Pastries"></div>
+                <span class="story-text">Pastries</span>
+            </a></div>
+            <div class="magnetic-wrap"><a href="products.html" class="story-item magnetic-inner">
+                <div class="story-ring"><img src="https://images.pexels.com/photos/2144112/pexels-photo-2144112.jpeg?auto=compress&cs=tinysrgb&w=300&q=80" class="story-img" alt="Eggless"></div>
+                <span class="story-text">100% Eggless</span>
+            </a></div>
+            <div class="magnetic-wrap"><a href="products.html" class="story-item magnetic-inner">
+                <div class="story-ring"><img src="https://images.pexels.com/photos/2956951/pexels-photo-2956951.jpeg?auto=compress&cs=tinysrgb&w=300&q=80" class="story-img" alt="Custom"></div>
+                <span class="story-text">Custom</span>
+            </a></div>
+        </div>
+    </div>
+
+    <section class="section-padding categories-section">
+      <div class="container">
+        <div class="text-center">
+          <div class="reveal-wrap"><p class="section-subtitle gsap-reveal">What are you craving?</p></div><br>
+          <div class="reveal-wrap"><h2 class="section-title gsap-reveal">Explore Our <span>Menu</span></h2></div>
+        </div>
+        
+        <div class="grid-4" id="categoriesGrid">
+          <div class="cat-card gsap-fade-up" data-delay="0" onclick="window.location.href='products.html?category=cakes'">
+            <img src="https://images.pexels.com/photos/1721932/pexels-photo-1721932.jpeg?auto=compress&cs=tinysrgb&w=800&q=80" alt="Cakes" class="cat-img">
+            <div class="cat-content">
+              <h3 class="cat-title">Signature Cakes</h3>
+              <span class="cat-link">Explore <i class="ri-arrow-right-line"></i></span>
+            </div>
+          </div>
+          
+          <div class="cat-card gsap-fade-up" data-delay="0.15" onclick="window.location.href='products.html?category=cupcakes'">
+            <img src="https://images.pexels.com/photos/1055272/pexels-photo-1055272.jpeg?auto=compress&cs=tinysrgb&w=800&q=80" alt="Cupcakes" class="cat-img">
+            <div class="cat-content">
+              <h3 class="cat-title">Cupcakes</h3>
+              <span class="cat-link">Explore <i class="ri-arrow-right-line"></i></span>
+            </div>
+          </div>
+          
+          <div class="cat-card gsap-fade-up" data-delay="0.3" onclick="window.location.href='products.html?category=pastries'">
+            <img src="https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg?auto=compress&cs=tinysrgb&w=800&q=80" alt="Pastries" class="cat-img">
+            <div class="cat-content">
+              <h3 class="cat-title">Pastries</h3>
+              <span class="cat-link">Explore <i class="ri-arrow-right-line"></i></span>
+            </div>
+          </div>
+          
+          <div class="cat-card gsap-fade-up" data-delay="0.45" onclick="window.location.href='products.html?category=cookies'">
+            <img src="https://images.pexels.com/photos/2144112/pexels-photo-2144112.jpeg?auto=compress&cs=tinysrgb&w=800&q=80" alt="Cookies" class="cat-img">
+            <div class="cat-content">
+              <h3 class="cat-title">Cookies</h3>
+              <span class="cat-link">Explore <i class="ri-arrow-right-line"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-padding products-section" id="menu">
+      <div class="container">
+        <div class="text-center">
+          <div class="reveal-wrap"><p class="section-subtitle gsap-reveal">Customer Favorites</p></div><br>
+          <div class="reveal-wrap"><h2 class="section-title gsap-reveal">Trending Treats</h2></div>
+          
+          <div class="flavor-tabs gsap-fade-up">
+              <div class="magnetic-wrap" style="padding:0; margin:0 5px;"><button class="tab-btn active magnetic-inner" data-filter="all">All Items</button></div>
+              <div class="magnetic-wrap" style="padding:0; margin:0 5px;"><button class="tab-btn magnetic-inner" data-filter="chocolate">Chocolate</button></div>
+              <div class="magnetic-wrap" style="padding:0; margin:0 5px;"><button class="tab-btn magnetic-inner" data-filter="vanilla">Vanilla</button></div>
+          </div>
+        </div>
+        
+        <div class="grid-4" id="featuredProducts" style="margin-top: 60px;">
+          
+          <div class="product-card filter-item chocolate gsap-fade-up" data-delay="0">
+            <div class="product-badge">Bestseller</div>
+            <div class="product-img-box" onclick="window.location.href='products.html'">
+              <img src="https://images.pexels.com/photos/2956951/pexels-photo-2956951.jpeg?auto=compress&cs=tinysrgb&w=800&q=80" alt="Cake">
+            </div>
+            <div class="product-info">
+              <div>
+                <div class="stars"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-half-fill"></i></div>
+                <h3 class="product-title">Red Velvet Delight</h3>
+              </div>
+              <div class="product-price">₹650 <span>₹750</span></div>
+            </div>
+            <button class="add-to-cart-btn add-to-cart trigger-confetti" data-product-id="RV001" data-product-name="Red Velvet Delight" data-product-price="650" data-product-image="https://images.pexels.com/photos/2956951/pexels-photo-2956951.jpeg?auto=compress&cs=tinysrgb&w=800&q=80">
+              <i class="ri-shopping-cart-2-line"></i> Quick Add
+            </button>
+          </div>
+
+          <div class="product-card filter-item chocolate gsap-fade-up" data-delay="0.15">
+            <div class="product-img-box" onclick="window.location.href='products.html'">
+              <img src="https://images.pexels.com/photos/3081487/pexels-photo-3081487.jpeg?auto=compress&cs=tinysrgb&w=800&q=80" alt="Pastry">
+            </div>
+            <div class="product-info">
+              <div>
+                <div class="stars"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
+                <h3 class="product-title">Choco Hazelnut Pastry</h3>
+              </div>
+              <div class="product-price">₹120</div>
+            </div>
+            <button class="add-to-cart-btn add-to-cart trigger-confetti" data-product-id="PT001" data-product-name="Choco Hazelnut Pastry" data-product-price="120" data-product-image="https://images.pexels.com/photos/3081487/pexels-photo-3081487.jpeg?auto=compress&cs=tinysrgb&w=800&q=80">
+              <i class="ri-shopping-cart-2-line"></i> Quick Add
+            </button>
+          </div>
+
+          <div class="product-card filter-item vanilla gsap-fade-up" data-delay="0.3">
+            <div class="product-badge" style="background: #10B981; color: white;">100% Veg</div>
+            <div class="product-img-box" onclick="window.location.href='products.html'">
+              <img src="https://images.pexels.com/photos/1055272/pexels-photo-1055272.jpeg?auto=compress&cs=tinysrgb&w=800&q=80" alt="Cupcake">
+            </div>
+            <div class="product-info">
+              <div>
+                <div class="stars"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-line"></i></div>
+                <h3 class="product-title">Vanilla Strawberry Cupcake</h3>
+              </div>
+              <div class="product-price">₹80</div>
+            </div>
+            <button class="add-to-cart-btn add-to-cart trigger-confetti" data-product-id="CC001" data-product-name="Vanilla Strawberry Cupcake" data-product-price="80" data-product-image="https://images.pexels.com/photos/1055272/pexels-photo-1055272.jpeg?auto=compress&cs=tinysrgb&w=800&q=80">
+              <i class="ri-shopping-cart-2-line"></i> Quick Add
+            </button>
+          </div>
+
+          <div class="product-card filter-item chocolate gsap-fade-up" data-delay="0.45">
+            <div class="product-img-box" onclick="window.location.href='products.html'">
+              <img src="https://images.pexels.com/photos/1721934/pexels-photo-1721934.jpeg?auto=compress&cs=tinysrgb&w=800&q=80" alt="Cake">
+            </div>
+            <div class="product-info">
+              <div>
+                <div class="stars"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
+                <h3 class="product-title">Black Forest (1kg)</h3>
+              </div>
+              <div class="product-price">₹850 <span>₹999</span></div>
+            </div>
+            <button class="add-to-cart-btn add-to-cart trigger-confetti" data-product-id="CK002" data-product-name="Black Forest (1kg)" data-product-price="850" data-product-image="https://images.pexels.com/photos/1721934/pexels-photo-1721934.jpeg?auto=compress&cs=tinysrgb&w=800&q=80">
+              <i class="ri-shopping-cart-2-line"></i> Quick Add
+            </button>
+          </div>
+          
+        </div>
+        
+        <div class="text-center" style="margin-top: 80px;">
+          <div class="magnetic-wrap">
+            <a href="products.html" class="btn btn-secondary magnetic-inner">View Complete Menu</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container" style="margin-top: 50px;">
+        <section class="visualizer-section gsap-fade-up">
+            <div class="text-center">
+                <div class="reveal-wrap"><p class="section-subtitle gsap-reveal">Custom Creations</p></div><br>
+                <div class="reveal-wrap"><h2 class="section-title gsap-reveal">Visualize Your Cake</h2></div>
+            </div>
+            <div class="viz-grid">
+                <div class="viz-controls">
+                    <div class="magnetic-wrap" style="padding:0; margin:0;"><button class="viz-btn active magnetic-inner" data-img="https://images.pexels.com/photos/2956951/pexels-photo-2956951.jpeg?auto=compress&cs=tinysrgb&w=800&q=80">Rich Chocolate Truffle <i class="ri-arrow-right-line"></i></button></div>
+                    <div class="magnetic-wrap" style="padding:0; margin:0;"><button class="viz-btn magnetic-inner" data-img="https://images.pexels.com/photos/1721932/pexels-photo-1721932.jpeg?auto=compress&cs=tinysrgb&w=800&q=80">Classic Vanilla Berry <i class="ri-arrow-right-line"></i></button></div>
+                    <div class="magnetic-wrap" style="padding:0; margin:0;"><button class="viz-btn magnetic-inner" data-img="https://images.pexels.com/photos/1721934/pexels-photo-1721934.jpeg?auto=compress&cs=tinysrgb&w=800&q=80">Black Forest Tier <i class="ri-arrow-right-line"></i></button></div>
+                </div>
+                <div class="viz-image-box">
+                    <img src="https://images.pexels.com/photos/2956951/pexels-photo-2956951.jpeg?auto=compress&cs=tinysrgb&w=800&q=80" id="vizMainImg" class="viz-img active" alt="Custom Cake">
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section class="luxury-story-container" id="story" style="margin-top: 100px;">
+      <canvas id="flourDust"></canvas>
+      
+      <div class="story-layout" id="storyLayout">
+        
+        <div class="story-text-panel">
+          <div class="story-timeline"><div class="story-timeline-fill" id="storyProgress"></div></div>
+          
+          <div class="reveal-wrap"><p class="section-subtitle gsap-reveal" style="text-align: left;">The Journey</p></div><br>
+          <div class="reveal-wrap"><h2 class="gsap-reveal">Crafting Sweet Memories in Every Bite</h2></div>
+          <p class="story-fade">At The Bake Stories, we believe that every celebration deserves a centerpiece that looks spectacular and tastes unforgettable. We source only the finest ingredients—from rich Belgian chocolate to farm-fresh butter—to ensure absolute perfection.</p>
+          
+          <ul class="story-checklist">
+            <li class="story-fade"><i class="ri-fire-fill"></i> Baked Fresh Daily</li>
+            <li class="story-fade"><i class="ri-plant-fill"></i> 100% Eggless Options</li>
+            <li class="story-fade"><i class="ri-vip-diamond-fill"></i> Premium Ingredients</li>
+            <li class="story-fade"><i class="ri-brush-3-fill"></i> Custom Designs</li>
+          </ul>
+          
+          <div class="magnetic-wrap story-fade" style="padding:0; margin:0;">
+            <a href="#contact" class="btn btn-primary magnetic-inner"><i class="ri-customer-service-2-fill"></i> Contact Us</a>
+          </div>
+        </div>
+
+        <div class="story-img-panel">
+          <div class="story-img-wrap" id="sImg1">
+            <img src="https://images.pexels.com/photos/4109998/pexels-photo-4109998.jpeg?auto=compress&cs=tinysrgb&w=1600&q=80" alt="Baking Process">
+          </div>
+          <div class="story-img-wrap" id="sImg2">
+            <img src="https://images.pexels.com/photos/827516/pexels-photo-827516.jpeg?auto=compress&cs=tinysrgb&w=1600&q=80" alt="Fresh Cake">
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="text-scrub-section">
+      <h2 class="scrub-text" id="scrubText">Baking is not a business. It is a passionate art form dedicated to creating unforgettable memories.</h2>
+    </section>
+
+    <section class="promo-section">
+        <div class="container">
+            <div class="reveal-wrap"><p class="section-subtitle gsap-reveal">Surprise Gift</p></div><br>
+            <div class="reveal-wrap"><h2 class="section-title gsap-reveal">Scratch & Win</h2></div>
+            <p style="font-family: 'Outfit'; font-size: 1.2rem; color: var(--text-muted); margin-bottom: 20px;">Use your mouse or finger to scratch the foil!</p>
+            
+            <div class="scratch-wrapper">
+                <div class="scratch-content">
+                    <h3>Secret Promo Code</h3>
+                    <div class="code">SWEET10</div>
+                    <p style="font-family: 'Outfit'; font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">Use at checkout for 10% off!</p>
+                </div>
+                <canvas id="scratchCanvas"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <section class="parallax-banner" id="parallaxVideo">
+        <img src="https://images.pexels.com/photos/140831/pexels-photo-140831.jpeg?auto=compress&cs=tinysrgb&w=2000&q=80" class="gsap-parallax-bg" alt="Bakery Video">
+        <div class="banner-content">
+            <div class="reveal-wrap"><p class="section-subtitle gsap-reveal" style="color:var(--primary-light);">Weddings & Events</p></div><br>
+            <div class="reveal-wrap"><h2 class="gsap-reveal" style="color: white; font-size: clamp(3.5rem, 8vw, 7rem);">Build Your Dream Cake</h2></div>
+            <div class="magnetic-wrap gsap-reveal" style="margin-top: 20px; padding:0;"><a href="#contact" class="btn btn-primary magnetic-inner">Request a Quote</a></div>
+        </div>
+    </section>
+
+    <section class="testimonial-section" id="testimonials">
+      <div class="container">
+        <div class="reveal-wrap"><p class="section-subtitle gsap-reveal" style="color: var(--primary-dark);">Sweet Words</p></div><br>
+        <div class="reveal-wrap"><h2 class="section-title gsap-reveal">What Our Customers Say</h2></div>
+        
+        <div class="swiper swiper-container-reviews gsap-fade-up" data-delay="0.2">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide" style="width: 800px; max-width: 100%;">
+              <div class="review-card">
+                <p class="review-text">"Ordered a custom truffle cake for my daughter's birthday. Not only was the design flawless, but it was the softest, most delicious cake we have ever eaten in Phagwara!"</p>
+                <div class="review-stars"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
+                <h4 class="reviewer-name">Priya Sharma</h4>
+                <span class="reviewer-role">Verified Buyer</span>
+              </div>
+            </div>
+            <div class="swiper-slide" style="width: 800px; max-width: 100%;">
+              <div class="review-card">
+                <p class="review-text">"The Bake Stories is my go-to for every occasion now. Their cupcakes are out of this world, and the delivery is always on time. Highly recommended!"</p>
+                <div class="review-stars"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
+                <h4 class="reviewer-name">Rahul Verma</h4>
+                <span class="reviewer-role">Regular Customer</span>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+    </section>
+
+  </main> <div class="footer-wrapper">
+      <div class="container" style="position: relative; z-index: 10;">
+        <div class="newsletter-wrapper">
+          <div class="news-text">
+            <h3>Join Our Sweet Family</h3>
+            <p>Subscribe to get special offers, free giveaways, and deals.</p>
+          </div>
+          <div class="news-form">
+            <input type="email" placeholder="Enter your email address...">
+            <button class="btn btn-primary trigger-confetti" type="button" onclick="if(typeof showToast === 'function') showToast('Subscribed Successfully!', 'success')">Subscribe</button>
+          </div>
+        </div>
+      </div>
+
+      <footer class="footer" id="contact">
+        <div class="footer-grid">
+          <div>
+            <div class="magnetic-wrap" style="margin:0; padding:0;">
+              <a href="index.html" class="footer-logo magnetic-inner">
+                <img src="https://placehold.co/100x100/ffc0cb/ffffff?text=BS" alt="The Bake Stories" id="logoImg">
+                <span class="footer-logo-text">The Bake Stories</span>
+              </a>
+            </div>
+            <p class="footer-desc">Crafting premium cakes, cupcakes, and pastries in Phagwara. We blend passion with the finest ingredients to create edible art for your celebrations.</p>
+            <div class="social-links">
+              <div class="magnetic-wrap" style="padding:0; margin:0 5px;"><a href="#" class="social-icon magnetic-inner"><i class="ri-instagram-line"></i></a></div>
+              <div class="magnetic-wrap" style="padding:0; margin:0 5px;"><a href="#" class="social-icon magnetic-inner"><i class="ri-facebook-fill"></i></a></div>
+              <div class="magnetic-wrap" style="padding:0; margin:0 5px;"><a href="#" class="social-icon magnetic-inner"><i class="ri-whatsapp-line"></i></a></div>
+            </div>
+          </div>
+          
+          <div>
+            <h4 class="footer-title">Quick Links</h4>
+            <ul class="footer-links">
+              <li><a href="index.html"><i class="ri-arrow-right-s-line"></i> Home</a></li>
+              <li><a href="products.html"><i class="ri-arrow-right-s-line"></i> Our Menu</a></li>
+              <li><a href="#story"><i class="ri-arrow-right-s-line"></i> Our Story</a></li>
+              <li><a href="cart.html"><i class="ri-arrow-right-s-line"></i> View Cart</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h4 class="footer-title">Categories</h4>
+            <ul class="footer-links">
+              <li><a href="products.html?category=cakes"><i class="ri-arrow-right-s-line"></i> Signature Cakes</a></li>
+              <li><a href="products.html?category=cupcakes"><i class="ri-arrow-right-s-line"></i> Cupcakes</a></li>
+              <li><a href="products.html?category=cookies"><i class="ri-arrow-right-s-line"></i> Cookies</a></li>
+              <li><a href="products.html?category=pastries"><i class="ri-arrow-right-s-line"></i> Pastries</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h4 class="footer-title">Contact Info</h4>
+            <div class="contact-item"><i class="ri-map-pin-line"></i><span>Phagwara, Punjab, India<br>Delivery available across city</span></div>
+            <div class="contact-item"><i class="ri-phone-line"></i><span id="footerPhone">+91 98765 43210</span></div>
+            <div class="contact-item"><i class="ri-mail-send-line"></i><span id="footerEmail">hello@thebakestories.in</span></div>
+          </div>
+        </div>
+        
+        <div class="footer-bottom">
+          <p>&copy; 2024 The Bake Stories. All rights reserved.</p>
+          <p>Made with <i class="ri-heart-fill" style="color: var(--primary);"></i> in Phagwara</p>
+        </div>
+      </footer>
+  </div>
+
+  <div class="action-hub">
+      <div class="hub-menu">
+          <a href="#" class="hub-btn hub-whatsapp" title="WhatsApp Us"><i class="ri-whatsapp-line"></i></a>
+          <a href="#" class="hub-btn hub-call" title="Call Us"><i class="ri-phone-line"></i></a>
+          <a href="#" class="hub-btn hub-mail" title="Email Us"><i class="ri-mail-send-line"></i></a>
+      </div>
+      <div class="magnetic-wrap" style="padding:0; margin:0;">
+          <div class="hub-toggle magnetic-inner"><i class="ri-customer-service-2-fill"></i></div>
+      </div>
+  </div>
+
+  <nav class="mobile-bottom-nav">
+      <a href="index.html" class="bottom-nav-item active"><i class="ri-home-smile-2-fill"></i><span>Home</span></a>
+      <a href="products.html" class="bottom-nav-item"><i class="ri-cake-3-fill"></i><span>Menu</span></a>
+      <a href="cart.html" class="bottom-nav-item"><i class="ri-shopping-cart-2-fill"></i><span>Cart</span></a>
+      <a href="#contact" class="bottom-nav-item"><i class="ri-user-smile-fill"></i><span>Contact</span></a>
+  </nav>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  
+  <script src="js/main.js"></script>
+  <script src="js/products.js"></script> 
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    // ============================================
+    // 1. PRELOADER ANIMATION (SAFE FALLBACK)
+    // ============================================
+    const preloaderCount = { val: 0 };
+    const percentEl = document.getElementById('preloaderPercent');
+    
+    gsap.to(preloaderCount, {
+        val: 100, duration: 1.5, roundProps: "val", ease: "power2.inOut",
+        onUpdate: function() { percentEl.innerHTML = preloaderCount.val + "%"; }
+    });
+
+    const hidePreloader = () => {
+        const tl = gsap.timeline();
+        tl.to('#preloaderProgress', { width: '100%', duration: 0.5, ease: 'power3.inOut' })
+          .to('.preloader-percent', { opacity: 0, duration: 0.2 })
+          .to('.preloader-brand span', { y: "-100%", duration: 0.6, ease: 'power4.in' }, "-=0.2")
+          .to('#preloader', { yPercent: -100, duration: 0.8, ease: 'power4.inOut' }, "-=0.3")
+          .set('#preloader', { display: 'none' }); 
+    };
+
+    let loaded = false;
+    window.addEventListener('load', () => { if(!loaded) { loaded = true; hidePreloader(); } });
+    setTimeout(() => { if(!loaded) { loaded = true; hidePreloader(); } }, 2000); // 2s Max limit
+
+    // ============================================
+    // 2. LIQUID CUSTOM CURSOR
+    // ============================================
+    if (window.innerWidth > 1024) {
+        const cursorDot = document.getElementById("cursorDot");
+        const cursorRing = document.getElementById("cursorRing");
+        let mouseX = window.innerWidth/2, mouseY = window.innerHeight/2;
+        let ringX = mouseX, ringY = mouseY;
+
+        window.addEventListener("mousemove", (e) => {
+            mouseX = e.clientX; mouseY = e.clientY;
+            gsap.set(cursorDot, { x: mouseX, y: mouseY });
+        });
+
+        gsap.ticker.add(() => {
+            ringX += (mouseX - ringX) * 0.15;
+            ringY += (mouseY - ringY) * 0.15;
+            gsap.set(cursorRing, { x: ringX, y: ringY });
+        });
+
+        document.querySelectorAll("a, button, input, .cat-card, .product-card, .tab-btn, .hub-toggle").forEach(el => {
+            el.addEventListener("mouseenter", () => document.body.classList.add("cursor-hover"));
+            el.addEventListener("mouseleave", () => document.body.classList.remove("cursor-hover"));
+        });
+    }
+
+    // ============================================
+    // 3. FLAWLESS MAGNETIC BUTTONS & RIPPLE
+    // ============================================
+    if (window.innerWidth > 1024) {
+        document.querySelectorAll('.magnetic-wrap').forEach(wrap => {
+            const inner = wrap.querySelector('.magnetic-inner');
+            if (!inner) return;
+
+            wrap.addEventListener('mousemove', (e) => {
+                const rect = wrap.getBoundingClientRect();
+                const x = (e.clientX - rect.left) - rect.width / 2;
+                const y = (e.clientY - rect.top) - rect.height / 2;
+                gsap.to(inner, { x: x * 0.4, y: y * 0.4, duration: 0.6, ease: "power3.out", overwrite: "auto" });
+            });
+
+            wrap.addEventListener('mouseleave', () => {
+                gsap.to(inner, { x: 0, y: 0, duration: 1, ease: "elastic.out(1, 0.3)", overwrite: "auto" });
+            });
+        });
+    }
+
+    document.querySelectorAll('.btn, .cat-card, .product-card').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            let ripple = document.createElement('span');
+            ripple.classList.add('ripple');
+            this.appendChild(ripple);
+            let rect = this.getBoundingClientRect();
+            let size = Math.max(rect.width, rect.height);
+            ripple.style.width = ripple.style.height = size + 'px';
+            let clientX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+            let clientY = e.clientY || (e.touches && e.touches[0].clientY) || 0;
+            ripple.style.left = clientX - rect.left - size/2 + 'px';
+            ripple.style.top = clientY - rect.top - size/2 + 'px';
+            setTimeout(() => { ripple.remove(); }, 600);
+        });
+    });
+
+    // ============================================
+    // 4. CANVAS MAGIC DUST (PARTICLES)
+    // ============================================
+    const canvas = document.getElementById('magicDust');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    
+    function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 2 + 0.5;
+            this.speedX = Math.random() * 0.5 - 0.25;
+            this.speedY = Math.random() * -1 - 0.2; 
+            this.color = `rgba(251, 111, 146, ${Math.random() * 0.5})`;
+        }
+        update() {
+            this.x += this.speedX; this.y += this.speedY;
+            if (this.y < 0) { this.y = canvas.height; this.x = Math.random() * canvas.width; }
+        }
+        draw() {
+            ctx.fillStyle = this.color; ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
+        }
+    }
+    for (let i = 0; i < 40; i++) particles.push(new Particle());
+    function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => { p.update(); p.draw(); });
+        requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    // ============================================
+    // 5. FEATURE 15: FALLING FLOUR PARTICLES (STORY)
+    // ============================================
+    const fCanvas = document.getElementById('flourDust');
+    if(fCanvas && window.innerWidth > 1024) {
+        const fCtx = fCanvas.getContext('2d');
+        let flours = [];
+        function resizeFlour() { fCanvas.width = document.querySelector('.story-img-panel').offsetWidth; fCanvas.height = window.innerHeight; }
+        window.addEventListener('resize', resizeFlour);
+        resizeFlour();
+        class Flour {
+            constructor() {
+                this.x = Math.random() * fCanvas.width;
+                this.y = Math.random() * fCanvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedY = Math.random() * 1 + 0.5;
+                this.speedX = Math.random() * 0.5 - 0.25;
+            }
+            update() {
+                this.y += this.speedY; this.x += this.speedX;
+                if(this.y > fCanvas.height) { this.y = 0; this.x = Math.random() * fCanvas.width; }
+            }
+            draw() {
+                fCtx.fillStyle = 'rgba(255,255,255,0.8)';
+                fCtx.beginPath(); fCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2); fCtx.fill();
+            }
+        }
+        for(let i=0; i<50; i++) flours.push(new Flour());
+        function animFlour() {
+            fCtx.clearRect(0,0,fCanvas.width, fCanvas.height);
+            flours.forEach(f => { f.update(); f.draw(); });
+            requestAnimationFrame(animFlour);
+        }
+        animFlour();
+    }
+
+    // ============================================
+    // 6. FEATURE 10: INTERACTIVE CONFETTI ENGINE
+    // ============================================
+    const cCanvas = document.getElementById('confettiCanvas');
+    const cCtx = cCanvas.getContext('2d');
+    let confettis = [];
+    
+    function resizeConfetti() { cCanvas.width = window.innerWidth; cCanvas.height = window.innerHeight; }
+    window.addEventListener('resize', resizeConfetti);
+    resizeConfetti();
+
+    class ConfettiPiece {
+        constructor(x, y) {
+            this.x = x; this.y = y;
+            this.size = Math.random() * 10 + 5;
+            this.speedX = Math.random() * 10 - 5;
+            this.speedY = Math.random() * -10 - 5;
+            this.gravity = 0.5;
+            this.color = ['#FF8FAB', '#FB6F92', '#FFC2D1', '#F59E0B', '#10B981'][Math.floor(Math.random() * 5)];
+            this.rotation = Math.random() * 360;
+            this.rotationSpeed = Math.random() * 10 - 5;
+        }
+        update() {
+            this.speedY += this.gravity; this.x += this.speedX; this.y += this.speedY; this.rotation += this.rotationSpeed;
+        }
+        draw() {
+            cCtx.save(); cCtx.translate(this.x, this.y); cCtx.rotate((this.rotation * Math.PI) / 180);
+            cCtx.fillStyle = this.color; cCtx.fillRect(-this.size/2, -this.size/2, this.size, this.size); cCtx.restore();
+        }
+    }
+
+    function fireConfetti(x, y) { for(let i=0; i<30; i++) confettis.push(new ConfettiPiece(x, y)); }
+
+    function animateConfetti() {
+        cCtx.clearRect(0, 0, cCanvas.width, cCanvas.height);
+        confettis.forEach((c, index) => {
+            c.update(); c.draw();
+            if(c.y > cCanvas.height) confettis.splice(index, 1);
+        });
+        requestAnimationFrame(animateConfetti);
+    }
+    animateConfetti();
+
+    document.querySelectorAll('.trigger-confetti').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const rect = btn.getBoundingClientRect();
+            fireConfetti(rect.left + rect.width/2, rect.top + rect.height/2);
+        });
+    });
+
+    // ============================================
+    // 7. 100% CUSTOM GSAP HERO SLIDER (NO SWIPER BUG)
+    // ============================================
+    // THE FIX: We wrote a pure vanilla JS slider so Swiper cannot conflict with GSAP on load.
+    const slides = document.querySelectorAll('.hero-slide');
+    const bullets = document.querySelectorAll('.h-bullet');
+    let currentSlide = 0;
+    
+    function animateHeroTextIn(slideIndex) {
+        const textElements = slides[slideIndex].querySelectorAll('.hero-text-anim > *');
+        gsap.fromTo(textElements, 
+            { y: '150%', opacity: 0 }, 
+            { y: 0, opacity: 1, duration: 1.2, stagger: 0.15, ease: "power4.out" }
+        );
+    }
+    
+    function animateHeroTextOut(slideIndex) {
+        const textElements = slides[slideIndex].querySelectorAll('.hero-text-anim > *');
+        gsap.to(textElements, { y: '-100%', opacity: 0, duration: 0.8, ease: "power3.in" });
+    }
+
+    function goToSlide(index) {
+        if(index === currentSlide) return;
+        
+        animateHeroTextOut(currentSlide);
+        slides[currentSlide].classList.remove('active');
+        bullets[currentSlide].classList.remove('active');
+        
+        currentSlide = index;
+        
+        slides[currentSlide].classList.add('active');
+        bullets[currentSlide].classList.add('active');
+        
+        // Reset image scale for ken burns
+        gsap.fromTo(slides[currentSlide].querySelector('.hero-bg'), 
+            { scale: 1.1 }, { scale: 1, duration: 8, ease: "power1.out" }
+        );
+        
+        setTimeout(() => { animateHeroTextIn(currentSlide); }, 300);
+    }
+
+    function nextSlide() {
+        let next = currentSlide + 1;
+        if(next >= slides.length) next = 0;
+        goToSlide(next);
+    }
+
+    bullets.forEach((bullet, index) => {
+        bullet.addEventListener('click', () => {
+            clearInterval(sliderInterval);
+            goToSlide(index);
+            sliderInterval = setInterval(nextSlide, 7000);
+        });
+    });
+
+    // Start Slider
+    let sliderInterval = setInterval(nextSlide, 7000);
+    
+    // Initial Text Animation
+    setTimeout(() => { animateHeroTextIn(0); }, 500);
+
+    // ============================================
+    // 8. FEATURE 17: LIVE FOMO TOASTS
+    // ============================================
+    const fomoNames = ["Priya in Phagwara", "Rahul in Jalandhar", "Neha in Phagwara", "Aman in Ludhiana"];
+    const fomoItems = ["Truffle Cake", "Box of Cupcakes", "Black Forest", "Custom Birthday Cake"];
+    const fomoImages = [
+        "https://images.pexels.com/photos/2956951/pexels-photo-2956951.jpeg?auto=compress&cs=tinysrgb&w=100&q=80",
+        "https://images.pexels.com/photos/1055272/pexels-photo-1055272.jpeg?auto=compress&cs=tinysrgb&w=100&q=80",
+        "https://images.pexels.com/photos/1721934/pexels-photo-1721934.jpeg?auto=compress&cs=tinysrgb&w=100&q=80"
+    ];
+    
+    setInterval(() => {
+        const toast = document.getElementById('fomoToast');
+        if(!toast) return;
+        
+        document.getElementById('fomoImg').src = fomoImages[Math.floor(Math.random() * fomoImages.length)];
+        document.getElementById('fomoText').innerHTML = `<span>${fomoNames[Math.floor(Math.random() * fomoNames.length)]}</span> just bought a ${fomoItems[Math.floor(Math.random() * fomoItems.length)]}!`;
+        
+        toast.classList.add('show');
+        setTimeout(() => { toast.classList.remove('show'); }, 4000);
+    }, 15000); // Pops up every 15 seconds
+
+    // ============================================
+    // 9. FEATURE 20: "HOT OUT THE OVEN" COUNTDOWN
+    // ============================================
+    function startTimer(duration, display) {
+        let timer = duration, minutes, seconds;
+        setInterval(function () {
+            minutes = parseInt(timer / 60, 10);
+            seconds = parseInt(timer % 60, 10);
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+            display.textContent = "00:" + minutes + ":" + seconds;
+            if (--timer < 0) timer = duration; // Reset
+        }, 1000);
+    }
+    const timerDisplay = document.getElementById('hotTimer');
+    if(timerDisplay) startTimer(60 * 45, timerDisplay); // 45 Minutes
+
+    // ============================================
+    // 10. FEATURE 19: 3D CAKE VISUALIZER
+    // ============================================
+    const vizBtns = document.querySelectorAll('.viz-btn');
+    const vizImg = document.getElementById('vizMainImg');
+    
+    vizBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            vizBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            // GSAP Crossfade
+            gsap.to(vizImg, {opacity: 0, scale: 0.9, duration: 0.3, onComplete: () => {
+                vizImg.src = btn.getAttribute('data-img');
+                gsap.to(vizImg, {opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.7, 0.3)"});
+            }});
+        });
+    });
+
+    // ============================================
+    // 11. MIDNIGHT MODE TOGGLE
+    // ============================================
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.add('theme-transitioning');
+        document.body.classList.toggle('dark-mode');
+        const icon = themeToggle.querySelector('i');
+        icon.className = document.body.classList.contains('dark-mode') ? 'ri-sun-line' : 'ri-moon-clear-line';
+        setTimeout(() => document.body.classList.remove('theme-transitioning'), 800);
+    });
+
+    // ============================================
+    // 12. AMBIENT SOUND TOGGLE
+    // ============================================
+    const soundToggle = document.getElementById('soundToggle');
+    const audio = document.getElementById('ambientSound');
+    const soundIcon = document.getElementById('soundIcon');
+    let isPlaying = false;
+
+    soundToggle.addEventListener('click', () => {
+        if(isPlaying) { audio.pause(); soundIcon.classList.add('sound-off'); isPlaying = false; } 
+        else { audio.play().catch(e => console.log("Audio blocked")); soundIcon.classList.remove('sound-off'); isPlaying = true; }
+    });
+
+    // ============================================
+    // 13. SCROLL PROGRESS & MINI-MAP
+    // ============================================
+    const header = document.getElementById('header');
+    const dots = document.querySelectorAll('.minimap-dot');
+
+    window.addEventListener('scroll', () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        document.getElementById("scrollProgress").style.width = (winScroll / height) * 100 + "%";
+
+        if (winScroll > 50) header.classList.add('scrolled');
+        else header.classList.remove('scrolled');
+
+        let currentSection = "";
+        document.querySelectorAll("section, footer").forEach((section) => {
+            if (pageYOffset >= section.offsetTop - 200) currentSection = section.getAttribute("id");
+        });
+
+        dots.forEach(dot => {
+            dot.classList.remove('active');
+            if (dot.getAttribute('data-target') === `#${currentSection}`) dot.classList.add('active');
+        });
+    });
+
+    dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+            const target = document.querySelector(dot.getAttribute('data-target'));
+            if(target) window.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
+        });
+    });
+
+    // ============================================
+    // 14. GSAP STORYTELLING (VERTICAL PINNED PARALLAX)
+    // ============================================
+    gsap.utils.toArray('.reveal-wrap').forEach(wrap => {
+        const text = wrap.querySelector('.gsap-reveal');
+        if (text) gsap.to(text, { y: 0, duration: 1.2, ease: "power4.out", scrollTrigger: { trigger: wrap, start: "top 85%" } });
+    });
+
+    gsap.utils.toArray('.gsap-fade-up').forEach(el => {
+        const delay = parseFloat(el.getAttribute('data-delay')) || 0;
+        gsap.fromTo(el, { opacity: 0, y: 80 }, { opacity: 1, y: 0, duration: 1.2, delay: delay, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 85%" } });
+    });
+
+    gsap.to(".scrub-text", {
+        backgroundPosition: "0% 0", ease: "none",
+        scrollTrigger: { trigger: ".text-scrub-section", start: "top 80%", end: "bottom 50%", scrub: 1 }
+    });
+
+    // "OUR STORY" Sticky Image Switcher
+    if (window.innerWidth > 1024) {
+        const storyTL = gsap.timeline({
+            scrollTrigger: {
+                trigger: "#storyLayout",
+                start: "top top",
+                end: "+=1200", 
+                pin: ".story-img-panel", 
+                scrub: true
+            }
+        });
+        
+        // Wipe & Timeline fill synchronized
+        storyTL.to("#sImg2", { clipPath: "polygon(0 0%, 100% 0%, 100% 100%, 0% 100%)", ease: "none" }, 0)
+               .to("#storyProgress", { height: "100%", ease: "none" }, 0);
+        
+        gsap.utils.toArray('.story-fade').forEach(el => {
+            gsap.fromTo(el, {opacity: 0, x: -50}, { opacity: 1, x: 0, duration: 1, scrollTrigger: { trigger: el, start: "top 80%"} });
+        });
+    }
+
+    gsap.to(".gsap-parallax-bg", { yPercent: 20, ease: "none", scrollTrigger: { trigger: "#parallaxVideo", start: "top bottom", end: "bottom top", scrub: true } });
+
+    // ============================================
+    // 15. FEATURE 18: SCRATCH CARD CANVAS
+    // ============================================
+    const scratchCanvas = document.getElementById('scratchCanvas');
+    if(scratchCanvas) {
+        const scratchCtx = scratchCanvas.getContext('2d');
+        let isDrawing = false;
+
+        function initScratch() {
+            scratchCanvas.width = 400; scratchCanvas.height = 200;
+            // Draw Silver Foil
+            scratchCtx.fillStyle = '#E2E8F0';
+            scratchCtx.fillRect(0, 0, scratchCanvas.width, scratchCanvas.height);
+            // Add text over foil
+            scratchCtx.fillStyle = '#6B7280';
+            scratchCtx.font = "20px 'Outfit'";
+            scratchCtx.textAlign = "center";
+            scratchCtx.fillText("Scratch Here", 200, 105);
+        }
+        initScratch();
+
+        function scratch(x, y) {
+            scratchCtx.globalCompositeOperation = 'destination-out';
+            scratchCtx.beginPath();
+            scratchCtx.arc(x, y, 20, 0, Math.PI * 2);
+            scratchCtx.fill();
+        }
+
+        scratchCanvas.addEventListener('mousedown', (e) => { isDrawing = true; scratch(e.offsetX, e.offsetY); });
+        scratchCanvas.addEventListener('mousemove', (e) => { if (isDrawing) scratch(e.offsetX, e.offsetY); });
+        scratchCanvas.addEventListener('mouseup', () => { isDrawing = false; });
+        scratchCanvas.addEventListener('mouseleave', () => { isDrawing = false; });
+
+        // Touch support
+        scratchCanvas.addEventListener('touchstart', (e) => {
+            isDrawing = true;
+            const rect = scratchCanvas.getBoundingClientRect();
+            scratch(e.touches[0].clientX - rect.left, e.touches[0].clientY - rect.top);
+        });
+        scratchCanvas.addEventListener('touchmove', (e) => {
+            if (isDrawing) {
+                e.preventDefault();
+                const rect = scratchCanvas.getBoundingClientRect();
+                scratch(e.touches[0].clientX - rect.left, e.touches[0].clientY - rect.top);
+            }
+        });
+        scratchCanvas.addEventListener('touchend', () => { isDrawing = false; });
+    }
+
+    // ============================================
+    // 16. SWIPER & VANILLA TILT
+    // ============================================
+    new Swiper('.swiper-container-reviews', {
+      effect: "coverflow", grabCursor: true, centeredSlides: true, slidesPerView: "auto", loop: true,
+      coverflowEffect: { rotate: 20, stretch: 0, depth: 200, modifier: 1, slideShadows: false },
+      autoplay: { delay: 4000, disableOnInteraction: false }
+    });
+
+    if (window.innerWidth > 1024) {
+        VanillaTilt.init(document.querySelectorAll(".cat-card"), { max: 15, speed: 400, glare: true, "max-glare": 0.2, scale: 1.05 });
+    }
+
+    // ============================================
+    // 17. FLAVOR TABS LOGIC
+    // ============================================
+    const tabs = document.querySelectorAll('.tab-btn');
+    const items = document.querySelectorAll('.filter-item');
+    
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            const filter = tab.getAttribute('data-filter');
+            
+            items.forEach(item => {
+                if (filter === 'all' || item.classList.contains(filter)) {
+                    item.style.display = 'flex';
+                    gsap.fromTo(item, {opacity: 0, scale: 0.9}, {opacity: 1, scale: 1, duration: 0.5});
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
+
+    // ============================================
+    // 18. MOBILE MENU & LOGO ENFORCER
+    // ============================================
+    const mobileBtn = document.getElementById('menuToggle');
+    const mobileNav = document.getElementById('mobileNav');
+    if(mobileBtn && mobileNav) {
+        mobileBtn.addEventListener('click', () => {
+            mobileNav.classList.toggle('active');
+            mobileBtn.classList.toggle('active');
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        try {
+            const storeSettings = JSON.parse(localStorage.getItem('bakestories_settings') || '{}');
+            if (storeSettings.storeLogo) {
+                const allLogos = document.querySelectorAll('img[src*="placehold.co"], #logoImg, .logo img, .footer-logo img');
+                allLogos.forEach(img => {
+                    img.src = storeSettings.storeLogo;
+                    img.style.objectFit = 'contain';
+                    img.style.background = 'transparent';
+                });
+            }
+        } catch(e) {}
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed! | The Bake Stories</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #FFB7C5;       /* Baby Pink */
+            --primary-dark: #ff9eb5;  /* Deep Pink */
+            --accent: #FFF0F5;        /* Cream Background */
+            --text-dark: #5d4037;     /* Chocolate Brown */
+            --white: #ffffff;
+            --success: #98FB98;       /* Pastel Green */
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle at center, #fffbf0, #fff0f5);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            color: var(--text-dark);
+        }
+
+        /* --- CARD CONTAINER --- */
+        .success-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 4rem 3rem;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(255, 183, 197, 0.3);
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            z-index: 10;
+            animation: popIn 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        /* --- ANIMATED ICON --- */
+        .icon-wrapper {
+            width: 120px;
+            height: 120px;
+            background: var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            box-shadow: 0 10px 30px rgba(152, 251, 152, 0.4);
+            animation: bounce 2s infinite;
+        }
+
+        .icon-wrapper i {
+            font-size: 4rem;
+            color: #fff;
+        }
+
+        /* --- TEXT STYLES --- */
+        h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 3rem;
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        p.subtitle {
+            font-size: 1.1rem;
+            color: #888;
+            margin-bottom: 2rem;
+        }
+
+        .order-badge {
+            background: var(--accent);
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            display: inline-block;
+            margin-bottom: 2.5rem;
+            border: 2px dashed var(--primary);
+        }
+
+        .order-label {
+            font-size: 0.9rem;
+            color: #aaa;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .order-id {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            font-family: 'Courier New', monospace;
+        }
+
+        /* --- BUTTONS --- */
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 10px 20px rgba(255, 183, 197, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            background: var(--primary-dark);
+            box-shadow: 0 15px 30px rgba(255, 183, 197, 0.6);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--text-dark);
+            border: 2px solid #eee;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* --- CONFETTI ANIMATION --- */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            animation: fall linear forwards;
+        }
+
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.8) translateY(50px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-20px);}
+            60% {transform: translateY(-10px);}
+        }
+
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(720deg); }
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 500px) {
+            h1 { font-size: 2.2rem; }
+            .success-card { padding: 2rem 1.5rem; }
+            .btn { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="confetti-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1;"></div>
+
+    <div class="success-card">
+        <div class="icon-wrapper">
+            <i class="ri-check-line"></i>
+        </div>
+        
+        <h1>Sweet Success!</h1>
+        <p class="subtitle">Your order has been placed and sent to the bakery.</p>
+
+        <div class="order-badge">
+            <span class="order-label">Order Number</span>
+            <span class="order-id" id="displayOrderId">#LOADING</span>
+        </div>
+
+        <p style="margin-bottom: 2rem; color: #666; font-size: 0.95rem;">
+            A confirmation email has been sent to you. <br>
+            We will call you shortly to confirm delivery details.
+        </p>
+
+        <div class="btn-group">
+            <a href="products.html" class="btn btn-secondary">
+                <i class="ri-arrow-left-line"></i> Continue Shopping
+            </a>
+            <a href="index.html" class="btn btn-primary">
+                Back Home <i class="ri-home-4-line"></i>
+            </a>
+        </div>
+        
+        <div style="margin-top: 30px; font-size: 0.8rem; color: #aaa;">
+            Need help? <a href="#" style="color: var(--primary); text-decoration: none;">Contact Support</a>
+        </div>
+    </div>
+
+    <script>
+        // 1. LOAD ORDER DATA
+        document.addEventListener('DOMContentLoaded', () => {
+            const lastOrder = localStorage.getItem('bakestories_last_order');
+            const displayEl = document.getElementById('displayOrderId');
+
+            if (lastOrder) {
+                try {
+                    const orderData = JSON.parse(lastOrder);
+                    // Use Order Number or fallback to ID
+                    const orderId = orderData.orderNumber || orderData._id || orderData.id;
+                    // Format ID: Take last 6 chars & uppercase if it's a long Mongo ID
+                    displayEl.textContent = orderId.length > 10 ? '#' + orderId.slice(-6).toUpperCase() : '#' + orderId;
+                } catch (e) {
+                    displayEl.textContent = "#CONFIRMED";
+                }
+            } else {
+                displayEl.textContent = "#CONFIRMED";
+            }
+
+            // Trigger Confetti
+            startConfetti();
+        });
+
+        // 2. CONFETTI ENGINE (Pure JS, Lightweight)
+        function startConfetti() {
+            const colors = ['#FFB7C5', '#FFD700', '#98FB98', '#87CEEB', '#FFA07A'];
+            const container = document.getElementById('confetti-container');
+
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                
+                // Random properties
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                confetti.style.opacity = Math.random();
+                confetti.style.transform = `scale(${Math.random()})`;
+                
+                container.appendChild(confetti);
+
+                // Remove after animation
+                setTimeout(() => {
+                    confetti.remove();
+                }, 5000);
+            }
+        }
+    </script>
+</body>
+</html>

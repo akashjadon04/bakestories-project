@@ -1,0 +1,8 @@
+# Images for Upload
+
+Place your product images and hero images in this folder.
+
+When you run `npm run fetch-instagram` without an Instagram token,
+the system will upload these images to Cloudinary instead.
+
+Supported formats: .jpg, .jpeg, .png, .gif, .webp
