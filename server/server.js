@@ -27,9 +27,13 @@ const PORT = process.env.PORT || 5000;
 // --- 2. SECURITY & MIDDLEWARE ---
 // Allow Frontend (Port 3000) to talk to Backend (Port 5000)
 app.use(cors({
-  origin: '*', // Allow all origins for development
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'Idempotency-Key']
+  origin: [
+    "https://bakestories-project.vercel.app",
+    "http://localhost:3000",
+    "http://localhost:5000"
+  ],
+  methods: ["GET","POST","PUT","DELETE"],
+  allowedHeaders: ["Content-Type","Authorization","Idempotency-Key"]
 }));
 
 app.use(express.json()); 
@@ -78,6 +82,9 @@ const Coupon = mongoose.models.Coupon || mongoose.model('Coupon', new mongoose.S
   value: { type: Number, required: true },
   status: { type: String, default: 'active' }
 }));
+
+// Serve frontend files if needed
+app.use(express.static(path.join(__dirname, "public")));
 
 // --- 6. API ROUTES (The Nervous System) ---
 

@@ -23,7 +23,7 @@
 // 1. GLOBAL CONFIG & STATE
 // ==========================================
 const AppConfig = {
-    apiBase: 'https://bakestories-project.onrender.com/api',
+    apiBase: "https://bakestories-project.onrender.com/api"
     currencySym: '₹',
     animationSpeed: 300,
     colors: {
