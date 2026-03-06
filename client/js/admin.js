@@ -149,7 +149,7 @@
     window.alert = function(msg) { window.showAdminToast(msg); };
 
     // 1. CONFIGURATION
-    const API_BASE_URL = 'http://localhost:5000/api';
+    const API_BASE_URL = 'https://bakestories-project.onrender.com/api';
     
     // 2. STATE MANAGEMENT (Holds your data)
     let adminState = {

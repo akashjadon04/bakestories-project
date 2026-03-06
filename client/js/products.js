@@ -92,7 +92,7 @@ async function loadProducts(options = {}) {
   try {
     // --- FIX 2: DIRECT BACKEND URL ---
     // Use full URL to port 5000 to avoid "Failed to load" errors
-    let endpoint = `http://localhost:5000/api/products?page=${page}&limit=${productsState.limit}`;
+    let endpoint = `https://bakestories-project.onrender.com/api/products?page=${page}&limit=${productsState.limit}`;
     
     if (category && category !== 'all') {
       endpoint += `&category=${category}`;
@@ -184,7 +184,7 @@ async function loadFeaturedProducts() {
   
   try {
     // FIX: Direct fetch
-    const response = await fetch('http://localhost:5000/api/products/featured/list?limit=8').then(res => res.json());
+    const response = await fetch('https://bakestories-project.onrender.com/api/products/featured/list?limit=8').then(res => res.json());
     
     if (response.success) {
       productsState.products = response.data.products;
@@ -205,7 +205,7 @@ async function loadCategories() {
   
   try {
     // FIX: Direct fetch
-    const response = await fetch('http://localhost:5000/api/products/categories/all').then(res => res.json());
+    const response = await fetch('https://bakestories-project.onrender.com/api/products/categories/all').then(res => res.json());
     
     if (response.success) {
       const categories = response.data.categories;
