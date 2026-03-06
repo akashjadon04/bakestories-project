@@ -29,8 +29,8 @@ const PORT = process.env.PORT || 5000;
 app.use(cors({
   origin: [
     "https://bakestories-project.vercel.app",
-    "http://localhost:3000",
-    "http://localhost:5000"
+    "https://bakestories-project.onrender.com",
+    "http://localhost:3000"
   ],
   methods: ["GET","POST","PUT","DELETE"],
   allowedHeaders: ["Content-Type","Authorization","Idempotency-Key"]
@@ -178,6 +178,32 @@ import orderRoutes from './routes/orderRoutes.js'; // <--- NEW: Added Order Rout
 app.use('/api/products', productRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/orders', orderRoutes); // <--- NEW: Connected Order Wiring
+
+import bcrypt from "bcryptjs";
+
+app.get("/create-admin", async (req, res) => {
+  const User = mongoose.models.User || mongoose.model("User", new mongoose.Schema({
+    email: String,
+    password: String,
+    isAdmin: Boolean
+  }));
+
+  const existing = await User.findOne({ email: "admin@thebakestories.in" });
+
+  if (existing) {
+    return res.json({ message: "Admin already exists" });
+  }
+
+  const hashed = await bcrypt.hash("Admin123", 10);
+
+  await User.create({
+    email: "admin@thebakestories.in",
+    password: hashed,
+    isAdmin: true
+  });
+
+  res.json({ message: "Admin created successfully" });
+});
 
 // --- 8. START SERVER ---
 app.listen(PORT, () => {
