@@ -117,7 +117,7 @@
 
     @media (max-width: 1024px) { 
         .cursor-dot, .cursor-ring { display: none !important; } 
-        body, a, button, input, select, textarea { cursor: auto !important; }
+        body, a, button, input, select, textarea, .magnetic-wrap, .cat-card { cursor: auto !important; }
     }
 
     /* CANVASES */
@@ -158,7 +158,7 @@
     /* ==========================================================================
        5. PERFECT MAGNETIC BUTTONS & RIPPLE
        ========================================================================== */
-    .magnetic-wrap { display: inline-block; position: relative; padding: 20px; margin: -20px; z-index: 10;}
+    .magnetic-wrap { display: inline-block; position: relative; padding: 25px; margin: -25px; z-index: 10;}
     
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 12px;
@@ -377,7 +377,6 @@
        ========================================================================== */
     .luxury-story-container { background: var(--surface); position: relative; padding: 0; border-radius: 60px 60px 0 0; box-shadow: 0 -20px 50px rgba(0,0,0,0.05); overflow: hidden; }
     
-    /* On desktop, this holds the pinned right side */
     .story-layout { display: flex; max-width: 100%; min-height: 100vh; position: relative;}
     
     .story-text-panel { width: 50%; padding: 10rem 5% 10rem 10%; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 2; }
@@ -398,14 +397,13 @@
     .story-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
     .story-img-wrap::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, var(--surface) 0%, transparent 15%); }
     
-    /* GSAP Vertical Wipe Initial State */
     #sImg2 { clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%); }
 
     /* ==========================================================================
        15. FEATURE 18: SCRATCH TO WIN PROMO CARD
        ========================================================================== */
     .promo-section { padding: 8rem 5%; background: var(--bg-color); text-align: center; }
-    .scratch-wrapper { position: relative; width: 400px; height: 200px; margin: 40px auto 0; border-radius: 24px; box-shadow: var(--shadow-lg); overflow: hidden; background: var(--surface); border: 2px solid var(--primary-light);}
+    .scratch-wrapper { position: relative; width: 100%; max-width: 400px; height: 200px; margin: 40px auto 0; border-radius: 24px; box-shadow: var(--shadow-lg); overflow: hidden; background: var(--surface); border: 2px solid var(--primary-light);}
     .scratch-content { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--primary-light); }
     .scratch-content h3 { font-family: 'Outfit'; font-size: 1.2rem; color: var(--text-main); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 2px; }
     .scratch-content .code { font-family: 'Berkshire Swash'; font-size: 3.5rem; color: var(--primary-dark); line-height: 1;}
@@ -511,14 +509,14 @@
     .mobile-bottom-nav { display: none; }
     
     /* ==========================================================================
-       22. MOBILE RESPONSIVENESS (FLAWLESS LAYOUT FIXES)
+       22. MOBILE RESPONSIVENESS (100% OPTIMIZED AMAZON-STYLE LAYOUT)
        ========================================================================== */
     @media (max-width: 1024px) {
       .header-inner { padding: 0 20px; }
       .nav-list { display: none; }
       .menu-toggle { display: flex; }
       
-      .hero-section { height: 100svh; min-height: auto; } /* Fix iOS Safari Height */
+      .hero-section { height: 100svh; min-height: auto; } 
       
       /* Reset Story Layout for Mobile */
       .story-layout { flex-direction: column; min-height: auto; }
@@ -543,21 +541,94 @@
       .viz-grid { grid-template-columns: 1fr; }
     }
 
+    /* THE TRUE MOBILE-FIRST OVERRIDES */
     @media (max-width: 768px) {
+        /* App-like Header */
+        .logo img { height: 40px; }
+        .logo-text { font-size: 1.8rem; }
+        .header { padding: 15px 0; }
+        .header.scrolled { padding: 10px 0; }
+        
+        /* App-like Hero Slider */
+        .hero-section { min-height: 80svh; height: 80svh; } /* Show content below fold */
+        .hero-title { font-size: 2.8rem !important; margin-bottom: 15px; }
+        .hero-desc { font-size: 1rem; margin-bottom: 25px; padding: 0 10px; }
+        .btn { padding: 12px 25px !important; font-size: 0.95rem !important; }
+        .hero-badge { font-size: 0.7rem; padding: 6px 15px; margin-bottom: 15px; }
+        .h-bullet { width: 40px; height: 3px; }
+        
+        /* Compact Insta-Stories */
+        .story-section { padding: 25px 0; }
+        .story-wrapper { gap: 15px; }
+        .story-ring { width: 70px; height: 70px; padding: 2px; }
+        .story-text { font-size: 0.8rem; }
+        
+        /* Compact Marquee */
+        .marquee-content { font-size: 0.9rem; }
+        .section-title { font-size: 2.2rem !important; margin-bottom: 15px; }
+        .section-subtitle { font-size: 0.85rem; letter-spacing: 2px; }
+        
+        /* Compact Categories */
+        .categories-section { padding: 3rem 5%; border-radius: 30px; }
+        .cat-card { height: 200px; border-radius: 15px; }
+        .cat-title { font-size: 1.8rem; }
+        .cat-link { padding: 8px 15px; font-size: 0.8rem; }
+        
+        /* 2-COLUMN AMAZON PRODUCT GRID */
+        .grid-4 { grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 30px; }
+        .product-card { padding: 10px; border-radius: 15px; }
+        .product-img-box { height: 150px; margin-bottom: 10px; border-radius: 10px; }
+        .product-badge { font-size: 0.65rem; padding: 4px 8px; top: 8px; left: 8px; }
+        .product-title { font-size: 0.9rem; margin-bottom: 4px; line-height: 1.2; }
+        .stars { font-size: 0.8rem; margin-bottom: 5px; }
+        .product-price { font-size: 1.1rem; }
+        .product-price span { font-size: 0.85rem; }
+        
+        /* Inline "Add to Cart" (Not Absolute on Mobile) */
+        .add-to-cart-btn { 
+            position: relative; bottom: 0; left: 0; transform: none; 
+            width: 100%; margin-top: 10px; padding: 8px; font-size: 0.85rem; 
+            border-radius: 10px; box-shadow: none; 
+        }
+        .product-card:hover .add-to-cart-btn { bottom: 0; transform: none; }
+        
+        /* Fix Scratch Card Overflow */
+        .scratch-wrapper { width: 100%; max-width: 320px; height: 160px; margin: 20px auto 0; }
+        .scratch-content .code { font-size: 2.5rem; }
+        
+        /* Visualizer Fix */
+        .viz-image-box { height: 300px; border-radius: 20px; }
+        .viz-btn { padding: 12px; font-size: 0.9rem; border-radius: 12px; }
+        
+        /* Parallax Banner */
+        .parallax-banner { height: 400px; margin: 50px 0; }
+        .banner-content h2 { font-size: 2.5rem; }
+        
         /* Mobile App Bottom Nav */
         .mobile-bottom-nav {
-            display: flex; position: fixed; bottom: 20px; left: 5%; right: 5%; width: 90%;
+            display: flex; position: fixed; bottom: 15px; left: 5%; right: 5%; width: 90%;
             background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border-radius: 30px; justify-content: space-around; padding: 12px 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1); z-index: 10000; border: 1px solid var(--glass-border);
+            border-radius: 25px; justify-content: space-around; padding: 10px 5px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15); z-index: 10000; border: 1px solid var(--glass-border);
         }
-        .bottom-nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-muted); text-decoration: none; font-family: 'Poppins'; font-size: 0.75rem; font-weight: 600; gap: 4px; position: relative;}
+        .bottom-nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-muted); text-decoration: none; font-family: 'Poppins'; font-size: 0.7rem; font-weight: 600; gap: 4px; position: relative;}
         .bottom-nav-item i { font-size: 1.4rem; transition: 0.3s; }
         .bottom-nav-item.active { color: var(--primary-dark); }
         .bottom-nav-item.active i { transform: translateY(-3px); }
         
-        .footer { padding-bottom: 120px; } /* Space for bottom nav */
-        .grid-4 { grid-template-columns: 1fr; gap: 30px; }
+        .footer { padding-bottom: 100px; } 
+    }
+
+    @media (max-width: 400px) {
+        .grid-4 { gap: 8px; }
+        .product-card { padding: 8px; }
+        .product-img-box { height: 130px; }
+        .product-title { font-size: 0.85rem; }
+        .product-price { font-size: 1rem; }
+        .btn { padding: 10px 20px !important; }
+        .hero-title { font-size: 2.4rem !important; }
+        .scratch-wrapper { height: 140px; }
+        .scratch-content .code { font-size: 2rem; }
     }
   </style>
 </head>
@@ -596,7 +667,7 @@
   <div class="toast-container" id="toastContainer"></div>
 
   <div class="fomo-toast" id="fomoToast">
-      <img src="https://images.pexels.com/photos/2956951/pexels-photo-2956951.jpeg?auto=compress&cs=tinysrgb&w=100&q=80" class="fomo-img" id="fomoImg">
+      <img src="https://images.pexels.com/photos/2956951/pexels-photo-2956951.jpeg?auto=compress&cs=tinysrgb&w=100&q=80" class="fomo-img" id="fomoImg" alt="Popup Image">
       <div class="fomo-content">
           <p id="fomoText">Someone in <span>Phagwara</span> just bought a Truffle Cake!</p>
           <span class="fomo-time">Just now</span>
@@ -642,7 +713,7 @@
                 <div class="mega-featured">
                     <img src="https://images.pexels.com/photos/1721934/pexels-photo-1721934.jpeg?auto=compress&cs=tinysrgb&w=600&q=80" alt="Featured">
                     <h3 style="font-family: 'Berkshire Swash'; color: var(--primary-dark);">Taste the Magic</h3>
-                    <div class="magnetic-wrap" style="padding:0; margin:20px 0 0 0;"><a href="products.html" class="btn btn-primary magnetic-inner trigger-confetti" style="padding: 15px 30px; font-size: 1.1rem;">Order Now</a></div>
+                    <div class="magnetic-wrap" style="padding:0; margin:15px 0 0 0;"><a href="products.html" class="btn btn-primary magnetic-inner trigger-confetti" style="padding: 12px 25px; font-size: 1rem;">Order Now</a></div>
                 </div>
             </div>
           </li>
@@ -671,21 +742,8 @@
             <span class="cart-badge" id="cartBadge" style="display: none;">0</span>
           </a>
         </div>
-        
-        <button class="menu-toggle" id="menuToggle">
-          <span></span><span></span><span></span>
-        </button>
       </div>
     </div>
-    
-    <nav class="mobile-nav" id="mobileNav" style="background: var(--surface); border-top: 1px solid var(--border-color);">
-      <ul class="mobile-nav-list">
-        <li><a href="index.html" class="mobile-nav-link">Home</a></li>
-        <li><a href="products.html" class="mobile-nav-link">All Products</a></li>
-        <li><a href="products.html?category=cakes" class="mobile-nav-link">Cakes</a></li>
-        <li><a href="products.html?category=cupcakes" class="mobile-nav-link">Cupcakes</a></li>
-      </ul>
-    </nav>
   </header>
 
   <style>
@@ -698,7 +756,7 @@
       <div class="custom-hero-container" id="customHeroSlider">
           
           <div class="hero-slide active">
-            <img src="https://images.pexels.com/photos/1721934/pexels-photo-1721934.jpeg?auto=compress&cs=tinysrgb&w=2560&q=80" class="hero-bg" alt="Premium Cake">
+            <div class="hero-bg-layer" style="position: absolute; inset: 0; background: url('https://images.pexels.com/photos/1721934/pexels-photo-1721934.jpeg?auto=compress&cs=tinysrgb&w=2560&q=80') center/cover; filter: brightness(0.65);"></div>
             <div class="hero-content-wrapper">
               <div class="hero-content">
                 <div class="hero-text-anim"><span class="hero-badge"><i class="ri-star-fill"></i> Bestseller 2024</span></div>
@@ -714,7 +772,7 @@
           </div>
           
           <div class="hero-slide">
-            <img src="https://images.pexels.com/photos/1055272/pexels-photo-1055272.jpeg?auto=compress&cs=tinysrgb&w=2560&q=80" class="hero-bg" alt="Cupcakes">
+            <div class="hero-bg-layer" style="position: absolute; inset: 0; background: url('https://images.pexels.com/photos/1055272/pexels-photo-1055272.jpeg?auto=compress&cs=tinysrgb&w=2560&q=80') center/cover; filter: brightness(0.65);"></div>
             <div class="hero-content-wrapper">
               <div class="hero-content">
                 <div class="hero-text-anim"><span class="hero-badge"><i class="ri-sparkling-fill"></i> New Arrivals</span></div>
@@ -766,7 +824,7 @@
             </a></div>
             <div class="magnetic-wrap"><a href="products.html" class="story-item magnetic-inner">
                 <div class="story-ring"><img src="https://images.pexels.com/photos/2144112/pexels-photo-2144112.jpeg?auto=compress&cs=tinysrgb&w=300&q=80" class="story-img" alt="Eggless"></div>
-                <span class="story-text">100% Eggless</span>
+                <span class="story-text">Eggless</span>
             </a></div>
             <div class="magnetic-wrap"><a href="products.html" class="story-item magnetic-inner">
                 <div class="story-ring"><img src="https://images.pexels.com/photos/2956951/pexels-photo-2956951.jpeg?auto=compress&cs=tinysrgb&w=300&q=80" class="story-img" alt="Custom"></div>
@@ -956,16 +1014,12 @@
           <div class="story-img-wrap" id="sImg1">
             <img src="https://images.pexels.com/photos/4109998/pexels-photo-4109998.jpeg?auto=compress&cs=tinysrgb&w=1600&q=80" alt="Baking Process">
           </div>
-          <div class="story-img-wrap" id="sImg2">
+          <div class="story-img-wrap" id="sImg2" style="clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);">
             <img src="https://images.pexels.com/photos/827516/pexels-photo-827516.jpeg?auto=compress&cs=tinysrgb&w=1600&q=80" alt="Fresh Cake">
           </div>
         </div>
 
       </div>
-    </section>
-
-    <section class="text-scrub-section">
-      <h2 class="scrub-text" id="scrubText">Baking is not a business. It is a passionate art form dedicated to creating unforgettable memories.</h2>
     </section>
 
     <section class="promo-section">
@@ -1023,7 +1077,9 @@
       </div>
     </section>
 
-  </main> <div class="footer-wrapper">
+  </main> 
+
+  <div class="footer-wrapper">
       <div class="container" style="position: relative; z-index: 10;">
         <div class="newsletter-wrapper">
           <div class="news-text">
@@ -1140,7 +1196,7 @@
 
     let loaded = false;
     window.addEventListener('load', () => { if(!loaded) { loaded = true; hidePreloader(); } });
-    setTimeout(() => { if(!loaded) { loaded = true; hidePreloader(); } }, 2000); // 2s Max limit
+    setTimeout(() => { if(!loaded) { loaded = true; hidePreloader(); } }, 2000); 
 
     // ============================================
     // 2. LIQUID CUSTOM CURSOR
@@ -1197,8 +1253,10 @@
             let rect = this.getBoundingClientRect();
             let size = Math.max(rect.width, rect.height);
             ripple.style.width = ripple.style.height = size + 'px';
+            
             let clientX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
             let clientY = e.clientY || (e.touches && e.touches[0].clientY) || 0;
+            
             ripple.style.left = clientX - rect.left - size/2 + 'px';
             ripple.style.top = clientY - rect.top - size/2 + 'px';
             setTimeout(() => { ripple.remove(); }, 600);
@@ -1329,9 +1387,8 @@
     });
 
     // ============================================
-    // 7. 100% CUSTOM GSAP HERO SLIDER (NO SWIPER BUG)
+    // 7. 100% CUSTOM GSAP HERO SLIDER
     // ============================================
-    // THE FIX: We wrote a pure vanilla JS slider so Swiper cannot conflict with GSAP on load.
     const slides = document.querySelectorAll('.hero-slide');
     const bullets = document.querySelectorAll('.h-bullet');
     let currentSlide = 0;
@@ -1361,9 +1418,8 @@
         slides[currentSlide].classList.add('active');
         bullets[currentSlide].classList.add('active');
         
-        // Reset image scale for ken burns
-        gsap.fromTo(slides[currentSlide].querySelector('.hero-bg'), 
-            { scale: 1.1 }, { scale: 1, duration: 8, ease: "power1.out" }
+        gsap.fromTo(slides[currentSlide].querySelector('.hero-bg-layer'), 
+            { scale: 1.15 }, { scale: 1, duration: 8, ease: "power1.out" }
         );
         
         setTimeout(() => { animateHeroTextIn(currentSlide); }, 300);
@@ -1383,10 +1439,7 @@
         });
     });
 
-    // Start Slider
     let sliderInterval = setInterval(nextSlide, 7000);
-    
-    // Initial Text Animation
     setTimeout(() => { animateHeroTextIn(0); }, 500);
 
     // ============================================
@@ -1409,7 +1462,7 @@
         
         toast.classList.add('show');
         setTimeout(() => { toast.classList.remove('show'); }, 4000);
-    }, 15000); // Pops up every 15 seconds
+    }, 15000); 
 
     // ============================================
     // 9. FEATURE 20: "HOT OUT THE OVEN" COUNTDOWN
@@ -1426,7 +1479,7 @@
         }, 1000);
     }
     const timerDisplay = document.getElementById('hotTimer');
-    if(timerDisplay) startTimer(60 * 45, timerDisplay); // 45 Minutes
+    if(timerDisplay) startTimer(60 * 45, timerDisplay);
 
     // ============================================
     // 10. FEATURE 19: 3D CAKE VISUALIZER
@@ -1439,7 +1492,6 @@
             vizBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             
-            // GSAP Crossfade
             gsap.to(vizImg, {opacity: 0, scale: 0.9, duration: 0.3, onComplete: () => {
                 vizImg.src = btn.getAttribute('data-img');
                 gsap.to(vizImg, {opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.7, 0.3)"});
@@ -1455,7 +1507,11 @@
         document.body.classList.add('theme-transitioning');
         document.body.classList.toggle('dark-mode');
         const icon = themeToggle.querySelector('i');
-        icon.className = document.body.classList.contains('dark-mode') ? 'ri-sun-line' : 'ri-moon-clear-line';
+        if (document.body.classList.contains('dark-mode')) {
+            icon.className = 'ri-sun-line';
+        } else {
+            icon.className = 'ri-moon-clear-line';
+        }
         setTimeout(() => document.body.classList.remove('theme-transitioning'), 800);
     });
 
@@ -1468,8 +1524,15 @@
     let isPlaying = false;
 
     soundToggle.addEventListener('click', () => {
-        if(isPlaying) { audio.pause(); soundIcon.classList.add('sound-off'); isPlaying = false; } 
-        else { audio.play().catch(e => console.log("Audio blocked")); soundIcon.classList.remove('sound-off'); isPlaying = true; }
+        if(isPlaying) {
+            audio.pause();
+            soundIcon.classList.add('sound-off');
+            isPlaying = false;
+        } else {
+            audio.play().catch(e => console.log("Audio play blocked by browser."));
+            soundIcon.classList.remove('sound-off');
+            isPlaying = true;
+        }
     });
 
     // ============================================
@@ -1505,7 +1568,7 @@
     });
 
     // ============================================
-    // 14. GSAP STORYTELLING (VERTICAL PINNED PARALLAX)
+    // 14. GSAP STORYTELLING
     // ============================================
     gsap.utils.toArray('.reveal-wrap').forEach(wrap => {
         const text = wrap.querySelector('.gsap-reveal');
@@ -1522,7 +1585,6 @@
         scrollTrigger: { trigger: ".text-scrub-section", start: "top 80%", end: "bottom 50%", scrub: 1 }
     });
 
-    // "OUR STORY" Sticky Image Switcher
     if (window.innerWidth > 1024) {
         const storyTL = gsap.timeline({
             scrollTrigger: {
@@ -1534,7 +1596,6 @@
             }
         });
         
-        // Wipe & Timeline fill synchronized
         storyTL.to("#sImg2", { clipPath: "polygon(0 0%, 100% 0%, 100% 100%, 0% 100%)", ease: "none" }, 0)
                .to("#storyProgress", { height: "100%", ease: "none" }, 0);
         
@@ -1554,22 +1615,23 @@
         let isDrawing = false;
 
         function initScratch() {
-            scratchCanvas.width = 400; scratchCanvas.height = 200;
-            // Draw Silver Foil
+            scratchCanvas.width = scratchCanvas.parentElement.offsetWidth; 
+            scratchCanvas.height = scratchCanvas.parentElement.offsetHeight;
             scratchCtx.fillStyle = '#E2E8F0';
             scratchCtx.fillRect(0, 0, scratchCanvas.width, scratchCanvas.height);
-            // Add text over foil
             scratchCtx.fillStyle = '#6B7280';
             scratchCtx.font = "20px 'Outfit'";
             scratchCtx.textAlign = "center";
-            scratchCtx.fillText("Scratch Here", 200, 105);
+            scratchCtx.fillText("Scratch Here", scratchCanvas.width/2, scratchCanvas.height/2 + 5);
         }
+        
+        window.addEventListener('resize', initScratch);
         initScratch();
 
         function scratch(x, y) {
             scratchCtx.globalCompositeOperation = 'destination-out';
             scratchCtx.beginPath();
-            scratchCtx.arc(x, y, 20, 0, Math.PI * 2);
+            scratchCtx.arc(x, y, 25, 0, Math.PI * 2);
             scratchCtx.fill();
         }
 
@@ -1578,7 +1640,6 @@
         scratchCanvas.addEventListener('mouseup', () => { isDrawing = false; });
         scratchCanvas.addEventListener('mouseleave', () => { isDrawing = false; });
 
-        // Touch support
         scratchCanvas.addEventListener('touchstart', (e) => {
             isDrawing = true;
             const rect = scratchCanvas.getBoundingClientRect();
