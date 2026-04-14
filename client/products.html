@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Browse our delicious collection of cakes, cupcakes, cookies, and pastries at The Bake Stories.">
   <meta name="theme-color" content="#ffc0cb">
@@ -12,12 +13,127 @@
   <link rel="manifest" href="assets/manifest.json">
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/animations.css">
+
+  <style>
+    /* ==========================================================================
+       📱 AMAZON-STYLE MOBILE UI OVERRIDES (PRODUCTS PAGE)
+       ========================================================================== */
+    @media (max-width: 768px) {
+        /* 1. Swipeable Horizontal Category Filters */
+        .filters-bar > div { flex-direction: column; align-items: stretch !important; gap: 15px; }
+        .filter-group {
+            display: flex;
+            flex-wrap: nowrap !important;
+            overflow-x: auto;
+            padding-bottom: 5px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; /* Firefox */
+        }
+        .filter-group::-webkit-scrollbar { display: none; /* Safari/Chrome */ }
+        .filter-btn {
+            flex: 0 0 auto;
+            padding: 8px 18px;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            border-radius: 20px;
+        }
+
+        /* 2. Sort Dropdown Full Width */
+        .sort-group, .sort-group select { width: 100%; font-size: 0.9rem; }
+
+        /* 3. The 2-Column Product Grid */
+        .products-grid {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr !important; /* Amazon Style 2-Columns */
+            gap: 12px !important;
+        }
+
+        /* 4. Compact Product Card */
+        .product-card {
+            padding: 10px;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            height: 100%;
+        }
+        
+        /* 5. Image & Badges */
+        .product-image { position: relative; }
+        .product-image img {
+            height: 140px;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .product-image .badge { font-size: 0.65rem; padding: 3px 6px; position: absolute; top: 5px; left: 5px; background: #111827; color: #fff; border-radius: 10px;}
+        .product-image .badge-sale { background: #FFD700; color: #000; top: 5px; left: auto; right: 35px; }
+        .wishlist-btn { position: absolute; top: 5px; right: 5px; width: 28px; height: 28px; border-radius: 50%; background: #fff; border: 1px solid #eee; display: flex; align-items: center; justify-content: center; color: #6B7280; padding: 0;}
+        .wishlist-btn svg { width: 14px; height: 14px; }
+
+        /* 6. Text & Pricing */
+        .product-info { padding: 8px 0 0 0; display: flex; flex-direction: column; flex-grow: 1; }
+        .product-category { font-size: 0.65rem; margin-bottom: 2px; text-transform: uppercase; color: #6B7280; }
+        .product-name {
+            font-size: 0.9rem;
+            line-height: 1.2;
+            margin-bottom: 4px;
+            height: 2.4em; /* Keep uniform height for names */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            font-weight: 600;
+            color: #111827;
+        }
+        .product-price-row {
+            display: flex;
+            flex-direction: column; /* Stack prices on mobile */
+            align-items: flex-start;
+            gap: 0;
+            margin-bottom: 8px;
+            margin-top: auto;
+        }
+        .product-price { font-size: 1.1rem; font-weight: 700; color: #FB6F92; }
+        .product-compare-price { font-size: 0.8rem; color: #999; text-decoration: line-through; }
+
+        /* 7. Action Button */
+        .add-to-cart {
+            width: 100%;
+            padding: 8px;
+            font-size: 0.85rem;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            background: #FFE5EC; 
+            color: #FB6F92; 
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .add-to-cart svg { width: 14px; height: 14px; }
+
+        /* General Mobile Spacing */
+        .section-title { font-size: 2rem; }
+        .section-subtitle { font-size: 0.9rem; }
+        .container { padding: 0 15px; }
+    }
+
+    @media (max-width: 380px) {
+        .products-grid { gap: 8px !important; }
+        .product-card { padding: 8px; }
+        .product-image img { height: 120px; }
+        .product-name { font-size: 0.85rem; }
+    }
+  </style>
 </head>
 <body>
-  <!-- Toast Container -->
   <div class="toast-container" id="toastContainer"></div>
   
-  <!-- Header -->
   <header class="header" id="header">
     <div class="container">
       <div class="header-inner">
@@ -66,7 +182,6 @@
   </header>
 
   <main class="page-transition">
-    <!-- Page Header -->
     <section class="section" style="background: var(--brand-pink-light); padding: var(--space-lg) 0;">
       <div class="container">
         <div class="text-center">
@@ -76,13 +191,10 @@
       </div>
     </section>
 
-    <!-- Products Section -->
     <section class="section">
       <div class="container">
-        <!-- Filters -->
         <div class="filters-bar" style="margin-bottom: var(--space-lg);">
           <div style="display: flex; flex-wrap: wrap; gap: var(--space); align-items: center; justify-content: space-between;">
-            <!-- Category Filter -->
             <div class="filter-group" style="display: flex; gap: var(--space-sm); flex-wrap: wrap;">
               <button class="filter-btn active" data-category="all">All</button>
               <button class="filter-btn" data-category="cakes">Cakes</button>
@@ -92,7 +204,6 @@
               <button class="filter-btn" data-category="brownies">Brownies</button>
             </div>
             
-            <!-- Sort -->
             <div class="sort-group">
               <select id="sortSelect" class="form-select" style="padding: var(--space-sm) var(--space); border: 1px solid var(--brand-pink); border-radius: var(--radius-sm); background: white;">
                 <option value="newest">Newest First</option>
@@ -104,21 +215,17 @@
           </div>
         </div>
         
-        <!-- Products Grid -->
         <div class="products-grid" id="productsGrid">
-          <!-- Loading Skeletons -->
           <div class="skeleton" style="height: 350px; border-radius: var(--radius);"></div>
           <div class="skeleton" style="height: 350px; border-radius: var(--radius);"></div>
           <div class="skeleton" style="height: 350px; border-radius: var(--radius);"></div>
           <div class="skeleton" style="height: 350px; border-radius: var(--radius);"></div>
         </div>
         
-        <!-- Load More -->
         <div class="text-center mt-lg" id="loadMoreContainer">
           <button class="btn btn-secondary" id="loadMoreBtn">Load More</button>
         </div>
         
-        <!-- No Products -->
         <div class="text-center" id="noProducts" style="display: none; padding: var(--space-xl) 0;">
           <div style="font-size: 4rem; margin-bottom: var(--space);">🧁</div>
           <h3>No products found</h3>
@@ -128,7 +235,6 @@
     </section>
   </main>
 
-  <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
@@ -162,7 +268,6 @@
     </div>
   </footer>
 
-  <!-- Floating Action Button -->
   <a href="cart.html" class="fab" id="fabCart" aria-label="View Cart">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
