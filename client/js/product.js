@@ -351,7 +351,8 @@ function renderNutrition(p) {
 function renderGallery(p) {
     const mainImg = document.getElementById('mainImage');
     const thumbContainer = document.getElementById('thumbnailContainer');
-    let primaryUrl = p.primaryImage?.url || (p.images && p.images[0] ? p.images[0].url : null) || AppConfig.placeholders.image;
+    let rawUrl = p.primaryImage?.url || (p.images && p.images[0] ? p.images[0].url : null) || AppConfig.placeholders.image;
+    let primaryUrl = rawUrl ? rawUrl.replace(/^http:\/\//i, 'https://') : AppConfig.placeholders.image;
     let allImages = p.images && p.images.length > 0 ? p.images : [{ url: primaryUrl }];
 
     if (mainImg) {
@@ -442,10 +443,11 @@ if (addToCartBtn) {
         const qty = parseInt(State.qty) || 1;
         const pId = String(product._id || product.id || Date.now());
         
-        // Setup secure Image URL
-        const imageStr = (product.primaryImage && product.primaryImage.url) 
+       // Setup secure Image URL
+        let rawImageStr = (product.primaryImage && product.primaryImage.url) 
             ? product.primaryImage.url 
             : ((product.images && product.images.length > 0) ? product.images[0].url : AppConfig.placeholders.image);
+        const imageStr = rawImageStr ? rawImageStr.replace(/^http:\/\//i, 'https://') : AppConfig.placeholders.image;
 
         // 2. Build bulletproof cart item that won't crash Cart.js
         const cartItem = {
