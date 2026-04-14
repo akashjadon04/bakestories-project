@@ -407,14 +407,16 @@
     </div>
   </footer>
 
+  <script src="js/main.js"></script>
+
   <script>
-      // Simple fallback utils if missing
       window.utils = window.utils || {
           formatCurrency: (price) => '₹' + Number(price).toFixed(2),
           getUrlParam: (name) => new URLSearchParams(window.location.search).get(name)
       };
   </script>
-  <script src="js/cart.js"></script>
+
   <script src="js/product.js"></script>
+  <script src="js/cart.js"></script>
 </body>
 </html>
