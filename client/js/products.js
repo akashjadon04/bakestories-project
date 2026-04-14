@@ -32,9 +32,10 @@ function createProductCard(product) {
     ? Math.round(((product.comparePrice - product.price) / product.comparePrice) * 100)
     : 0;
   
-  // Safe Image Handling
-  const imageUrl = product.primaryImage?.url || product.images?.[0]?.url || 
+  // Safe Image Handling + HTTP to HTTPS Auto-Upgrade
+  let rawImageUrl = product.primaryImage?.url || product.images?.[0]?.url || 
     `https://placehold.co/400x400/ffc0cb/ffffff?text=${encodeURIComponent(product.name)}`;
+  const imageUrl = rawImageUrl.replace(/^http:\/\//i, 'https://');
   
   // Safe JSON for onclick
   const safeProduct = JSON.stringify(product).replace(/'/g, "&#39;").replace(/"/g, "&quot;");
