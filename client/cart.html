@@ -156,13 +156,121 @@
         grid-template-columns: 2fr 1fr;
       }
     }
+
+    /* =======================================================
+       ZYROVA DIGITAL: PREMIUM NATIVE-APP MOBILE CART
+       ======================================================= */
+    @media (max-width: 767px) {
+      /* 1. Tighten the overall layout */
+      .section {
+        padding: 1rem 0;
+      }
+      
+      /* Add padding to the bottom so the sticky cart doesn't cover the last item */
+      .cart-grid {
+        gap: 1rem;
+        padding-bottom: 260px; 
+      }
+      
+      /* 2. Compact Cart Items (App Style) */
+      .cart-item {
+        padding: 0.75rem;
+        gap: 0.75rem;
+        align-items: center; /* Centers the image with the text naturally */
+      }
+      
+      .cart-item-image {
+        width: 75px;
+        height: 75px;
+        border-radius: 8px;
+      }
+      
+      .cart-item-name {
+        font-size: 0.95rem;
+        margin-bottom: 2px;
+      }
+      
+      .cart-item-variant {
+        font-size: 0.75rem;
+        margin-bottom: 4px;
+      }
+      
+      .cart-item-price {
+        font-size: 1rem;
+      }
+      
+      /* 3. Streamlined Quantity Controls */
+      .cart-item-actions {
+        margin-top: 8px;
+        justify-content: space-between; /* Pushes Remove to the far right */
+        width: 100%;
+      }
+      
+      .quantity-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 0.9rem;
+      }
+      
+      .quantity-input {
+        width: 32px;
+        height: 28px;
+        font-size: 0.9rem;
+      }
+      
+      /* 4. THE MAGIC: Amazon-Style Sticky Bottom Checkout Bar */
+      .cart-summary {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        top: auto !important; /* Overrides desktop sticky behavior */
+        border-radius: 20px 20px 0 0;
+        box-shadow: 0 -10px 25px rgba(0,0,0,0.1);
+        padding: 1.25rem 1rem;
+        z-index: 1000;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      
+      /* Hide the 'Order Summary' heading to save precious mobile screen space */
+      .cart-summary h3 {
+        display: none; 
+      }
+      
+      .coupon-input {
+        margin-bottom: 0.75rem;
+      }
+      
+      .coupon-input input {
+        padding: 0.5rem;
+        font-size: 0.85rem;
+      }
+      
+      /* Tighten the subtotal rows */
+      .summary-row {
+        padding: 4px 0;
+        font-size: 0.85rem;
+      }
+      
+      .summary-row:last-child {
+        font-size: 1.1rem;
+        padding-top: 8px;
+        margin-top: 4px;
+      }
+      
+      #checkoutBtn {
+        margin-top: 0.75rem !important;
+        padding: 0.85rem;
+        font-size: 1rem;
+        border-radius: 50px; /* Pill shape for higher mobile tap-rates */
+      }
+    }
   </style>
 </head>
 <body>
-  <!-- Toast Container -->
   <div class="toast-container" id="toastContainer"></div>
   
-  <!-- Header -->
   <header class="header" id="header">
     <div class="container">
       <div class="header-inner">
@@ -206,7 +314,6 @@
   </header>
 
   <main class="page-transition">
-    <!-- Page Header -->
     <section class="section" style="background: var(--brand-pink-light); padding: var(--space-lg) 0;">
       <div class="container">
         <div class="text-center">
@@ -216,10 +323,8 @@
       </div>
     </section>
 
-    <!-- Cart Section -->
     <section class="section">
       <div class="container">
-        <!-- Empty Cart State -->
         <div class="empty-cart" id="emptyCart" style="display: none;">
           <div class="empty-cart-icon">🛒</div>
           <h2>Your cart is empty</h2>
@@ -227,13 +332,10 @@
           <a href="products.html" class="btn btn-primary">Start Shopping</a>
         </div>
         
-        <!-- Cart Content -->
         <div class="cart-grid" id="cartContent">
-          <!-- Cart Items -->
           <div>
             <div id="cartItems">
-              <!-- Items loaded dynamically -->
-            </div>
+              </div>
             
             <div style="margin-top: var(--space-lg);">
               <a href="products.html" class="btn btn-outline">
@@ -245,19 +347,16 @@
             </div>
           </div>
           
-          <!-- Cart Summary -->
           <div>
             <div class="cart-summary">
               <h3 style="margin-bottom: var(--space-md);">Order Summary</h3>
               
-              <!-- Coupon -->
               <div class="coupon-input">
                 <input type="text" id="couponInput" placeholder="Enter coupon code">
                 <button class="btn btn-secondary btn-sm" id="applyCouponBtn">Apply</button>
               </div>
               <div id="couponMessage" style="margin-bottom: var(--space); font-size: 0.875rem;"></div>
               
-              <!-- Summary -->
               <div class="summary-row">
                 <span>Subtotal</span>
                 <span id="subtotal">₹0</span>
@@ -292,7 +391,6 @@
     </section>
   </main>
 
-  <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
