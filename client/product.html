@@ -256,6 +256,132 @@
       .actions-row { flex-direction: column; }
       .add-to-cart-btn { width: 100%; }
     }
+
+    /* =======================================================
+       ZYROVA DIGITAL: PREMIUM NATIVE-APP MOBILE PRODUCT VIEW
+       ======================================================= */
+    @media (max-width: 767px) {
+      /* Overall Layout & Spacing */
+      .container { padding: 1rem !important; }
+      main.container { padding-bottom: 120px !important; } /* Space for sticky bar */
+      .breadcrumbs { margin-bottom: 1rem !important; font-size: 0.8rem !important; }
+      
+      .product-detail-wrapper {
+        padding: 1.25rem !important;
+        gap: 1.5rem !important;
+        border-radius: 16px !important;
+        margin-bottom: 2rem !important;
+      }
+
+      /* Gallery Engine Upgrade */
+      .main-image-stage {
+        height: 320px !important; /* Perfect height to keep title visible 'above the fold' */
+        border-radius: 12px !important;
+        margin-bottom: 1rem !important;
+      }
+      .gallery-thumbnails {
+        overflow-x: auto;
+        padding-bottom: 5px;
+        scrollbar-width: none; /* Firefox */
+      }
+      .gallery-thumbnails::-webkit-scrollbar { display: none; /* Chrome/Safari */ }
+      .thumb {
+        min-width: 65px;
+        height: 65px;
+      }
+
+      /* Micro-Typography for Mobile */
+      .product-title { font-size: 2.2rem !important; margin-bottom: 0.5rem !important; }
+      .current-price { font-size: 2rem !important; }
+      .compare-price { font-size: 1.1rem !important; }
+      .category-tag { font-size: 0.8rem !important; padding: 0.3rem 0.9rem !important; margin-bottom: 0.75rem !important; }
+      .short-description { 
+        padding: 1rem !important; 
+        font-size: 0.95rem !important; 
+        margin-bottom: 1.5rem !important; 
+      }
+      .product-meta-row { margin-bottom: 1rem !important; gap: 1rem !important; flex-wrap: wrap; }
+
+      /* THE MAGIC: Sticky Bottom "Add to Cart" Action Bar */
+      .actions-row {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        margin: 0 !important;
+        padding: 1rem;
+        padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+        box-shadow: 0 -10px 20px rgba(0,0,0,0.05);
+        z-index: 1000;
+        flex-direction: row !important; /* Force side-by-side */
+        align-items: center;
+        gap: 0.75rem !important;
+        border-top: 1px solid #FFE5EC;
+        flex-wrap: nowrap !important;
+      }
+
+      .qty-selector {
+        flex-shrink: 0;
+        padding: 0.25rem !important;
+      }
+      .qty-btn { width: 32px !important; height: 32px !important; }
+      .qty-input { width: 35px !important; font-size: 1rem !important; }
+
+      .add-to-cart-btn {
+        flex-grow: 1;
+        padding: 0.8rem 1rem !important;
+        font-size: 1.05rem !important;
+        min-width: 0 !important;
+        border-radius: 50px !important;
+      }
+
+      .wishlist-btn-lg {
+        width: 48px !important;
+        height: 48px !important;
+        font-size: 1.2rem !important;
+        flex-shrink: 0;
+      }
+
+      /* USPs */
+      .usp-grid {
+        gap: 0.5rem !important;
+        padding-top: 1.5rem !important;
+      }
+      .usp-icon { font-size: 1.8rem !important; }
+      .usp-title { font-size: 0.75rem !important; }
+
+      /* Tabs Restructuring */
+      .details-tabs {
+        padding: 1.5rem !important;
+        margin-top: 1.5rem !important;
+      }
+      .tab-headers {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        white-space: nowrap;
+        scrollbar-width: none;
+        gap: 1.5rem !important;
+        margin-bottom: 1.5rem !important;
+      }
+      .tab-headers::-webkit-scrollbar { display: none; }
+      .tab-link { font-size: 1rem !important; }
+      .tab-pane { font-size: 0.95rem !important; }
+
+      /* Related Products */
+      .related-section { margin-top: 3rem !important; margin-bottom: 3rem !important; }
+      .section-title { font-size: 2.2rem !important; margin-bottom: 2rem !important; }
+      .related-grid {
+        grid-template-columns: repeat(2, 1fr) !important; /* Force 2 cards side-by-side on mobile */
+        gap: 1rem !important;
+      }
+      .mini-card { padding: 1rem !important; }
+      .mini-card img { height: 120px !important; }
+      .mini-card h4 { font-size: 0.95rem !important; }
+      .mini-card .price { font-size: 0.95rem !important; }
+    }
   </style>
 </head>
 <body>
