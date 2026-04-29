@@ -64,7 +64,7 @@
     .loader-icon { font-size: 4rem; color: var(--primary); animation: float 2s ease-in-out infinite; }
     .loader-text { margin-top: 1rem; font-family: 'Pacifico'; color: var(--text-light); }
 
-    /* ================= NAVBAR (Simplified Placeholder) ================= */
+    /* ================= NAVBAR ================= */
     .navbar {
       display: flex; justify-content: space-between; align-items: center;
       padding: 1.5rem 5%; background: rgba(255,255,255,0.8); backdrop-filter: blur(10px);
@@ -81,7 +81,7 @@
 
     .product-detail-wrapper {
       display: grid;
-      grid-template-columns: 1fr 1.2fr; /* Image column smaller than info */
+      grid-template-columns: 1fr 1.2fr;
       gap: 4rem;
       margin-bottom: 4rem;
       background: #fff;
@@ -127,7 +127,7 @@
       margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px;
     }
     .product-title {
-      font-family: 'Dancing Script', cursive; /* Premium script font */
+      font-family: 'Dancing Script', cursive; 
       font-size: 3.5rem; line-height: 1.1;
       margin-bottom: 1rem; color: var(--text-dark);
     }
@@ -248,8 +248,8 @@
 
     footer { background: #3d2c29; color: #d7ccc8; padding: 3rem; text-align: center; margin-top: auto; }
 
-    /* ================= RESPONSIVE ================= */
-    @media (max-width: 900px) {
+    /* ================= RESPONSIVE (DESKTOP TWEAKS) ================= */
+    @media (max-width: 900px) and (min-width: 768px) {
       .product-detail-wrapper { grid-template-columns: 1fr; gap: 3rem; padding: 1.5rem; }
       .main-image-stage { height: 400px; }
       .product-title { font-size: 2.8rem; }
@@ -258,82 +258,152 @@
     }
 
     /* =======================================================
-       ZYROVA DIGITAL: PREMIUM NATIVE-APP MOBILE PRODUCT VIEW
+       ZYROVA DIGITAL: ULTRA-REFINED NATIVE-APP MOBILE VIEW
        ======================================================= */
     @media (max-width: 767px) {
-      /* Overall Layout & Spacing */
-      .container { padding: 1rem !important; }
-      main.container { padding-bottom: 120px !important; } /* Space for sticky bar */
-      .breadcrumbs { margin-bottom: 1rem !important; font-size: 0.8rem !important; }
+      /* 1. True Edge-to-Edge App Layout */
+      body { background: #fff; }
+      .container { padding: 0 !important; }
+      main.container { padding-bottom: 100px !important; } /* Space for sticky bar */
+      .breadcrumbs { padding: 1rem 1.25rem 0.5rem !important; margin: 0 !important; font-size: 0.8rem !important; }
       
+      /* Hide desktop nav links to un-clutter header */
+      .nav-links { display: none !important; }
+      .navbar { padding: 1rem 1.25rem !important; }
+      .nav-logo { font-size: 1.6rem !important; }
+
+      /* Remove rigid desktop wrapper box */
       .product-detail-wrapper {
-        padding: 1.25rem !important;
-        gap: 1.5rem !important;
-        border-radius: 16px !important;
-        margin-bottom: 2rem !important;
+        padding: 0 1.25rem 1.25rem !important;
+        gap: 1.25rem !important;
+        border-radius: 0 !important;
+        margin-bottom: 0 !important;
+        box-shadow: none !important;
       }
 
-      /* Gallery Engine Upgrade */
+      /* 2. Gallery Engine Upgrade */
       .main-image-stage {
-        height: 320px !important; /* Perfect height to keep title visible 'above the fold' */
+        height: 350px !important; 
         border-radius: 12px !important;
         margin-bottom: 1rem !important;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05) !important;
       }
+      /* Smooth native swiping for thumbnails */
       .gallery-thumbnails {
         overflow-x: auto;
         padding-bottom: 5px;
-        scrollbar-width: none; /* Firefox */
+        scrollbar-width: none; 
       }
-      .gallery-thumbnails::-webkit-scrollbar { display: none; /* Chrome/Safari */ }
-      .thumb {
-        min-width: 65px;
-        height: 65px;
-      }
+      .gallery-thumbnails::-webkit-scrollbar { display: none; }
+      .thumb { min-width: 65px; height: 65px; }
 
-      /* Micro-Typography for Mobile */
+      /* 3. Micro-Typography & Layout */
       .product-title { font-size: 2.2rem !important; margin-bottom: 0.5rem !important; }
       .current-price { font-size: 2rem !important; }
       .compare-price { font-size: 1.1rem !important; }
-      .category-tag { font-size: 0.8rem !important; padding: 0.3rem 0.9rem !important; margin-bottom: 0.75rem !important; }
+      .category-tag { font-size: 0.75rem !important; padding: 0.3rem 0.8rem !important; margin-bottom: 0.75rem !important; }
       .short-description { 
         padding: 1rem !important; 
         font-size: 0.95rem !important; 
         margin-bottom: 1.5rem !important; 
+        border-radius: 12px !important;
       }
       .product-meta-row { margin-bottom: 1rem !important; gap: 1rem !important; flex-wrap: wrap; }
 
-      /* THE MAGIC: Sticky Bottom "Add to Cart" Action Bar */
+      /* 4. THE MAGIC: Native Horizontal Scroll for USPs */
+      /* Fixes the "squished" 3 columns by turning it into a swipeable row */
+      .usp-grid {
+        display: flex !important;
+        overflow-x: auto;
+        scrollbar-width: none;
+        gap: 1rem !important;
+        padding: 1.5rem 0 0.5rem !important;
+        border-top: 1px dashed #eee;
+      }
+      .usp-grid::-webkit-scrollbar { display: none; }
+      .usp-item { 
+        min-width: 100px;
+        flex-shrink: 0;
+        background: var(--accent);
+        padding: 1rem 0.5rem;
+        border-radius: 12px;
+      }
+      .usp-icon { font-size: 1.8rem !important; margin-bottom: 0.5rem !important; }
+      .usp-title { font-size: 0.75rem !important; }
+
+      /* 5. Edge-to-Edge Tabs */
+      .details-tabs {
+        padding: 2rem 1.25rem !important;
+        margin-top: 0 !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        border-top: 8px solid var(--accent);
+      }
+      .tab-headers {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        white-space: nowrap;
+        scrollbar-width: none;
+        gap: 1.5rem !important;
+        margin-bottom: 1.5rem !important;
+      }
+      .tab-headers::-webkit-scrollbar { display: none; }
+      .tab-link { font-size: 1.05rem !important; }
+      .tab-pane { font-size: 0.95rem !important; }
+
+      /* 6. Native App "Swimlane" for Related Products */
+      .related-section { 
+        margin-top: 0 !important; 
+        margin-bottom: 0 !important; 
+        padding: 3rem 1.25rem 2rem !important;
+        background: var(--accent);
+      }
+      .section-title { font-size: 2rem !important; margin-bottom: 1.5rem !important; }
+      /* Swiping carousel instead of a crammed 2-column grid */
+      .related-grid {
+        display: flex !important;
+        overflow-x: auto !important;
+        scrollbar-width: none;
+        gap: 1rem !important;
+        padding-bottom: 1rem;
+      }
+      .related-grid::-webkit-scrollbar { display: none; }
+      .mini-card { 
+        min-width: 200px !important; 
+        flex-shrink: 0;
+        padding: 1rem !important;
+      }
+      .mini-card img { height: 160px !important; }
+
+      /* 7. The Sticky Bottom App Bar */
       .actions-row {
         position: fixed;
         bottom: 0;
         left: 0;
         width: 100%;
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
         margin: 0 !important;
-        padding: 1rem;
-        padding-bottom: calc(1rem + env(safe-area-inset-bottom));
-        box-shadow: 0 -10px 20px rgba(0,0,0,0.05);
+        padding: 0.75rem 1rem;
+        padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
+        box-shadow: 0 -5px 20px rgba(0,0,0,0.08);
         z-index: 1000;
-        flex-direction: row !important; /* Force side-by-side */
+        flex-direction: row !important; 
         align-items: center;
         gap: 0.75rem !important;
         border-top: 1px solid #FFE5EC;
         flex-wrap: nowrap !important;
       }
 
-      .qty-selector {
-        flex-shrink: 0;
-        padding: 0.25rem !important;
-      }
+      .qty-selector { flex-shrink: 0; padding: 0.25rem !important; }
       .qty-btn { width: 32px !important; height: 32px !important; }
       .qty-input { width: 35px !important; font-size: 1rem !important; }
 
       .add-to-cart-btn {
         flex-grow: 1;
-        padding: 0.8rem 1rem !important;
-        font-size: 1.05rem !important;
+        padding: 0.8rem 0.5rem !important;
+        font-size: 1rem !important;
         min-width: 0 !important;
         border-radius: 50px !important;
       }
@@ -345,42 +415,7 @@
         flex-shrink: 0;
       }
 
-      /* USPs */
-      .usp-grid {
-        gap: 0.5rem !important;
-        padding-top: 1.5rem !important;
-      }
-      .usp-icon { font-size: 1.8rem !important; }
-      .usp-title { font-size: 0.75rem !important; }
-
-      /* Tabs Restructuring */
-      .details-tabs {
-        padding: 1.5rem !important;
-        margin-top: 1.5rem !important;
-      }
-      .tab-headers {
-        overflow-x: auto;
-        flex-wrap: nowrap;
-        white-space: nowrap;
-        scrollbar-width: none;
-        gap: 1.5rem !important;
-        margin-bottom: 1.5rem !important;
-      }
-      .tab-headers::-webkit-scrollbar { display: none; }
-      .tab-link { font-size: 1rem !important; }
-      .tab-pane { font-size: 0.95rem !important; }
-
-      /* Related Products */
-      .related-section { margin-top: 3rem !important; margin-bottom: 3rem !important; }
-      .section-title { font-size: 2.2rem !important; margin-bottom: 2rem !important; }
-      .related-grid {
-        grid-template-columns: repeat(2, 1fr) !important; /* Force 2 cards side-by-side on mobile */
-        gap: 1rem !important;
-      }
-      .mini-card { padding: 1rem !important; }
-      .mini-card img { height: 120px !important; }
-      .mini-card h4 { font-size: 0.95rem !important; }
-      .mini-card .price { font-size: 0.95rem !important; }
+      footer { padding-bottom: 6rem !important; } /* Space above sticky bar */
     }
   </style>
 </head>
@@ -470,15 +505,15 @@
         <div class="usp-grid">
           <div class="usp-item">
             <i class="ri-cake-line usp-icon"></i>
-            <div class="usp-title">Baked Fresh Daily</div>
+            <div class="usp-title">Baked Fresh</div>
           </div>
           <div class="usp-item">
             <i class="ri-leaf-line usp-icon"></i>
-            <div class="usp-title">Natural Ingredients</div>
+            <div class="usp-title">Natural Ing.</div>
           </div>
           <div class="usp-item">
             <i class="ri-truck-line usp-icon"></i>
-            <div class="usp-title">Careful Delivery</div>
+            <div class="usp-title">Fast Delivery</div>
           </div>
         </div>
 
