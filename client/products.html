@@ -129,6 +129,81 @@
         .product-image img { height: 120px; }
         .product-name { font-size: 0.85rem; }
     }
+
+    /* =======================================================
+       ZYROVA DIGITAL: ULTRA-REFINED NATIVE-APP UPGRADE
+       ======================================================= */
+    @media (max-width: 767px) {
+      /* 1. Make the Category Filter Bar Sticky */
+      .filters-bar {
+        position: sticky;
+        top: 60px; /* Lock it just below the mobile header */
+        z-index: 90;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        padding: 10px 0;
+        margin: -10px -15px 15px -15px !important; /* Stretch to edges */
+        border-bottom: 1px solid #FFE5EC;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+      }
+      .filters-bar > div { padding: 0 15px; }
+
+      /* 2. Super sleek Filter Pills */
+      .filter-btn {
+        background: #fff;
+        border: 1px solid #FFE5EC;
+        color: #6B7280;
+        font-weight: 500;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+      }
+      .filter-btn.active {
+        background: #FB6F92 !important; /* Deep Pink */
+        color: #fff !important;
+        border-color: #FB6F92 !important;
+        box-shadow: 0 4px 10px rgba(251, 111, 146, 0.3) !important;
+      }
+
+      /* 3. Elevate Product Cards to look like App Modules */
+      .product-card {
+        background: #fff !important;
+        border: none !important;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.04) !important;
+        border-radius: 16px !important;
+        padding: 0 !important; /* Remove padding to let image hit edges */
+        overflow: hidden;
+      }
+      .product-image img {
+        border-radius: 16px 16px 0 0 !important; /* Match card radius */
+      }
+      .product-info { padding: 12px !important; }
+
+      /* 4. Premium 'Add to Cart' Button Upgrade */
+      .add-to-cart {
+        background: linear-gradient(45deg, #FF8FAB, #FB6F92) !important;
+        color: white !important;
+        border-radius: 50px !important; /* Pill shape for higher conversion */
+        box-shadow: 0 4px 10px rgba(251, 111, 146, 0.2) !important;
+        margin-top: 8px;
+        padding: 10px !important;
+      }
+
+      /* 5. Floating Cart Icon (FAB) Upgrade */
+      .fab {
+        bottom: 25px !important;
+        right: 20px !important;
+        width: 60px !important;
+        height: 60px !important;
+        background: rgba(255, 255, 255, 0.95) !important;
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border: 2px solid #FFE5EC;
+        color: #FB6F92 !important;
+        box-shadow: 0 10px 25px rgba(251, 111, 146, 0.25) !important;
+        z-index: 999;
+      }
+      .fab svg { stroke: #FB6F92 !important; }
+    }
   </style>
 </head>
 <body>
