@@ -1,7 +1,7 @@
 /**
  * The Bake Stories - Main JavaScript
  * generated: js/main.js — Core functionality shared across pages
- * 👑 GOD LEVEL FIX: Dynamic Admin Logo Enforcer Added
+ * 👑 GOD LEVEL FIX: Dynamic Admin Logo Enforcer Added & CART SECURITY FIX
  */
 
 // ============================================
@@ -101,7 +101,8 @@ const cart = {
         productId: product._id,
         name: product.name,
         price: variant?.price || product.price,
-        image: product.primaryImage?.url || product.images?.[0]?.url || '',
+        // 👑 SECURE CART IMAGE FIX - NO MORE CHECKOUT LAG
+        image: (product.primaryImage?.url || product.images?.[0]?.url || '').replace(/http:\/\//g, 'https://'), 
         quantity,
         variant,
         addedAt: new Date().toISOString()
@@ -365,7 +366,7 @@ async function loadFooterInfo() {
     if (response.success && response.data.logo) {
       const logoImgs = document.querySelectorAll('#logoImg');
       logoImgs.forEach(img => {
-        img.src = response.data.logo.url;
+        img.src = response.data.logo.url.replace(/http:\/\//g, 'https://'); 
       });
     }
   } catch (e) {
@@ -589,7 +590,7 @@ function enforceDynamicLogo() {
             // Instantly replace all instances of the logo across the website
             const allLogos = document.querySelectorAll('img[src*="placehold.co"], #logoImg, .logo img, .footer-logo img');
             allLogos.forEach(img => {
-                img.src = storeSettings.storeLogo;
+                img.src = storeSettings.storeLogo.replace(/http:\/\//g, 'https://');
                 img.style.objectFit = 'contain';
                 img.style.background = 'transparent';
             });
