@@ -1,20 +1,8 @@
 /**
  * ============================================================================
  * THE BAKE STORIES — PREMIUM PRODUCT ENGINE
- * Version: 2.3 (Pink Theme + 4 New Features + Fixes)
+ * Version: 2.3 (Pink Theme + 4 New Features + Fixes + SECURE IMAGES)
  * ============================================================================
- * Features Preserved:
- * - 🤖 AI Description & Nutrition Generation
- * - 🔍 Image Zoom & Lightbox Gallery
- * - 🛒 "Fly-to-Cart" Physics Animation
- * - 💬 Dynamic Review System
- * - ⏳ Deal Countdown Timer
- * - 📱 Native Social Sharing
- * * NEW FEATURES:
- * 1. ⚠️ Low Stock Scarcity Logic
- * 2. 🚚 Estimated Delivery Calculator
- * 3. 📲 WhatsApp Quick Share
- * 4. 🔙 Sticky "Back to Menu" Navigation
  */
 
 'use strict';
@@ -351,9 +339,14 @@ function renderNutrition(p) {
 function renderGallery(p) {
     const mainImg = document.getElementById('mainImage');
     const thumbContainer = document.getElementById('thumbnailContainer');
+    
     let rawUrl = p.primaryImage?.url || (p.images && p.images[0] ? p.images[0].url : null) || AppConfig.placeholders.image;
-    let primaryUrl = rawUrl ? rawUrl.replace(/^http:\/\//i, 'https://') : AppConfig.placeholders.image;
+    // 👑 FORCES SECURITY TO STOP LAG
+    let primaryUrl = rawUrl ? rawUrl.replace(/http:\/\//g, 'https://') : AppConfig.placeholders.image;
+    
     let allImages = p.images && p.images.length > 0 ? p.images : [{ url: primaryUrl }];
+    // 👑 FIX THUMBNAILS TOO
+    allImages = allImages.map(img => ({ ...img, url: img.url.replace(/http:\/\//g, 'https://') }));
 
     if (mainImg) {
         mainImg.src = primaryUrl;
@@ -443,11 +436,13 @@ if (addToCartBtn) {
         const qty = parseInt(State.qty) || 1;
         const pId = String(product._id || product.id || Date.now());
         
-       // Setup secure Image URL
+        // Setup secure Image URL
         let rawImageStr = (product.primaryImage && product.primaryImage.url) 
             ? product.primaryImage.url 
             : ((product.images && product.images.length > 0) ? product.images[0].url : AppConfig.placeholders.image);
-        const imageStr = rawImageStr ? rawImageStr.replace(/^http:\/\//i, 'https://') : AppConfig.placeholders.image;
+            
+        // 👑 CART IMAGE FIX
+        const imageStr = rawImageStr ? rawImageStr.replace(/http:\/\//g, 'https://') : AppConfig.placeholders.image;
 
         // 2. Build bulletproof cart item that won't crash Cart.js
         const cartItem = {
@@ -663,7 +658,10 @@ function addToRecentlyViewed(p) {
     try {
         let history = JSON.parse(localStorage.getItem('bake_history') || '[]');
         history = history.filter(item => item._id !== p._id);
-        history.unshift({ _id: p._id, name: p.name, image: p.primaryImage?.url, price: p.price });
+        
+        let histImg = p.primaryImage?.url ? p.primaryImage.url.replace(/http:\/\//g, 'https://') : AppConfig.placeholders.image;
+        
+        history.unshift({ _id: p._id, name: p.name, image: histImg, price: p.price });
         if(history.length > 5) history.pop();
         localStorage.setItem('bake_history', JSON.stringify(history));
     } catch(e) {}
@@ -700,7 +698,9 @@ function renderRelatedSection() {
     if(State.relatedProducts.length > 0) {
         relatedSection.style.display = 'block';
         relatedGrid.innerHTML = State.relatedProducts.map(p => {
-             const imgUrl = p.primaryImage?.url || AppConfig.placeholders.image;
+             let imgUrl = p.primaryImage?.url || AppConfig.placeholders.image;
+             imgUrl = imgUrl.replace(/http:\/\//g, 'https://'); // 👑 SECURE RELATED ITEMS FIX
+             
              const clickAction = `onclick="window.localStorage.setItem('bake_current_id', '${p._id}'); window.location.href='product.html?id=${p._id}'; return false;"`;
              
              return `
